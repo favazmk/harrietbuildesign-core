@@ -1,4 +1,6 @@
 import { AlertTriangle, Clock, DollarSign, UserX, Palette, CheckCircle } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { cn } from "@/lib/utils";
 
 const problems = [
   { icon: Clock, text: "Delays, excuses, and zero accountability" },
@@ -17,10 +19,15 @@ const solutions = [
 ];
 
 const ProblemSection = () => {
+  const { ref, isVisible } = useScrollAnimation(0.15);
+
   return (
-    <section className="py-20 bg-card">
+    <section ref={ref} className="py-20 bg-card">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className={cn(
+          "grid lg:grid-cols-2 gap-16 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           {/* Problem */}
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-foreground">
@@ -31,7 +38,14 @@ const ProblemSection = () => {
             </p>
             <ul className="space-y-4">
               {problems.map((problem, index) => (
-                <li key={index} className="flex items-start gap-4">
+                <li 
+                  key={index} 
+                  className={cn(
+                    "flex items-start gap-4 transition-all duration-500",
+                    isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                  )}
+                  style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
+                >
                   <div className="p-2 rounded-lg bg-destructive/10">
                     <problem.icon className="h-5 w-5 text-destructive" />
                   </div>
@@ -45,7 +59,10 @@ const ProblemSection = () => {
           </div>
 
           {/* Solution */}
-          <div className="bg-accent rounded-2xl p-8 lg:p-12">
+          <div className={cn(
+            "bg-accent rounded-2xl p-8 lg:p-12 transition-all duration-700 delay-300",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          )}>
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-accent-foreground">
               The HarrietBuildesign Promise
             </h2>
@@ -54,7 +71,14 @@ const ProblemSection = () => {
             </p>
             <ul className="space-y-4">
               {solutions.map((solution, index) => (
-                <li key={index} className="flex items-start gap-4">
+                <li 
+                  key={index} 
+                  className={cn(
+                    "flex items-start gap-4 transition-all duration-500",
+                    isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
+                  )}
+                  style={{ transitionDelay: isVisible ? `${(index * 100) + 400}ms` : '0ms' }}
+                >
                   <CheckCircle className="h-6 w-6 text-primary flex-shrink-0" />
                   <span className="text-foreground font-medium">{solution}</span>
                 </li>

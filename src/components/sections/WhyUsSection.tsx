@@ -1,5 +1,6 @@
 import { Award, Users, Eye, Clock, Palette, Shield } from "lucide-react";
 import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 
 const reasons = [
@@ -37,11 +38,15 @@ const reasons = [
 
 const WhyUsSection = () => {
   const { setRef, centeredIndex } = useScrollCenterGroup(reasons.length);
+  const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section className="py-20 bg-card">
+    <section ref={ref} className="py-20 bg-card">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-12">
+        <div className={cn(
+          "text-center mb-12 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
             Why Homeowners Trust Us
           </h2>
@@ -60,8 +65,10 @@ const WhyUsSection = () => {
                 className={cn(
                   "flex gap-4 p-4 rounded-xl transition-all duration-300",
                   "hover:bg-accent/50",
-                  isActive && "bg-accent/50"
+                  isActive && "bg-accent/50",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
+                style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
               >
                 <div className={cn(
                   "w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 transition-colors",

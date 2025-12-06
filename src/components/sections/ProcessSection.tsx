@@ -1,5 +1,6 @@
 import { MessageSquare, MapPin, Palette, FileText, HardHat, Home } from "lucide-react";
 import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 
 const steps = [
@@ -43,11 +44,15 @@ const steps = [
 
 const ProcessSection = () => {
   const { setRef, centeredIndex } = useScrollCenterGroup(steps.length);
+  const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section className="py-20 bg-accent">
+    <section ref={ref} className="py-20 bg-accent">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-12">
+        <div className={cn(
+          "text-center mb-12 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
             Our 6-Step Process
           </h2>
@@ -64,10 +69,12 @@ const ProcessSection = () => {
                 key={index}
                 ref={setRef(index)}
                 className={cn(
-                  "relative bg-card p-6 rounded-xl border border-border transition-shadow",
+                  "relative bg-card p-6 rounded-xl border border-border transition-all duration-300",
                   "hover:shadow-lg",
-                  isActive && "shadow-lg"
+                  isActive && "shadow-lg",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
+                style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
               >
                 <div className="flex items-start gap-4">
                   <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">

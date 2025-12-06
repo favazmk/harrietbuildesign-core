@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
@@ -51,11 +52,15 @@ const projects = [
 
 const PortfolioSection = () => {
   const { setRef, centeredIndex } = useScrollCenterGroup(projects.length);
+  const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section className="py-20 bg-background">
+    <section ref={ref} className="py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-12">
+        <div className={cn(
+          "text-center mb-12 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
             Featured Projects
           </h2>
@@ -72,7 +77,11 @@ const PortfolioSection = () => {
                 key={index}
                 ref={setRef(index)}
                 to="/portfolio"
-                className="group relative overflow-hidden rounded-xl aspect-[4/3]"
+                className={cn(
+                  "group relative overflow-hidden rounded-xl aspect-[4/3] transition-all duration-500",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                )}
+                style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
               >
                 <img
                   src={project.image}
@@ -108,7 +117,10 @@ const PortfolioSection = () => {
           })}
         </div>
 
-        <div className="text-center mt-12">
+        <div className={cn(
+          "text-center mt-12 transition-all duration-700 delay-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <Button size="lg" asChild>
             <Link to="/portfolio">
               View Full Portfolio
