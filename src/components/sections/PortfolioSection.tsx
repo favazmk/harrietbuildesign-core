@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
+import { cn } from "@/lib/utils";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
@@ -48,6 +50,8 @@ const projects = [
 ];
 
 const PortfolioSection = () => {
+  const { setRef, centeredIndex } = useScrollCenterGroup(projects.length);
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
@@ -61,30 +65,47 @@ const PortfolioSection = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <Link
-              key={index}
-              to="/portfolio"
-              className="group relative overflow-hidden rounded-xl aspect-[4/3]"
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                <span className="inline-block px-3 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-full mb-2">
-                  {project.category}
-                </span>
-                <h3 className="text-xl font-semibold text-card mb-1">{project.title}</h3>
-                <p className="flex items-center gap-1 text-card/80 text-sm">
-                  <MapPin className="h-4 w-4" />
-                  {project.location}
-                </p>
-              </div>
-            </Link>
-          ))}
+          {projects.map((project, index) => {
+            const isActive = centeredIndex === index;
+            return (
+              <Link
+                key={index}
+                ref={setRef(index)}
+                to="/portfolio"
+                className="group relative overflow-hidden rounded-xl aspect-[4/3]"
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className={cn(
+                    "w-full h-full object-cover transition-transform duration-500",
+                    "group-hover:scale-110",
+                    isActive && "scale-110"
+                  )}
+                />
+                <div className={cn(
+                  "absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent transition-opacity duration-300",
+                  "opacity-0 group-hover:opacity-100",
+                  isActive && "opacity-100"
+                )} />
+                <div className={cn(
+                  "absolute bottom-0 left-0 right-0 p-6 transition-all duration-300",
+                  "translate-y-4 opacity-0",
+                  "group-hover:translate-y-0 group-hover:opacity-100",
+                  isActive && "translate-y-0 opacity-100"
+                )}>
+                  <span className="inline-block px-3 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-full mb-2">
+                    {project.category}
+                  </span>
+                  <h3 className="text-xl font-semibold text-card mb-1">{project.title}</h3>
+                  <p className="flex items-center gap-1 text-card/80 text-sm">
+                    <MapPin className="h-4 w-4" />
+                    {project.location}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="text-center mt-12">

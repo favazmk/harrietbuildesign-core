@@ -1,4 +1,6 @@
 import { MessageSquare, MapPin, Palette, FileText, HardHat, Home } from "lucide-react";
+import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
+import { cn } from "@/lib/utils";
 
 const steps = [
   {
@@ -40,6 +42,8 @@ const steps = [
 ];
 
 const ProcessSection = () => {
+  const { setRef, centeredIndex } = useScrollCenterGroup(steps.length);
+
   return (
     <section className="py-20 bg-accent">
       <div className="container mx-auto px-4 lg:px-8">
@@ -53,23 +57,31 @@ const ProcessSection = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className="relative bg-card p-6 rounded-xl border border-border hover:shadow-lg transition-shadow"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-                  <step.icon className="h-7 w-7 text-primary-foreground" />
-                </div>
-                <div>
-                  <span className="text-sm font-bold text-primary">{step.number}</span>
-                  <h3 className="text-lg font-semibold text-foreground mb-1">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm">{step.description}</p>
+          {steps.map((step, index) => {
+            const isActive = centeredIndex === index;
+            return (
+              <div
+                key={index}
+                ref={setRef(index)}
+                className={cn(
+                  "relative bg-card p-6 rounded-xl border border-border transition-shadow",
+                  "hover:shadow-lg",
+                  isActive && "shadow-lg"
+                )}
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
+                    <step.icon className="h-7 w-7 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-primary">{step.number}</span>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">{step.title}</h3>
+                    <p className="text-muted-foreground text-sm">{step.description}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

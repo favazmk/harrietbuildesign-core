@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Building2, Palette, RefreshCw, Trees, Box, MessageSquare, HardHat, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
+import { cn } from "@/lib/utils";
 
 const services = [
   {
@@ -41,6 +43,8 @@ const services = [
 ];
 
 const ServicesSection = () => {
+  const { setRef, centeredIndex } = useScrollCenterGroup(services.length);
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
@@ -54,18 +58,30 @@ const ServicesSection = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="group p-6 bg-card rounded-xl border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-            >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <service.icon className="h-6 w-6 text-primary" />
+          {services.map((service, index) => {
+            const isActive = centeredIndex === index;
+            return (
+              <div
+                key={index}
+                ref={setRef(index)}
+                className={cn(
+                  "group p-6 bg-card rounded-xl border transition-all duration-300",
+                  "hover:border-primary/30 hover:shadow-lg",
+                  isActive ? "border-primary/30 shadow-lg" : "border-border"
+                )}
+              >
+                <div className={cn(
+                  "w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors",
+                  "group-hover:bg-primary/20",
+                  isActive && "bg-primary/20"
+                )}>
+                  <service.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-foreground">{service.title}</h3>
+                <p className="text-muted-foreground text-sm">{service.description}</p>
               </div>
-              <h3 className="text-lg font-semibold mb-2 text-foreground">{service.title}</h3>
-              <p className="text-muted-foreground text-sm">{service.description}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="text-center mt-12">

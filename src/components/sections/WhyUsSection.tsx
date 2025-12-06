@@ -1,4 +1,6 @@
 import { Award, Users, Eye, Clock, Palette, Shield } from "lucide-react";
+import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
+import { cn } from "@/lib/utils";
 
 const reasons = [
   {
@@ -34,6 +36,8 @@ const reasons = [
 ];
 
 const WhyUsSection = () => {
+  const { setRef, centeredIndex } = useScrollCenterGroup(reasons.length);
+
   return (
     <section className="py-20 bg-card">
       <div className="container mx-auto px-4 lg:px-8">
@@ -47,17 +51,32 @@ const WhyUsSection = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reasons.map((reason, index) => (
-            <div key={index} className="flex gap-4">
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <reason.icon className="h-7 w-7 text-primary" />
+          {reasons.map((reason, index) => {
+            const isActive = centeredIndex === index;
+            return (
+              <div 
+                key={index} 
+                ref={setRef(index)}
+                className={cn(
+                  "flex gap-4 p-4 rounded-xl transition-all duration-300",
+                  "hover:bg-accent/50",
+                  isActive && "bg-accent/50"
+                )}
+              >
+                <div className={cn(
+                  "w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 transition-colors",
+                  "group-hover:bg-primary/20",
+                  isActive && "bg-primary/20"
+                )}>
+                  <reason.icon className="h-7 w-7 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-1 text-foreground">{reason.title}</h3>
+                  <p className="text-muted-foreground">{reason.description}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-1 text-foreground">{reason.title}</h3>
-                <p className="text-muted-foreground">{reason.description}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
