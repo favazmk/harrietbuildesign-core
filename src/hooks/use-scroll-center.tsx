@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
 interface UseScrollCenterOptions {
-  threshold?: number; // How close to center to activate (in pixels)
+  threshold?: number;
 }
 
 export function useScrollCenter<T extends HTMLElement>(
@@ -10,20 +10,30 @@ export function useScrollCenter<T extends HTMLElement>(
   const { threshold = 100 } = options;
   const [isCentered, setIsCentered] = useState(false);
   const elementRef = useRef<T>(null);
+  const rafRef = useRef<number | null>(null);
+  const lastValueRef = useRef(false);
 
   const checkCenter = useCallback(() => {
-    if (!elementRef.current) return;
+    if (rafRef.current) return;
+    
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      if (!elementRef.current) return;
 
-    const rect = elementRef.current.getBoundingClientRect();
-    const elementCenter = rect.top + rect.height / 2;
-    const viewportCenter = window.innerHeight / 2;
-    const distance = Math.abs(elementCenter - viewportCenter);
+      const rect = elementRef.current.getBoundingClientRect();
+      const elementCenter = rect.top + rect.height / 2;
+      const viewportCenter = window.innerHeight / 2;
+      const distance = Math.abs(elementCenter - viewportCenter);
+      const newValue = distance < threshold;
 
-    setIsCentered(distance < threshold);
+      if (newValue !== lastValueRef.current) {
+        lastValueRef.current = newValue;
+        setIsCentered(newValue);
+      }
+    });
   }, [threshold]);
 
   useEffect(() => {
-    // Only activate on mobile/touch devices
     const isMobile = window.matchMedia("(max-width: 768px)").matches || 
                      window.matchMedia("(hover: none)").matches;
     
@@ -40,52 +50,57 @@ export function useScrollCenter<T extends HTMLElement>(
     return () => {
       window.removeEventListener("scroll", checkCenter);
       window.removeEventListener("resize", checkCenter);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [checkCenter]);
 
   return { ref: elementRef, isCentered };
 }
 
-// Hook for managing multiple items - finds the one closest to center
 export function useScrollCenterGroup(itemCount: number) {
   const [centeredIndex, setCenteredIndex] = useState<number | null>(null);
   const itemRefs = useRef<(HTMLElement | null)[]>([]);
+  const rafRef = useRef<number | null>(null);
+  const lastIndexRef = useRef<number | null>(null);
 
   const setRef = useCallback((index: number) => (el: HTMLElement | null) => {
     itemRefs.current[index] = el;
   }, []);
 
   const checkCenter = useCallback(() => {
-    const viewportCenter = window.innerHeight / 2;
-    let closestIndex: number | null = null;
-    let closestDistance = Infinity;
+    if (rafRef.current) return;
+    
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      const viewportCenter = window.innerHeight / 2;
+      let closestIndex: number | null = null;
+      let closestDistance = Infinity;
 
-    itemRefs.current.forEach((el, index) => {
-      if (!el) return;
+      itemRefs.current.forEach((el, index) => {
+        if (!el) return;
 
-      const rect = el.getBoundingClientRect();
-      const elementCenter = rect.top + rect.height / 2;
-      const distance = Math.abs(elementCenter - viewportCenter);
+        const rect = el.getBoundingClientRect();
+        const elementCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(elementCenter - viewportCenter);
 
-      // Only consider elements that are visible in viewport
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = index;
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
         }
+      });
+
+      const newIndex = closestDistance < 200 ? closestIndex : null;
+      
+      if (newIndex !== lastIndexRef.current) {
+        lastIndexRef.current = newIndex;
+        setCenteredIndex(newIndex);
       }
     });
-
-    // Only set as centered if it's reasonably close to center
-    if (closestDistance < 200) {
-      setCenteredIndex(closestIndex);
-    } else {
-      setCenteredIndex(null);
-    }
   }, []);
 
   useEffect(() => {
-    // Only activate on mobile/touch devices
     const isMobile = window.matchMedia("(max-width: 768px)").matches || 
                      window.matchMedia("(hover: none)").matches;
     
@@ -102,6 +117,7 @@ export function useScrollCenterGroup(itemCount: number) {
     return () => {
       window.removeEventListener("scroll", checkCenter);
       window.removeEventListener("resize", checkCenter);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [checkCenter]);
 
