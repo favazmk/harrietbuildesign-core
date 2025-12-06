@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Building2, Palette, RefreshCw, Trees, Box, MessageSquare, HardHat, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 
 const services = [
@@ -44,11 +45,15 @@ const services = [
 
 const ServicesSection = () => {
   const { setRef, centeredIndex } = useScrollCenterGroup(services.length);
+  const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section className="py-20 bg-background">
+    <section ref={ref} className="py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-12">
+        <div className={cn(
+          "text-center mb-12 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
             Our Core Services
           </h2>
@@ -67,8 +72,10 @@ const ServicesSection = () => {
                 className={cn(
                   "group p-6 bg-card rounded-xl border transition-all duration-300",
                   "hover:border-primary/30 hover:shadow-lg",
-                  isActive ? "border-primary/30 shadow-lg" : "border-border"
+                  isActive ? "border-primary/30 shadow-lg" : "border-border",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
+                style={{ transitionDelay: isVisible ? `${index * 75}ms` : '0ms' }}
               >
                 <div className={cn(
                   "w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors",
@@ -84,7 +91,10 @@ const ServicesSection = () => {
           })}
         </div>
 
-        <div className="text-center mt-12">
+        <div className={cn(
+          "text-center mt-12 transition-all duration-700 delay-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <Button size="lg" variant="outline" asChild>
             <Link to="/services">
               Explore All Services
