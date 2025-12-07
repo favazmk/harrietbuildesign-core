@@ -11,51 +11,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 45 30% 95%;
-    --foreground: 80 25% 20%;
+    --background: 0 0% 100%; /* White */
+    --foreground: 0 0% 12%; /* Dark Slate */
 
-    --card: 45 25% 98%;
-    --card-foreground: 80 25% 20%;
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 0 0% 12%; /* Dark Slate */
 
-    --popover: 45 20% 93%;
-    --popover-foreground: 80 25% 20%;
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 0 0% 12%; /* Dark Slate */
 
-    --primary: 78 28% 47%;
-    --primary-foreground: 45 30% 97%;
+    --primary: 163 100% 21%; /* Emerald Green */
+    --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 78 20% 55%;
-    --secondary-foreground: 45 30% 97%;
+    --secondary: 163 40% 40%;
+    --secondary-foreground: 0 0% 100%; /* White */
 
-    --muted: 78 15% 70%;
-    --muted-foreground: 80 20% 30%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 78 35% 88%;
-    --accent-foreground: 78 28% 40%;
+    --accent: 130 43% 91%; /* Soft Mint */
+    --accent-foreground: 163 100% 15%;
 
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 85% 97%;
 
-    --border: 78 15% 80%;
-    --input: 78 15% 80%;
-    --ring: 78 28% 47%;
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 163 100% 21%; /* Emerald Green */
 
     --radius: 0.75rem;
 
-    --sidebar-background: 45 25% 98%;
+    --sidebar-background: 0 0% 100%;
 
-    --sidebar-foreground: 80 25% 20%;
+    --sidebar-foreground: 0 0% 12%;
 
-    --sidebar-primary: 78 28% 47%;
+    --sidebar-primary: 163 100% 21%;
 
-    --sidebar-primary-foreground: 45 30% 97%;
+    --sidebar-primary-foreground: 0 0% 100%;
 
-    --sidebar-accent: 78 20% 55%;
+    --sidebar-accent: 130 43% 91%;
 
-    --sidebar-accent-foreground: 45 30% 97%;
+    --sidebar-accent-foreground: 163 100% 15%;
 
-    --sidebar-border: 78 15% 80%;
+    --sidebar-border: 0 0% 85%;
 
-    --sidebar-ring: 78 28% 47%;
+    --sidebar-ring: 163 100% 21%;
 
     --chart-1: 78 28% 47%;
 
@@ -97,41 +97,41 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 78 20% 12%;
-    --foreground: 45 25% 95%;
+    --background: 0 0% 12%; /* Dark Slate */
+    --foreground: 0 0% 100%; /* White */
 
-    --card: 78 18% 16%;
-    --card-foreground: 45 25% 95%;
+    --card: 0 0% 15%;
+    --card-foreground: 0 0% 100%; /* White */
 
-    --popover: 78 15% 20%;
-    --popover-foreground: 45 25% 95%;
+    --popover: 0 0% 18%;
+    --popover-foreground: 0 0% 100%; /* White */
 
-    --primary: 78 35% 55%;
-    --primary-foreground: 78 25% 12%;
+    --primary: 163 100% 21%; /* Emerald Green */
+    --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 78 18% 38%;
-    --secondary-foreground: 45 25% 95%;
+    --secondary: 163 40% 40%;
+    --secondary-foreground: 0 0% 100%; /* White */
 
-    --muted: 78 12% 32%;
-    --muted-foreground: 45 20% 75%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 72%; /* Warm Gray */
 
-    --accent: 78 22% 22%;
-    --accent-foreground: 78 35% 65%;
+    --accent: 130 15% 25%; /* Darker Soft Mint */
+    --accent-foreground: 130 43% 91%; /* Soft Mint */
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 85% 97%;
 
-    --border: 78 12% 28%;
-    --input: 78 12% 28%;
-    --ring: 78 35% 55%;
-    --sidebar-background: 78 18% 14%;
-    --sidebar-foreground: 45 25% 95%;
-    --sidebar-primary: 78 35% 55%;
-    --sidebar-primary-foreground: 78 25% 12%;
-    --sidebar-accent: 78 22% 38%;
-    --sidebar-accent-foreground: 45 25% 92%;
-    --sidebar-border: 78 12% 28%;
-    --sidebar-ring: 78 35% 55%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 163 100% 21%; /* Emerald Green */
+    --sidebar-background: 0 0% 15%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 163 100% 21%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 130 15% 25%;
+    --sidebar-accent-foreground: 130 43% 91%;
+    --sidebar-border: 0 0% 25%;
+    --sidebar-ring: 163 100% 21%;
     --chart-1: 78 40% 58%;
     --chart-2: 78 35% 50%;
     --chart-3: 78 30% 55%;
