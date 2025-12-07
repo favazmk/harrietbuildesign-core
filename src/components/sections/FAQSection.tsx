@@ -17,16 +17,16 @@ const faqs = [
     answer: "Most homes take 6–12 months depending on scale and complexity. We provide a clear timeline during the planning phase and stick to it with disciplined project management.",
   },
   {
-    question: "Do you offer 3D designs?",
-    answer: "Yes — every project includes realistic 3D visuals before execution. This helps you see your home before it's built and make any changes to the design early on.",
+    question: "Do you handle building permits and government approvals?",
+    answer: "Yes, we handle the technical documentation and guide you through the process of obtaining necessary building permits and approvals from local authorities, saving you the hassle.",
   },
   {
-    question: "Can you handle renovation projects?",
-    answer: "Absolutely. From kitchen remodels to full-house transformations, we have extensive experience in renovation projects of all sizes.",
+    question: "What is your design philosophy?",
+        answer: "Our design philosophy is centered on creating spaces that are both beautiful and functional. We believe in a collaborative process, working closely with you to ensure your vision is realized.",
   },
   {
-    question: "Do you provide supervision?",
-    answer: "Yes — daily site monitoring by our engineer or supervisor. This ensures quality control, accurate execution, and real-time updates throughout your project.",
+    question: "How do you ensure the project stays on budget?",
+    answer: "We establish a detailed, transparent budget at the start of every project. Any potential changes or unexpected costs are communicated to you immediately for approval before we proceed. Our goal is to stick to the agreed-upon budget while maintaining the highest quality standards.",
   },
   {
     question: "What materials do you use?",

@@ -158,7 +158,7 @@ const WhyUs = () => {
                       {item.traditional ? (
                         <CheckCircle className="h-6 w-6 text-primary" />
                       ) : (
-                        <XCircle className="h-6 w-6 text-muted" />
+                        <XCircle className="h-6 w-6 text-red-500" />
                       )}
                     </div>
                   </div>

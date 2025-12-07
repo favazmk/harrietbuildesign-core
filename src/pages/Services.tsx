@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Building2, Palette, RefreshCw, Trees, Box, MessageSquare, HardHat, CheckCircle, ArrowRight } from "lucide-react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const services = [
   {
     icon: Building2,
     title: "Home Construction",
+    id: "construction",
     description: "Build a strong, long-lasting home with complete transparency and engineering precision. We handle your entire project — from foundation to finishing.",
     features: ["Structural construction", "Electrical & plumbing", "Flooring, painting & carpentry", "Material guidance & budget planning", "Daily site supervision", "On-time completion"],
     idealFor: "New homes, villas, extensions, and family houses.",
@@ -15,6 +18,7 @@ const services = [
   {
     icon: Palette,
     title: "Interior Design",
+    id: "interior-design",
     description: "Beautiful, functional interiors designed to match your lifestyle. From concept to installation — we bring your vision to life.",
     features: ["Space planning & layout design", "Material & finish selection", "Custom furniture & modular solutions", "Lighting & color planning", "3D visualization of every room"],
     idealFor: "New homes, renovations, rental properties, and modern makeovers.",
@@ -22,6 +26,7 @@ const services = [
   {
     icon: RefreshCw,
     title: "Renovation & Remodeling",
+    id: "renovation",
     description: "Transform old spaces into stunning, modern, and highly functional homes.",
     features: ["Full home renovation", "Kitchen & bathroom remodeling", "Living room + bedroom redesign", "Structural changes (where feasible)", "Before/after planning & budgeting"],
     idealFor: "Families upgrading old homes, buying an old property, or fixing poor-quality work.",
@@ -29,6 +34,7 @@ const services = [
   {
     icon: Trees,
     title: "Landscaping & Outdoor Design",
+    id: "landscaping",
     description: "Create peaceful, functional outdoor spaces that add beauty and value to your home.",
     features: ["Garden design", "Hardscaping & pathways", "Outdoor lighting", "Water features", "Balcony & terrace makeovers"],
     idealFor: "Homeowners looking to enhance outdoor living spaces.",
@@ -36,6 +42,7 @@ const services = [
   {
     icon: Box,
     title: "3D Visualization & Design Walkthroughs",
+    id: "3d-visualization",
     description: "See your future home before construction begins. Our realistic 3D visuals reduce guesswork and help you make confident design decisions.",
     features: ["Full-home 3D renders", "Interior & exterior views", "Material previews", "Realistic lighting and color simulations"],
     idealFor: "All clients who want to visualize their home before building.",
@@ -43,6 +50,7 @@ const services = [
   {
     icon: MessageSquare,
     title: "Consultation & Planning",
+    id: "consultation",
     description: "Expert guidance for homeowners who want clarity before they build.",
     features: ["Budget calculation", "Floor plan review", "Material comparison", "Timeline planning", "Structural feasibility advice"],
     idealFor: "Clients who already have a plan and need professional direction.",
@@ -50,6 +58,7 @@ const services = [
   {
     icon: HardHat,
     title: "Site Supervision & Project Management",
+    id: "supervision",
     description: "Stay stress-free while we ensure everything is executed perfectly on-site.",
     features: ["Dedicated engineer or supervisor", "Daily site visits", "Quality checks at every stage", "Progress updates with photos/videos", "Contractor coordination", "Strict material monitoring"],
     idealFor: "Homeowners living abroad or unable to visit the site daily.",
@@ -57,6 +66,17 @@ const services = [
 ];
 
 const Services = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.replace("#", ""));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [hash]);
+
   return (
     <>
       <Helmet>
@@ -88,7 +108,8 @@ const Services = () => {
               {services.map((service, index) => (
                 <div
                   key={index}
-                  className={`grid lg:grid-cols-2 gap-12 items-start ${
+                  id={service.id}
+                  className={`grid lg:grid-cols-2 gap-12 items-start scroll-mt-24 ${
                     index % 2 === 1 ? "lg:flex-row-reverse" : ""
                   }`}
                 >

@@ -41,7 +41,7 @@ const WhyUsSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="py-20 bg-card">
+    <section ref={ref} className="py-20 bg-harriet-50">
       <div className="container mx-auto px-4 lg:px-8">
         <div className={cn(
           "text-center mb-12 transition-all duration-700",

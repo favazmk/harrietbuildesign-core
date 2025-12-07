@@ -10,36 +10,43 @@ const services = [
     icon: Building2,
     title: "Construction",
     description: "Villas, homes, extensions, structure + finishing",
+    link: "/services#construction"
   },
   {
     icon: Palette,
     title: "Interior Design",
     description: "Modular spaces, custom furniture, 3D visualization",
+    link: "/services#interior-design"
   },
   {
     icon: RefreshCw,
     title: "Renovation",
     description: "Complete home makeovers, kitchen upgrades, room redesigns",
+    link: "/services#renovation"
   },
   {
     icon: Trees,
     title: "Landscaping",
     description: "Gardens, pathways, outdoor lighting, water features",
+    link: "/services#landscaping"
   },
   {
     icon: Box,
     title: "3D Visualization",
     description: "Realistic renders and walkthroughs before construction",
+    link: "/services#3d-visualization"
   },
   {
     icon: MessageSquare,
     title: "Consultation",
     description: "Budget planning, design review, technical advice",
+    link: "/services#consultation"
   },
   {
     icon: HardHat,
     title: "Supervision",
     description: "Dedicated engineer + daily site updates",
+    link: "/services#supervision"
   },
 ];
 
@@ -66,11 +73,12 @@ const ServicesSection = () => {
           {services.map((service, index) => {
             const isActive = centeredIndex === index;
             return (
-              <div
+              <Link
+                to={service.link}
                 key={index}
                 ref={setRef(index)}
                 className={cn(
-                  "group p-6 bg-card rounded-xl border transition-all duration-300",
+                  "group p-6 bg-card rounded-xl border transition-all duration-300 block",
                   "hover:border-primary/30 hover:shadow-lg",
                   isActive ? "border-primary/30 shadow-lg" : "border-border",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -86,7 +94,7 @@ const ServicesSection = () => {
                 </div>
                 <h3 className="text-lg font-semibold mb-2 text-foreground">{service.title}</h3>
                 <p className="text-muted-foreground text-sm">{service.description}</p>
-              </div>
+              </Link>
             );
           })}
         </div>

@@ -21,15 +21,18 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
+    // Increased blur to 'md' for a stronger bokeh-like feel
+    // Added 'bg-black/5' for a subtle black fade tint
+    // 'border-none' is kept to ensure no hard borders
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-none transition-all duration-300">
       <nav className="container mx-auto px-4 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="Harriet Buildesign" className="h-8 w-auto" />
             <div>
-              <span className="text-xl font-bold text-primary font-serif">Harriet</span>
-              <span className="text-xl font-bold text-foreground font-serif">Buildesign</span>
+              <span className="text-xl font-bold text-foreground font-serif">Harriet</span>
+              <span className="text-xl font-bold text-primary font-serif">Buildesign</span>
             </div>
           </Link>
 
@@ -42,8 +45,8 @@ const Header = () => {
                 className={cn(
                   "px-3 py-2 text-sm font-medium rounded-md transition-colors",
                   location.pathname === item.href
-                    ? "text-primary bg-accent"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    ? "text-primary bg-accent/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
                 )}
               >
                 {item.name}
@@ -74,7 +77,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border">
+          <div className="lg:hidden py-4 border-t border-border bg-background/95 backdrop-blur-md">
             <div className="flex flex-col gap-1">
               {navigation.map((item) => (
                 <Link
@@ -84,8 +87,8 @@ const Header = () => {
                   className={cn(
                     "px-4 py-3 text-sm font-medium rounded-md transition-colors",
                     location.pathname === item.href
-                      ? "text-primary bg-accent"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                      ? "text-primary bg-accent/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
                   )}
                 >
                   {item.name}

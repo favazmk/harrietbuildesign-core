@@ -55,16 +55,16 @@ const PortfolioSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="py-20 bg-background">
+    <section ref={ref} className="py-20 bg-harriet-900">
       <div className="container mx-auto px-4 lg:px-8">
         <div className={cn(
           "text-center mb-12 transition-all duration-700",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-harriet-50">
             Featured Projects
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-harriet-50/80 max-w-2xl mx-auto">
             A glimpse of the homes we've proudly built and designed
           </p>
         </div>

@@ -14,6 +14,18 @@ export default {
   	},
   	extend: {
   		colors: {
+				harriet: {
+					'50': '#E7F5DC',
+					'100': '#CFE1B9',
+					'200': '#B7CE97',
+					'300': '#98A77C',
+					'400': '#859469',
+					'500': '#728156',
+					'600': '#5E6B48',
+					'700': '#4A5439',
+					'800': '#3C432E',
+					'900': '#2C3322'
+				},
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
@@ -79,11 +91,16 @@ export default {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+scroll: 'scroll 9s linear infinite',
   		},
   		boxShadow: {
   			'2xs': 'var(--shadow-2xs)',
@@ -95,39 +112,8 @@ export default {
   			'2xl': 'var(--shadow-2xl)'
   		},
   		fontFamily: {
-  			sans: [
-  				'Work Sans',
-  				'ui-sans-serif',
-  				'system-ui',
-  				'-apple-system',
-  				'BlinkMacSystemFont',
-  				'Segoe UI',
-  				'Roboto',
-  				'Helvetica Neue',
-  				'Arial',
-  				'Noto Sans',
-  				'sans-serif'
-  			],
-  			serif: [
-  				'Lora',
-  				'ui-serif',
-  				'Georgia',
-  				'Cambria',
-  				'Times New Roman',
-  				'Times',
-  				'serif'
-  			],
-  			mono: [
-  				'Inconsolata',
-  				'ui-monospace',
-  				'SFMono-Regular',
-  				'Menlo',
-  				'Monaco',
-  				'Consolas',
-  				'Liberation Mono',
-  				'Courier New',
-  				'monospace'
-  			]
+  			sans: ['Outfit', 'sans-serif'],
+  			serif: ['Playfair Display', 'serif']
   		}
   	}
   },
