@@ -2,19 +2,10 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Eye, HardHat, Shield, Palette, Clock, Users, CheckCircle, XCircle, ArrowRight, DollarSign, UserX } from "lucide-react";
+import { AlertTriangle, Eye, HardHat, Shield, Palette, Clock, Users, CheckCircle, ArrowRight, DollarSign, UserX } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 
-
-const problems = [
-  "Contractors cutting corners to save cost",
-  "Delays with no proper supervision",
-  "Poor-quality materials used without transparency",
-  "Designs that look good digitally but fail in execution",
-  "Budgets that keep increasing halfway",
-  "Zero accountability once work begins",
-];
 
 const differentiators = [
   {

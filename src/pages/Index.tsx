@@ -1,11 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/layout/Layout";
 import HeroSection from "@/components/sections/HeroSection";
-import ServicesSection from "@/components/sections/ServicesSection";
 import WhyUsSection from "@/components/sections/WhyUsSection";
+import ServicesSection from "@/components/sections/ServicesSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import ProcessSection from "@/components/sections/ProcessSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FAQSection from "@/components/sections/FAQSection";
 import CTASection from "@/components/sections/CTASection";
 import { Link } from "react-router-dom";
@@ -27,15 +26,6 @@ const Index = () => {
       <Layout>
         <HeroSection />
         <WhyUsSection />
-        {/* Added button below WhyUsSection linking to /why-us */}
-        <div className="bg-harriet-50 flex justify-center pb-12 pt-4">
-          <Button size="lg" className="bg-harriet-900 hover:bg-harriet-800 text-white" asChild>
-            <Link to="/why-us">
-              Read More About Why Us
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
         <ServicesSection />
         <PortfolioSection />
         <ProcessSection />
@@ -47,7 +37,6 @@ const Index = () => {
             </Link>
           </Button>
         </div>
-        <TestimonialsSection />
         <FAQSection />
         <CTASection />
       </Layout>

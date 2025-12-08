@@ -1,5 +1,8 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 const stats = [
   { value: "7+", label: "Years Experience" },
@@ -12,7 +15,7 @@ const WhyUsSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="py-20 bg-harriet-50">
+    <section ref={ref} className="bg-harriet-50 py-20">
       <div className="container mx-auto px-4 lg:px-8">
         <div className={cn(
           "text-center mb-12 transition-all duration-700",
@@ -42,6 +45,15 @@ const WhyUsSection = () => {
               <p className="text-muted-foreground text-sm md:text-base">{stat.label}</p>
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-center mt-12">
+          <Button size="lg" className="bg-harriet-900 hover:bg-harriet-800 text-white" asChild>
+            <Link to="/why-us">
+              Read More About Why Us
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
