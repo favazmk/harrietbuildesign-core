@@ -21,18 +21,28 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    // Increased blur to 'md' for a stronger bokeh-like feel
-    // Added 'bg-black/5' for a subtle black fade tint
-    // 'border-none' is kept to ensure no hard borders
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-none transition-all duration-300">
+    <header 
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={{
+        backdropFilter: "blur(4px) saturate(200%)",
+        WebkitBackdropFilter: "blur(5px) saturate(200%)",
+        backgroundColor: "rgba(176, 176, 176, 0.8)",
+        borderRadius: "0 0 12px 12px", // Applying radius only to bottom corners for a header
+        borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
+        boxShadow: "inset 0 0 30px rgba(0, 0, 0, 0.05)", // Reduced shadow opacity for cleaner look
+        backgroundImage: "linear-gradient(to top right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0))",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <nav className="container mx-auto px-4 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="Harriet Buildesign" className="h-8 w-auto" />
             <div>
-              <span className="text-xl font-bold text-foreground font-serif">Harriet</span>
-              <span className="text-xl font-bold text-primary font-serif">Buildesign</span>
+              <span className="text-xl font-bold text-primary font-serif">Harriet</span>
+              <span className="text-xl font-bold text-foreground font-serif">Buildesign</span>
             </div>
           </Link>
 
@@ -77,7 +87,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border bg-background/95 backdrop-blur-md">
+          <div className="lg:hidden py-4 border-t border-border bg-white/95 backdrop-blur-md">
             <div className="flex flex-col gap-1">
               {navigation.map((item) => (
                 <Link

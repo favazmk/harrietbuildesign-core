@@ -12,6 +12,7 @@ import Portfolio from "./pages/Portfolio";
 import Process from "./pages/Process";
 import WhyUs from "./pages/WhyUs";
 import Contact from "./pages/Contact";
+import Testimonials from "./pages/Testimonials";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/process" element={<Process />} />
             <Route path="/why-us" element={<WhyUs />} />
+            <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
