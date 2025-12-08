@@ -5,6 +5,7 @@ import WhyUsSection from "@/components/sections/WhyUsSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import ProcessSection from "@/components/sections/ProcessSection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection"; // Added import
 import FAQSection from "@/components/sections/FAQSection";
 import CTASection from "@/components/sections/CTASection";
 import { Link } from "react-router-dom";
@@ -37,6 +38,7 @@ const Index = () => {
             </Link>
           </Button>
         </div>
+        <TestimonialsSection /> {/* Added TestimonialsSection */}
         <FAQSection />
         <CTASection />
       </Layout>

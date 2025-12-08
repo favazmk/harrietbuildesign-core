@@ -82,9 +82,9 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-12 font-serif text-foreground text-center">
               Our Values
             </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div className="flex flex-wrap justify-center gap-6">
               {values.map((value, index) => (
-                <div key={index} className="text-center p-6 bg-card rounded-xl border border-border">
+                <div key={index} className="text-center p-6 bg-card rounded-xl border border-border w-full sm:w-[calc(50%-12px)] lg:w-[calc(20%-19.2px)]">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <value.icon className="h-7 w-7 text-primary" />
                   </div>
@@ -107,9 +107,9 @@ const About = () => {
                 A dedicated team that blends creativity, engineering, and execution
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="flex flex-wrap justify-center gap-8">
               {team.map((member, index) => (
-                <div key={index} className="bg-background p-6 rounded-xl border border-border">
+                <div key={index} className="bg-background p-6 rounded-xl border border-border w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.33%-21.33px)]">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                     <Users className="h-8 w-8 text-primary" />
                   </div>
