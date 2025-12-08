@@ -23,7 +23,7 @@ const HeroSection = () => {
             Build a Home That Stands for Generations
           </h1>
           <p className="text-lg md:text-xl text-card/90 mb-8">
-            Premium construction, interiors, renovation, and landscaping — delivered with honesty, quality, and daily supervision.
+           From concept to construction, Harriet Buildesign delivers functional, beautiful, long-lasting spaces - crafted with precision, transparency, and care.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button size="lg" asChild className="text-base">

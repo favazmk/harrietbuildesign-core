@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 const stats = [
   { value: "7+", label: "Years Experience" },
   { value: "100+", label: "Projects Completed" },
-  { value: "5+", label: "Expert Team Members" },
-  { value: "10+", label: "Areas Served" },
+  { value: "15+", label: "Expert Team Members" },
+  { value: "50+", label: "Areas Served" },
 ];
 
 const StatsSection = () => {

@@ -2,7 +2,10 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Eye, HardHat, Shield, Palette, Clock, Users, CheckCircle, XCircle, ArrowRight } from "lucide-react";
+import { AlertTriangle, Eye, HardHat, Shield, Palette, Clock, Users, CheckCircle, XCircle, ArrowRight, DollarSign, UserX } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { cn } from "@/lib/utils";
+
 
 const problems = [
   "Contractors cutting corners to save cost",
@@ -46,15 +49,100 @@ const differentiators = [
   },
 ];
 
-const comparison = [
-  { feature: "Transparent pricing", harriet: true, traditional: false },
-  { feature: "Daily supervision", harriet: true, traditional: false },
-  { feature: "3D visualization before construction", harriet: true, traditional: false },
-  { feature: "Single team from design to handover", harriet: true, traditional: false },
-  { feature: "Clear timelines", harriet: true, traditional: false },
-  { feature: "Quality material documentation", harriet: true, traditional: false },
-  { feature: "Progress updates", harriet: true, traditional: false },
+const homeProblems = [
+  { icon: Clock, text: "Delays, excuses, and zero accountability" },
+  { icon: AlertTriangle, text: "Poor-quality materials and shortcuts" },
+  { icon: DollarSign, text: "Budget overruns and hidden costs" },
+  { icon: UserX, text: "Contractors who disappear when you need them" },
+  { icon: Palette, text: "Designs that look good on paper but fail in execution" },
 ];
+
+const solutions = [
+  "Transparent materials & billing",
+  "Daily on-site supervision",
+  "Accurate timelines & no shortcuts",
+  "High-quality workmanship",
+  "Premium 3D designs before construction",
+];
+
+const ProblemSection = () => {
+  const { ref, isVisible } = useScrollAnimation(0.15);
+
+  return (
+    <section ref={ref} className="py-20 bg-white">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className={cn(
+          "grid lg:grid-cols-2 gap-16 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
+          {/* Problem */}
+          <div className={cn(
+            "bg-red-100 rounded-2xl p-8 lg:p-12 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          )}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-sans text-red-800">
+              The Problem
+            </h2>
+            <p className="text-lg text-red-700 mb-8">
+              Building a home in Kerala shouldn't feel stressful — but most people face the same issues:
+            </p>
+            <ul className="space-y-4">
+              {homeProblems.map((problem, index) => (
+                <li
+                  key={index}
+                  className={cn(
+                    "flex items-start gap-4 transition-all duration-500",
+                    isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                  )}
+                  style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
+                >
+                  <div className="p-2 rounded-lg bg-red-200">
+                    <problem.icon className="h-5 w-5 text-red-600" />
+                  </div>
+                  <span className="text-red-800 font-medium pt-1">{problem.text}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 text-lg font-semibold text-red-800">
+              You deserve a team that values your home as much as you do.
+            </p>
+          </div>
+
+          {/* Solution */}
+          <div className={cn(
+            "bg-green-100 rounded-2xl p-8 lg:p-12 transition-all duration-700 delay-300",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          )}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-sans text-green-900">
+              The HarrietBuildesign Promise
+            </h2>
+            <p className="text-lg text-green-700 mb-8">
+              We build and design homes with:
+            </p>
+            <ul className="space-y-4">
+              {solutions.map((solution, index) => (
+                <li
+                  key={index}
+                  className={cn(
+                    "flex items-start gap-4 transition-all duration-500",
+                    isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
+                  )}
+                  style={{ transitionDelay: isVisible ? `${(index * 100) + 400}ms` : '0ms' }}
+                >
+                  <CheckCircle className="h-6 w-6 text-green-800 flex-shrink-0" />
+                  <span className="text-green-800 font-medium">{solution}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 text-lg font-semibold text-green-800">
+              We handle everything — from concept to handover.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const WhyUs = () => {
   return (
@@ -81,36 +169,6 @@ const WhyUs = () => {
           </div>
         </section>
 
-        {/* The Problem */}
-        <section className="py-20 bg-card">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-xl bg-destructive/10 flex items-center justify-center">
-                  <AlertTriangle className="h-7 w-7 text-destructive" />
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold font-serif text-foreground">
-                  The Real Problem in Kerala's Construction Industry
-                </h2>
-              </div>
-              <p className="text-lg text-muted-foreground mb-8">
-                Most homeowners face the same frustrations:
-              </p>
-              <ul className="space-y-4">
-                {problems.map((problem, index) => (
-                  <li key={index} className="flex items-start gap-4">
-                    <XCircle className="h-6 w-6 text-destructive flex-shrink-0 mt-0.5" />
-                    <span className="text-foreground text-lg">{problem}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-8 text-xl font-medium text-primary">
-                We built HarrietBuildesign to solve these problems — permanently.
-              </p>
-            </div>
-          </div>
-        </section>
-
         {/* What Makes Us Different */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
@@ -131,54 +189,9 @@ const WhyUs = () => {
           </div>
         </section>
 
-        {/* Comparison Table */}
-        <section className="py-20 bg-card">
-          <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 font-serif text-foreground text-center">
-              Compare Us vs Traditional Contractors
-            </h2>
-            <div className="max-w-3xl mx-auto">
-              <div className="bg-background rounded-xl border border-border overflow-hidden">
-                <div className="grid grid-cols-3 bg-accent p-4 font-semibold text-foreground">
-                  <div>Feature</div>
-                  <div className="text-center">HarrietBuildesign</div>
-                  <div className="text-center">Traditional</div>
-                </div>
-                {comparison.map((item, index) => (
-                  <div key={index} className="grid grid-cols-3 p-4 border-t border-border items-center">
-                    <div className="text-foreground">{item.feature}</div>
-                    <div className="flex justify-center">
-                      {item.harriet ? (
-                        <CheckCircle className="h-6 w-6 text-primary" />
-                      ) : (
-                        <XCircle className="h-6 w-6 text-muted" />
-                      )}
-                    </div>
-                    <div className="flex justify-center">
-                      {item.traditional ? (
-                        <CheckCircle className="h-6 w-6 text-primary" />
-                      ) : (
-                        <XCircle className="h-6 w-6 text-red-500" />
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <ProblemSection />
 
-        {/* Trust Statement */}
-        <section className="py-20 bg-accent">
-          <div className="container mx-auto px-4 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-foreground">
-              Built on Integrity. Delivered With Precision.
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Your home is one of the biggest investments of your life. We treat it with the care, expertise, and respect it deserves.
-            </p>
-          </div>
-        </section>
+
 
         {/* CTA */}
         <section className="py-20 bg-primary">

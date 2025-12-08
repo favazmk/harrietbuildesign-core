@@ -49,22 +49,6 @@ const steps = [
   },
 ];
 
-const paymentMilestones = [
-  { stage: "Initial Booking", timing: "After design approval" },
-  { stage: "Design Finalization", timing: "Before execution" },
-  { stage: "Mid-Project Milestone", timing: "During progress" },
-  { stage: "Final Payment", timing: "Before handover" },
-];
-
-const processAdvantages = [
-  "Clear communication",
-  "No shortcuts in materials or workmanship",
-  "Daily monitoring",
-  "Realistic timelines",
-  "Designs that match the final execution",
-  "Transparent billing and updates",
-];
-
 const Process = () => {
   return (
     <>
@@ -127,67 +111,9 @@ const Process = () => {
           </div>
         </section>
 
-        {/* Payment Milestones */}
-        <section className="py-20 bg-card">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-foreground text-center">
-                Payment Milestones
-              </h2>
-              <p className="text-lg text-muted-foreground text-center mb-8">
-                Designed for clarity and convenience
-              </p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {paymentMilestones.map((milestone, index) => (
-                  <div key={index} className="bg-background p-6 rounded-xl border border-border">
-                    <h3 className="font-semibold text-foreground mb-1">{milestone.stage}</h3>
-                    <p className="text-muted-foreground text-sm">{milestone.timing}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-center text-muted-foreground text-sm mt-6">
-                Exact percentages depend on project type and size.
-              </p>
-            </div>
-          </div>
-        </section>
 
-        {/* Why Our Process Works */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 font-serif text-foreground">
-                Why Our Process Works
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-4 text-left">
-                {processAdvantages.map((advantage, index) => (
-                  <div key={index} className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border">
-                    <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span className="text-foreground">{advantage}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* CTA */}
-        <section className="py-20 bg-primary">
-          <div className="container mx-auto px-4 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-primary-foreground">
-              Start Your Journey With Us
-            </h2>
-            <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Let's make your dream home a reality — with clarity, confidence, and quality from start to finish.
-            </p>
-            <Button size="lg" variant="secondary" asChild>
-              <Link to="/contact">
-                Book a Free Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-        </section>
+
       </Layout>
     </>
   );
