@@ -7,31 +7,17 @@ import { useEffect, useRef } from "react";
 
 // Combined testimonials from both the section and the page
 const testimonials = [
-  // Existing from Section
-  {
-    quote: "Professional team, transparent from day one. They completed our home exactly as promised.",
-    author: "Homeowner",
-    location: "Perinthalmanna",
-    type: "Construction"
-  },
-  {
-    quote: "Loved the 3D design — the final result looked exactly like the visual.",
-    author: "Client",
-    location: "Kerala",
-    type: "Interior Design"
-  },
-  {
-    quote: "Reliable, detail-oriented, and extremely supportive throughout the project.",
-    author: "Renovation Client",
-    location: "Malappuram",
-    type: "Renovation"
-  },
-  // Moved from Page
   {
     quote: "They delivered exactly what they promised. HarrietBuildesign handled everything from design to execution with total honesty. The daily updates kept us stress-free, and the final house looked even better than the 3D design.",
     author: "Homeowner",
     location: "Perinthalmanna",
     type: "Construction",
+  },
+  {
+    quote: "Professional team, transparent from day one. They completed our home exactly as promised.",
+    author: "Homeowner",
+    location: "Perinthalmanna",
+    type: "Construction"
   },
   {
     quote: "Professional team with great attention to detail. Every corner was perfectly finished. They listened to our ideas and improved them with better solutions. Highly recommended for anyone building a home in Kerala.",
@@ -46,6 +32,12 @@ const testimonials = [
     type: "Renovation",
   },
   {
+    quote: "Loved the 3D design — the final result looked exactly like the visual.",
+    author: "Client",
+    location: "Kerala",
+    type: "Interior Design"
+  },
+  {
     quote: "The 3D visual matched the final result — exactly. We were worried about how the interiors would turn out, but the execution was spot on. The finishing and color balance were perfect.",
     author: "Interior Design Client",
     location: "Kerala",
@@ -56,6 +48,12 @@ const testimonials = [
     author: "Full Home Renovation",
     location: "Kerala",
     type: "Renovation",
+  },
+    {
+    quote: "Reliable, detail-oriented, and extremely supportive throughout the project.",
+    author: "Renovation Client",
+    location: "Malappuram",
+    type: "Renovation"
   },
   {
     quote: "Very trustworthy team. We live outside Kerala and couldn't visit the site often. Their daily supervision and updates gave us complete confidence throughout the project.",
@@ -75,8 +73,8 @@ const TestimonialsSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const isHovered = useRef(false);
   const position = useRef(0);
-  const speed = useRef(1.0); // Base speed
-  const currentSpeed = useRef(1.0); // Current speed (for momentum)
+  const speed = useRef(0.8); // Base speed
+  const currentSpeed = useRef(0.8); // Current speed (for momentum)
   const rafId = useRef<number | null>(null);
 
   useEffect(() => {
@@ -150,10 +148,10 @@ const TestimonialsSection = () => {
             {marqueeList.map((testimonial, index) => (
               <div
                 key={index}
-                className="w-[260px] md:w-[450px] flex-shrink-0 bg-background p-4 rounded-xl border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+                className="w-[250px] md:w-[450px] flex-shrink-0 bg-background p-8 rounded-xl border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300"
               >
-                <Quote className="h-8 w-8 text-primary/30 mb-4" />
-                <p className="text-base mb-4 italic">"{testimonial.quote}"</p>
+                <Quote className="h-10 w-10 text-primary/30 mb-4" />
+                <p className="text-foreground text-lg mb-6 italic">"{testimonial.quote}"</p>
                 <div className="mt-auto">
                   <p className="font-semibold text-foreground">{testimonial.author}</p>
                   <div className="flex items-center justify-between mt-1">
@@ -178,7 +176,19 @@ const TestimonialsSection = () => {
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-card to-transparent z-10 pointer-events-none" />
       </div>
 
-
+      <div className="container mx-auto px-4 lg:px-8 mt-12">
+        <div className={cn(
+          "text-center transition-all duration-700 delay-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
+          <Button variant="outline" size="lg" asChild>
+            <Link to="/testimonials">
+              Read More Reviews
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+        </div>
+      </div>
     </section>
   );
 };
