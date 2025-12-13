@@ -1,47 +1,21 @@
-import { Award, Users, Eye, Clock, Palette, Shield } from "lucide-react";
-import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
-const reasons = [
-  {
-    icon: Award,
-    title: "7+ Years Experience",
-    description: "Proven expertise in Kerala's construction industry",
-  },
-  {
-    icon: Users,
-    title: "100+ Projects",
-    description: "Successfully completed residential and interior projects",
-  },
-  {
-    icon: Eye,
-    title: "Transparency",
-    description: "Clear pricing and material selection with no hidden costs",
-  },
-  {
-    icon: Clock,
-    title: "Daily Supervision",
-    description: "Dedicated engineer monitors your site every day",
-  },
-  {
-    icon: Palette,
-    title: "Premium 3D Designs",
-    description: "See your home before it's built with realistic visuals",
-  },
-  {
-    icon: Shield,
-    title: "On-Time Delivery",
-    description: "Disciplined project planning and reliable timelines",
-  },
+const stats = [
+  { value: "7+", label: "Years Experience" },
+  { value: "100+", label: "Projects Completed" },
+  { value: "15+", label: "Expert Team Members" },
+  { value: "50+", label: "Areas Served" },
 ];
 
 const WhyUsSection = () => {
-  const { setRef, centeredIndex } = useScrollCenterGroup(reasons.length);
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="py-20 bg-harriet-50">
+    <section ref={ref} className="bg-harriet-50 py-20">
       <div className="container mx-auto px-4 lg:px-8">
         <div className={cn(
           "text-center mb-12 transition-all duration-700",
@@ -55,35 +29,31 @@ const WhyUsSection = () => {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reasons.map((reason, index) => {
-            const isActive = centeredIndex === index;
-            return (
-              <div 
-                key={index} 
-                ref={setRef(index)}
-                className={cn(
-                  "flex gap-4 p-4 rounded-xl transition-all duration-300",
-                  "hover:bg-accent/50",
-                  isActive && "bg-accent/50",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                )}
-                style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
-              >
-                <div className={cn(
-                  "w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 transition-colors",
-                  "group-hover:bg-primary/20",
-                  isActive && "bg-primary/20"
-                )}>
-                  <reason.icon className="h-7 w-7 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-1 text-foreground">{reason.title}</h3>
-                  <p className="text-muted-foreground">{reason.description}</p>
-                </div>
-              </div>
-            );
-          })}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map((stat, index) => (
+            <div 
+              key={index} 
+              className={cn(
+                "text-center transition-all duration-500",
+                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+              )}
+              style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
+            >
+              <p className="text-4xl md:text-5xl font-bold text-primary mb-2 font-serif">
+                {stat.value}
+              </p>
+              <p className="text-muted-foreground text-sm md:text-base">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex justify-center mt-12">
+          <Button size="lg" className="bg-harriet-900 hover:bg-harriet-800 text-white" asChild>
+            <Link to="/why-us">
+              Read More About Why Us
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

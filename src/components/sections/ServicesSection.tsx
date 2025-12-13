@@ -69,7 +69,8 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* Changed from grid to flex to allow centering of the last row */}
+        <div className="flex flex-wrap justify-center gap-6">
           {services.map((service, index) => {
             const isActive = centeredIndex === index;
             return (
@@ -79,6 +80,8 @@ const ServicesSection = () => {
                 ref={setRef(index)}
                 className={cn(
                   "group p-6 bg-card rounded-xl border transition-all duration-300 block",
+                  // Calculated widths to mimic grid columns with gap-6 (24px)
+                  "w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] xl:w-[calc(25%-18px)]",
                   "hover:border-primary/30 hover:shadow-lg",
                   isActive ? "border-primary/30 shadow-lg" : "border-border",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"

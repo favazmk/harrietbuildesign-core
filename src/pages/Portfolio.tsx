@@ -161,28 +161,7 @@ const Portfolio = () => {
           </div>
         </section>
 
-        {/* What Clients Love */}
-        <section className="py-20 bg-card">
-          <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 font-serif text-foreground text-center">
-              What Our Clients Love About Our Work
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {[
-                "Designs that match real-life needs",
-                "High-quality materials and clean finishing",
-                "Accurate execution of 3D visuals",
-                "Honest communication and on-time delivery",
-                "Superior supervision and workmanship",
-              ].map((item, index) => (
-                <div key={index} className="flex items-center gap-3 p-4 bg-background rounded-lg">
-                  <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
-                  <span className="text-foreground">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+
 
         {/* CTA */}
         <section className="py-20 bg-primary">

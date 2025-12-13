@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-home.jpg";
+import RotatingCubeText from "@/components/ui/RotatingCubeText";
 
 const HeroSection = () => {
   return (
@@ -18,12 +19,10 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="max-w-2xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-card mb-6 font-serif leading-tight">
-            Build a Home That Stands for Generations
-          </h1>
-          <p className="text-lg md:text-xl text-card/90 mb-8">
-            Premium construction, interiors, renovation, and landscaping — delivered with honesty, quality, and daily supervision.
+        <div className="max-w-3xl"> {/* Increased max-w slightly to prevent early wrapping */}
+          <RotatingCubeText />
+          <p className="text-lg md:text-xl text-card/90 mb-8 mt-6">
+           From concept to construction, Harriet Buildesign delivers functional, beautiful, long-lasting spaces - crafted with precision, transparency, and care.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button size="lg" asChild className="text-base">

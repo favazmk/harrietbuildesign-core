@@ -149,32 +149,7 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Why Choose Us */}
-        <section className="py-20 bg-card">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-foreground">
-                Why Choose HarrietBuildesign?
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-4 text-left">
-                {[
-                  "Transparent pricing & materials",
-                  "Daily site supervision",
-                  "Durable construction with high-quality workmanship",
-                  "Practical, beautiful interior designs",
-                  "7+ years experience in Kerala",
-                  "100+ completed projects",
-                  "One team from design to handover",
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span className="text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+
 
         {/* CTA */}
         <section className="py-20 bg-primary">

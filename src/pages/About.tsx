@@ -20,16 +20,6 @@ const team = [
   { name: "Harikrishnan", role: "Civil Draughtsman", description: "Creates precise technical drawings and plan documentation for flawless execution." },
 ];
 
-const differentiators = [
-  "Transparent pricing and material selection",
-  "Daily site supervision and progress updates",
-  "High-quality workmanship across all stages",
-  "Realistic timelines with disciplined project planning",
-  "Custom 3D designs for every home",
-  "7+ years of experience and 100+ completed projects",
-  "One team handling everything — from design to handover",
-];
-
 const About = () => {
   return (
     <>
@@ -92,9 +82,9 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-12 font-serif text-foreground text-center">
               Our Values
             </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div className="flex flex-wrap justify-center gap-6">
               {values.map((value, index) => (
-                <div key={index} className="text-center p-6 bg-card rounded-xl border border-border">
+                <div key={index} className="text-center p-6 bg-card rounded-xl border border-border w-full sm:w-[calc(50%-12px)] lg:w-[calc(20%-19.2px)]">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <value.icon className="h-7 w-7 text-primary" />
                   </div>
@@ -117,9 +107,9 @@ const About = () => {
                 A dedicated team that blends creativity, engineering, and execution
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="flex flex-wrap justify-center gap-8">
               {team.map((member, index) => (
-                <div key={index} className="bg-background p-6 rounded-xl border border-border">
+                <div key={index} className="bg-background p-6 rounded-xl border border-border w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.33%-21.33px)]">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                     <Users className="h-8 w-8 text-primary" />
                   </div>
@@ -132,45 +122,7 @@ const About = () => {
           </div>
         </section>
 
-        {/* What Makes Us Different */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 font-serif text-foreground text-center">
-                What Makes Us Different
-              </h2>
-              <ul className="space-y-4">
-                {differentiators.map((item, index) => (
-                  <li key={index} className="flex items-start gap-4">
-                    <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-foreground text-lg">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-8 text-center text-lg text-muted-foreground italic">
-                We aren't just contractors. We are partners in building your dream home.
-              </p>
-            </div>
-          </div>
-        </section>
 
-        {/* CTA */}
-        <section className="py-20 bg-primary">
-          <div className="container mx-auto px-4 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-primary-foreground">
-              Let's Build Something Beautiful Together
-            </h2>
-            <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Whether you're planning a new home, renovating an old one, or designing functional interiors — we're here to guide you at every step.
-            </p>
-            <Button size="lg" variant="secondary" asChild>
-              <Link to="/contact">
-                Book a Free Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-        </section>
       </Layout>
     </>
   );
