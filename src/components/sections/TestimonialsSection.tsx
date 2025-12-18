@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { Quote, ArrowRight, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+import { Quote, MapPin } from "lucide-react";
+
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
@@ -49,7 +49,7 @@ const testimonials = [
     location: "Kerala",
     type: "Renovation",
   },
-    {
+  {
     quote: "Reliable, detail-oriented, and extremely supportive throughout the project.",
     author: "Renovation Client",
     location: "Malappuram",
@@ -68,7 +68,7 @@ const marqueeList = [...testimonials, ...testimonials, ...testimonials];
 
 const TestimonialsSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
-  
+
   const scrollerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const isHovered = useRef(false);
@@ -81,7 +81,7 @@ const TestimonialsSection = () => {
     const animate = () => {
       // Calculate target speed based on hover state
       const targetSpeed = isHovered.current ? 0 : speed.current;
-      
+
       // Momentum logic: smoothly interpolate current speed towards target speed
       // The 0.05 factor determines the "braking" friction (lower = smoother/slower stop)
       currentSpeed.current += (targetSpeed - currentSpeed.current) * 0.05;
@@ -94,7 +94,7 @@ const TestimonialsSection = () => {
 
       if (scrollerRef.current && contentRef.current) {
         const contentWidth = contentRef.current.scrollWidth / 3; // divided by 3 because we tripled the list
-        
+
         // Reset position for seamless loop
         if (position.current <= -contentWidth) {
           position.current += contentWidth;
@@ -116,31 +116,31 @@ const TestimonialsSection = () => {
   }, []);
 
   return (
-    <section ref={ref} className="py-20 bg-card overflow-hidden">
+    <section ref={ref} className="py-20 bg-accent overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8 mb-12">
         <div className={cn(
           "text-center transition-all duration-700",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-accent-foreground">
             What Our Clients Say
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-accent-foreground/80 max-w-2xl mx-auto">
             Real stories from homeowners who trusted us with their dream spaces
           </p>
         </div>
       </div>
 
       {/* Marquee Container */}
-      <div 
+      <div
         className={cn(
-          "relative w-full transition-opacity duration-1000",
+          "relative w-full transition-opacity duration-1000 z-[51]",
           isVisible ? "opacity-100" : "opacity-0"
         )}
         onMouseEnter={() => (isHovered.current = true)}
         onMouseLeave={() => (isHovered.current = false)}
       >
-        <div 
+        <div
           ref={scrollerRef}
           className="flex gap-6 w-max cursor-grab active:cursor-grabbing will-change-transform"
         >
@@ -148,7 +148,7 @@ const TestimonialsSection = () => {
             {marqueeList.map((testimonial, index) => (
               <div
                 key={index}
-                className="w-[250px] md:w-[450px] flex-shrink-0 bg-background p-8 rounded-xl border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+                className="w-[250px] md:w-[450px] flex-shrink-0 bg-card p-8 rounded-xl border border-border/50 shadow-sm hover:border-primary/30 hover:shadow-lg transition-all duration-300"
               >
                 <Quote className="h-10 w-10 text-primary/30 mb-4" />
                 <p className="text-foreground text-lg mb-6 italic">"{testimonial.quote}"</p>
@@ -170,25 +170,13 @@ const TestimonialsSection = () => {
             ))}
           </div>
         </div>
-        
+
         {/* Gradient Fade Edges */}
-        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-card to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-card to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-accent to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-accent to-transparent z-10 pointer-events-none" />
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 mt-12">
-        <div className={cn(
-          "text-center transition-all duration-700 delay-500",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        )}>
-          <Button variant="outline" size="lg" asChild>
-            <Link to="/testimonials">
-              Read More Reviews
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
-      </div>
+
     </section>
   );
 };

@@ -61,7 +61,7 @@ const ServicesSection = () => {
           "text-center mb-12 transition-all duration-700",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-harriet-700">
             Our Core Services
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -79,12 +79,14 @@ const ServicesSection = () => {
                 key={index}
                 ref={setRef(index)}
                 className={cn(
-                  "group p-6 bg-card rounded-xl border transition-all duration-300 block",
+                  "group p-6 bg-secondary shadow-neumorphic-light rounded-xl border transition-all duration-300 block relative z-[51]",
                   // Calculated widths to mimic grid columns with gap-6 (24px)
                   "w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] xl:w-[calc(25%-18px)]",
-                  "hover:border-primary/30 hover:shadow-lg",
-                  isActive ? "border-primary/30 shadow-lg" : "border-border",
+                  // Neumorphic border logic
+                  "border-transparent hover:border-harriet-200/50",
+                  isActive ? "border-primary/30" : "border-transparent",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+
                 )}
                 style={{ transitionDelay: isVisible ? `${index * 75}ms` : '0ms' }}
               >
@@ -106,7 +108,7 @@ const ServicesSection = () => {
           "text-center mt-12 transition-all duration-700 delay-500",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <Button size="lg" variant="outline" asChild>
+          <Button size="lg" variant="outline" asChild className="whitespace-normal h-auto py-2 text-center w-full sm:w-auto">
             <Link to="/services">
               Explore All Services
               <ArrowRight className="ml-2 h-5 w-5" />

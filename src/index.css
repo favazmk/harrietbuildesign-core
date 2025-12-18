@@ -1,125 +1,223 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
 @layer base {
-  :root {
-    --background: 0 0% 98%; /* #FAFAFA */
-    --foreground: 88 20% 17%; /* #2C3322 */
-    --card: 0 0% 100%;
-    --card-foreground: 88 20% 17%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 88 20% 17%;
-    --primary: 88 20% 42%; /* #728156 */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 93 58% 91%; /* #E7F5DC */
-    --secondary-foreground: 88 20% 17%;
-    --muted: 88 38% 83%; /* #CFE1B9 */
-    --muted-foreground: 88 20% 17%;
-    --accent: 88 20% 42%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 0 85% 97%;
-    --border: 88 38% 83%;
-    --input: 88 38% 83%;
-    --ring: 88 20% 42%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 88 20% 17%;
-    --foreground: 0 0% 98%;
-    --card: 88 20% 22%;
-    --card-foreground: 0 0% 98%;
-    --popover: 88 20% 22%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 88 20% 42%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 88 20% 27%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 88 20% 32%;
-    --muted-foreground: 0 0% 98%;
-    --accent: 88 20% 42%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 0 85% 97%;
-    --border: 88 20% 27%;
-    --input: 88 20% 27%;
-    --ring: 88 20% 42%;
-  }
+    :root {
+        --background: 0 0% 98%;
+        /* #FAFAFA */
+        --foreground: 88 20% 17%;
+        /* #2C3322 */
+        --card: 0 0% 100%;
+        --card-foreground: 88 20% 17%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 88 20% 17%;
+        --primary: 88 20% 42%;
+        /* #728156 */
+        --primary-foreground: 0 0% 100%;
+        --secondary: 93 58% 91%;
+        /* #E7F5DC */
+        --secondary-foreground: 88 20% 17%;
+        --muted: 88 38% 83%;
+        /* #CFE1B9 */
+        --muted-foreground: 88 20% 17%;
+        --accent: 88 20% 42%;
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 72% 50%;
+        --destructive-foreground: 0 85% 97%;
+        --border: 88 38% 83%;
+        --input: 88 38% 83%;
+        --ring: 88 20% 42%;
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: 88 20% 17%;
+        --foreground: 0 0% 98%;
+        --card: 88 20% 22%;
+        --card-foreground: 0 0% 98%;
+        --popover: 88 20% 22%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 88 20% 42%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 88 20% 27%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 88 20% 32%;
+        --muted-foreground: 0 0% 98%;
+        --accent: 88 20% 42%;
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 72% 50%;
+        --destructive-foreground: 0 85% 97%;
+        --border: 88 20% 27%;
+        --input: 88 20% 27%;
+        --ring: 88 20% 42%;
+    }
 }
+
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
 }
+
 .hero-heading {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 1.2;
-  color: white;
-  display: block;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: white;
+    display: block;
 }
+
 .hero-text-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    /* Changed from nowrap to wrap for mobile */
+    gap: 0.5rem;
+    /* Add gap for wrapped items */
 }
+
 .cube-container {
-  display: inline-flex;
-  vertical-align: middle;
-  perspective: 400px;
-  position: relative;
-  height: 1.2em; /* Match the line-height of the heading */
-  min-width: 150px;
-  white-space: nowrap; /* Prevent wrapping of long words */
+    display: inline-flex;
+    vertical-align: middle;
+    perspective: 400px;
+    position: relative;
+    height: 1.2em;
+    /* Match the line-height of the heading */
+    min-width: 150px;
+    width: auto;
+    /* Allow flexible width */
+    white-space: nowrap;
+    /* Prevent wrapping of long words */
 }
+
+@media (max-width: 400px) {
+    .hero-heading {
+        font-size: 2rem;
+        /* Reduce font size for very small screens */
+    }
+
+    .cube-container {
+        min-width: 120px;
+        /* Reduce minimum width */
+    }
+}
+
 .cube {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  transform-style: preserve-3d;
-  animation: rotate-cube 12s infinite;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: rotate-cube 12s infinite;
 }
+
 .face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  /* FIXED: Removed flex centering to fix the gap and alignment issues */
-  display: block; 
-  text-align: left; /* Aligns text immediately after 'Stands for' */
-  line-height: 1.2em; /* Matches container line-height for correct vertical alignment */
-  
-  font-size: 1em; 
-  backface-visibility: hidden;
-  box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* FIXED: Removed flex centering to fix the gap and alignment issues */
+    display: block;
+    text-align: left;
+    /* Aligns text immediately after 'Stands for' */
+    line-height: 1.2em;
+    /* Matches container line-height for correct vertical alignment */
+
+    font-size: 1em;
+    backface-visibility: hidden;
+    box-sizing: border-box;
 }
+
 /* Position each face of the cube */
-.face-1 { transform: translateY(0) translateZ(0.6em); } /* Front */
-.face-2 { transform: rotateX(-90deg) translateZ(0.6em); } /* Top */
-.face-3 { transform: rotateX(180deg) translateZ(0.6em); } /* Back */
-.face-4 { transform: rotateX(90deg) translateZ(0.6em); } /* Bottom */
-@keyframes rotate-cube {
-  0% { transform: rotateX(0deg); }
-  20% { transform: rotateX(0deg); }
-  25% { transform: rotateX(90deg); }
-  45% { transform: rotateX(90deg); }
-  50% { transform: rotateX(180deg); }
-  70% { transform: rotateX(180deg); }
-  75% { transform: rotateX(270deg); }
-  95% { transform: rotateX(270deg); }
-  100% { transform: rotateX(360deg); }
+.face-1 {
+    transform: translateY(0) translateZ(0.6em);
 }
+
+/* Front */
+.face-2 {
+    transform: rotateX(-90deg) translateZ(0.6em);
+}
+
+/* Top */
+.face-3 {
+    transform: rotateX(180deg) translateZ(0.6em);
+}
+
+/* Back */
+.face-4 {
+    transform: rotateX(90deg) translateZ(0.6em);
+}
+
+/* Bottom */
+@keyframes rotate-cube {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    20% {
+        transform: rotateX(0deg);
+    }
+
+    25% {
+        transform: rotateX(90deg);
+    }
+
+    45% {
+        transform: rotateX(90deg);
+    }
+
+    50% {
+        transform: rotateX(180deg);
+    }
+
+    70% {
+        transform: rotateX(180deg);
+    }
+
+    75% {
+        transform: rotateX(270deg);
+    }
+
+    95% {
+        transform: rotateX(270deg);
+    }
+
+    100% {
+        transform: rotateX(360deg);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .cube {
-    animation: none;
-  }
-  .face-2, .face-3, .face-4 {
-    display: none;
-  }
+    .cube {
+        animation: none;
+    }
+
+    .face-2,
+    .face-3,
+    .face-4 {
+        display: none;
+    }
+}
+
+@layer utilities {
+    .grain-overlay {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 50;
+        background-image: url("/grain-texture.jpg");
+        opacity: 0.15;
+        mix-blend-mode: overlay;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 }

@@ -7,11 +7,11 @@ import logo from "@/assets/BLACK LOGO.png";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
+  { name: "Why Us", href: "/why-us" },
   { name: "Services", href: "/services" },
   { name: "Portfolio", href: "/portfolio" },
   { name: "Process", href: "/process" },
-  { name: "Why Us", href: "/why-us" },
+  { name: "About", href: "/about" },
 
   { name: "Contact", href: "/contact" },
 ];
@@ -21,7 +21,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <header 
+    <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
         backdropFilter: "blur(4px) saturate(200%)",
@@ -41,8 +41,8 @@ const Header = () => {
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="Harriet Buildesign" className="h-8 w-auto" />
             <div>
-              <span className="text-xl font-bold text-primary font-serif">Harriet</span>
-              <span className="text-xl font-bold text-foreground font-serif">Buildesign</span>
+              <span className="text-lg sm:text-xl font-bold text-primary font-serif">Harriet</span>
+              <span className="text-lg sm:text-xl font-bold text-foreground font-serif">Buildesign</span>
             </div>
           </Link>
 

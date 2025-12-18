@@ -15,6 +15,7 @@ import {
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+
 const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
@@ -56,10 +57,10 @@ const Contact = () => {
         <section className="py-20 bg-accent">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-accent-foreground">
                 Contact Us
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-accent-foreground/80">
                 Let's start building your dream home together. Our team is here to answer your questions, guide your planning, and help you take the next step with complete confidence.
               </p>
             </div>
@@ -71,8 +72,9 @@ const Contact = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-16">
               {/* Contact Form */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6 font-serif text-foreground">
+
+              <div className="p-8 rounded-2xl shadow-neumorphic-light bg-secondary h-full">
+                <h2 className="text-2xl font-bold mb-6 font-serif text-harriet-700">
                   Book a Free Consultation
                 </h2>
                 <p className="text-muted-foreground mb-8">
@@ -152,15 +154,17 @@ const Contact = () => {
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     />
                   </div>
-                  <Button type="submit" size="lg" className="w-full sm:w-auto">
+                  <Button type="submit" size="lg" className="w-full sm:w-auto h-auto whitespace-normal py-4">
                     Submit Inquiry
                   </Button>
                 </form>
               </div>
 
+
               {/* Contact Info */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6 font-serif text-foreground">
+
+              <div className="p-8 rounded-2xl shadow-neumorphic-light bg-secondary h-full">
+                <h2 className="text-2xl font-bold mb-6 font-serif text-harriet-700">
                   Get In Touch
                 </h2>
                 <div className="space-y-6">
@@ -253,6 +257,7 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </section>

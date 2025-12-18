@@ -30,14 +30,7 @@ const Index = () => {
         <ServicesSection />
         <PortfolioSection />
         <ProcessSection />
-        <div className="flex justify-center pb-10 bg-accent">
-          <Button size="lg" variant="outline" asChild>
-            <Link to="/process">
-              See Our Full Process
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
+
         <TestimonialsSection /> {/* Added TestimonialsSection */}
         <FAQSection />
         <CTASection />

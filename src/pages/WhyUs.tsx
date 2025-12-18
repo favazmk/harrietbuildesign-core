@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, Eye, HardHat, Shield, Palette, Clock, Users, CheckCircle, ArrowRight, DollarSign, UserX } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
+import TiltedCard from "@/components/ui/TiltedCard";
 
 
 const differentiators = [
@@ -68,10 +69,10 @@ const ProblemSection = () => {
         )}>
           {/* Problem */}
           <div className={cn(
-            "bg-red-100 rounded-2xl p-8 lg:p-12 transition-all duration-700",
+            "bg-red-100 rounded-2xl p-5 md:p-8 lg:p-12 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-sans text-red-800">
+            <h2 className="text-2xl md:text-3xl md:text-4xl font-bold mb-6 font-sans text-red-800">
               The Problem
             </h2>
             <p className="text-lg text-red-700 mb-8">
@@ -101,10 +102,10 @@ const ProblemSection = () => {
 
           {/* Solution */}
           <div className={cn(
-            "bg-green-100 rounded-2xl p-8 lg:p-12 transition-all duration-700 delay-300",
+            "bg-green-100 rounded-2xl p-5 md:p-8 lg:p-12 transition-all duration-700 delay-300",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-sans text-green-900">
+            <h2 className="text-2xl md:text-3xl md:text-4xl font-bold mb-6 font-sans text-green-900">
               The HarrietBuildesign Promise
             </h2>
             <p className="text-lg text-green-700 mb-8">
@@ -150,10 +151,10 @@ const WhyUs = () => {
         <section className="py-20 bg-accent">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-accent-foreground">
                 Why Choose Us
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-accent-foreground/80">
                 Quality, transparency, and trust — the three pillars behind every home we deliver.
               </p>
             </div>
@@ -168,13 +169,15 @@ const WhyUs = () => {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {differentiators.map((item, index) => (
-                <div key={index} className="bg-card p-8 rounded-xl border border-border">
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    <item.icon className="h-7 w-7 text-primary" />
+                <TiltedCard key={index} showMobileWarning={false} showTooltip={false} scaleOnHover={1.03} rotateAmplitude={10}>
+                  <div className="bg-secondary p-5 md:p-8 rounded-xl shadow-neumorphic-light border border-white/50 h-full">
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                      <item.icon className="h-7 w-7 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-3 text-foreground">{item.title}</h3>
+                    <p className="text-muted-foreground">{item.description}</p>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-foreground">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </div>
+                </TiltedCard>
               ))}
             </div>
           </div>
@@ -193,10 +196,10 @@ const WhyUs = () => {
             <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Let's build a home that stands the test of time — beautifully, safely, and honestly.
             </p>
-            <Button size="lg" variant="secondary" asChild>
+            <Button size="lg" variant="secondary" asChild className="h-auto py-4 px-6 md:px-8 whitespace-normal text-center">
               <Link to="/contact">
                 Book a Free Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-5 w-5 shrink-0 inline-block" />
               </Link>
             </Button>
           </div>

@@ -78,7 +78,7 @@ const PortfolioSection = () => {
                 ref={setRef(index)}
                 to="/portfolio"
                 className={cn(
-                  "group relative overflow-hidden rounded-xl aspect-[4/3] transition-all duration-500",
+                  "group relative overflow-hidden rounded-xl aspect-[4/3] transition-all duration-500 z-[60]",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
                 style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
@@ -121,7 +121,7 @@ const PortfolioSection = () => {
           "text-center mt-12 transition-all duration-700 delay-500",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <Button size="lg" asChild>
+          <Button size="lg" asChild className="whitespace-normal h-auto py-2 text-center w-full sm:w-auto">
             <Link to="/portfolio">
               View Full Portfolio
               <ArrowRight className="ml-2 h-5 w-5" />

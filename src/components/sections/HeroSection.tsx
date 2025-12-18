@@ -6,32 +6,34 @@ import RotatingCubeText from "@/components/ui/RotatingCubeText";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center">
+    <section className="relative min-h-[90vh] flex items-center pb-32 lg:pb-60">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-[60]">
         <img
           src={heroImage}
           alt="Modern luxury villa in Kerala"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/60 to-transparent" />
+
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="max-w-3xl"> {/* Increased max-w slightly to prevent early wrapping */}
+      <div className="container mx-auto px-4 lg:px-8 relative z-[70]">
+        <div className="w-full flex flex-col items-start justify-start text-left">
           <RotatingCubeText />
-          <p className="text-lg md:text-xl text-card/90 mb-8 mt-6">
-           From concept to construction, Harriet Buildesign delivers functional, beautiful, long-lasting spaces - crafted with precision, transparency, and care.
+          <p className="text-lg md:text-xl text-harriet-700/80 mb-10 max-w-2xl font-light leading-relaxed text-left">
+            From concept to construction, Harriet Buildesign delivers functional, <br />
+            beautiful, long-lasting spaces - crafted with precision, <br />
+            transparency, and care.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" asChild className="text-base">
+          <div className="flex flex-col gap-4 justify-start w-full items-start">
+            <Button size="lg" asChild className="text-base whitespace-nowrap h-auto py-4 px-8 w-fit min-w-[200px] text-center rounded-full">
               <Link to="/contact">
                 Book Your Free Consultation
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild className="text-base bg-card/10 border-card/30 text-card hover:bg-card/20 hover:text-card">
+            <Button size="lg" variant="outline" asChild className="text-base bg-transparent border-foreground/20 text-foreground hover:bg-foreground/5 w-fit min-w-[200px] h-auto py-4 px-8 rounded-full">
               <Link to="/portfolio">View Our Work</Link>
             </Button>
           </div>

@@ -86,10 +86,10 @@ const Portfolio = () => {
         <section className="py-20 bg-accent">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-accent-foreground">
                 Our Portfolio
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-accent-foreground/80">
                 A showcase of the homes, spaces, and transformations we've proudly delivered across Kerala.
               </p>
             </div>
@@ -125,7 +125,7 @@ const Portfolio = () => {
               {filteredProjects.map((project, index) => (
                 <div
                   key={index}
-                  className="group bg-card rounded-xl overflow-hidden border border-border hover:shadow-lg transition-shadow"
+                  className="group bg-secondary rounded-xl overflow-hidden border border-border hover:shadow-lg transition-shadow relative z-[60]"
                 >
                   <div className="aspect-[4/3] overflow-hidden">
                     <img

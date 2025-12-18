@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, MapPin, Palette, FileText, HardHat, Home, CheckCircle, ArrowRight } from "lucide-react";
+import TiltedCard from "@/components/ui/TiltedCard";
 
 const steps = [
   {
@@ -64,13 +65,13 @@ const Process = () => {
         <section className="py-20 bg-accent">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-accent-foreground">
                 Our Process
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-accent-foreground/80">
                 A clear, transparent, and well-managed journey from your first idea to the final handover.
               </p>
-              <p className="text-lg text-foreground mt-4">
+              <p className="text-lg text-accent-foreground mt-4">
                 Building a home should feel exciting — not overwhelming. Our structured process ensures clarity, quality, and peace of mind at every stage.
               </p>
             </div>
@@ -80,32 +81,33 @@ const Process = () => {
         {/* Steps */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 font-serif text-foreground text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 font-serif text-harriet-700 text-center">
               How We Work
             </h2>
             <div className="space-y-8 max-w-4xl mx-auto">
               {steps.map((step, index) => (
-                <div
-                  key={index}
-                  className="bg-card p-8 rounded-xl border border-border"
-                >
-                  <div className="flex items-start gap-6">
-                    <div className="w-16 h-16 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-                      <step.icon className="h-8 w-8 text-primary-foreground" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-sm font-bold text-primary">{step.number}</span>
-                        <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
+                <TiltedCard key={index} showMobileWarning={false} showTooltip={false} scaleOnHover={1.03} rotateAmplitude={10}>
+                  <div
+                    className="bg-secondary p-8 rounded-xl shadow-neumorphic-light border-none h-full"
+                  >
+                    <div className="flex items-start gap-6">
+                      <div className="w-16 h-16 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
+                        <step.icon className="h-8 w-8 text-primary-foreground" />
                       </div>
-                      <p className="text-muted-foreground mb-4">{step.description}</p>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent rounded-lg">
-                        <span className="text-sm font-medium text-accent-foreground">Output:</span>
-                        <span className="text-sm text-foreground">{step.output}</span>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-sm font-bold text-primary">{step.number}</span>
+                          <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
+                        </div>
+                        <p className="text-muted-foreground mb-4">{step.description}</p>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent rounded-lg">
+                          <span className="text-sm font-medium text-accent-foreground">Output:</span>
+                          <span className="text-sm text-accent-foreground">{step.output}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </TiltedCard>
               ))}
             </div>
           </div>

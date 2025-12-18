@@ -35,10 +35,10 @@ const About = () => {
         <section className="py-20 bg-accent">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-accent-foreground">
                 Who We Are
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-accent-foreground/80">
                 HarrietBuildesign is a construction and design company built on one belief: every family deserves a home that is honest, durable, and beautifully designed.
               </p>
             </div>
@@ -50,7 +50,7 @@ const About = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-foreground">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-harriet-700">
                   Our Story
                 </h2>
                 <div className="space-y-4 text-muted-foreground">
@@ -79,12 +79,12 @@ const About = () => {
         {/* Values */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 font-serif text-foreground text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 font-serif text-harriet-700 text-center">
               Our Values
             </h2>
             <div className="flex flex-wrap justify-center gap-6">
               {values.map((value, index) => (
-                <div key={index} className="text-center p-6 bg-card rounded-xl border border-border w-full sm:w-[calc(50%-12px)] lg:w-[calc(20%-19.2px)]">
+                <div key={index} className="text-center p-6 bg-secondary shadow-neumorphic-light rounded-xl border-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(20%-19.2px)]">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <value.icon className="h-7 w-7 text-primary" />
                   </div>
@@ -97,10 +97,10 @@ const About = () => {
         </section>
 
         {/* Team */}
-        <section className="py-20 bg-card">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-harriet-700">
                 Meet Our Team
               </h2>
               <p className="text-lg text-muted-foreground">
@@ -109,7 +109,7 @@ const About = () => {
             </div>
             <div className="flex flex-wrap justify-center gap-8">
               {team.map((member, index) => (
-                <div key={index} className="bg-background p-6 rounded-xl border border-border w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.33%-21.33px)]">
+                <div key={index} className="bg-secondary shadow-neumorphic-light p-6 rounded-xl border-none w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.33%-21.33px)]">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                     <Users className="h-8 w-8 text-primary" />
                   </div>

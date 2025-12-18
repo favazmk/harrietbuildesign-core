@@ -22,17 +22,17 @@ const CTASection = () => {
           </p>
 
           <div className={cn(
-            "flex flex-col sm:flex-row justify-center gap-4 mb-12 transition-all duration-700 delay-200",
+            "flex flex-col sm:flex-row justify-center items-center gap-4 mb-12 transition-all duration-700 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}>
-            <Button size="lg" asChild className="text-base">
+            <Button size="lg" asChild className="text-base whitespace-nowrap h-auto py-4 w-fit sm:w-[320px] text-center">
               <Link to="/contact">Book Your Free Consultation</Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
               asChild
-              className="text-base bg-transparent border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10"
+              className="text-base bg-transparent border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10 w-fit sm:w-[320px] h-auto py-4"
             >
               <a href="https://wa.me/919744707505" target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="mr-2 h-5 w-5" />

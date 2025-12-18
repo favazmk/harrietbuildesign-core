@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "What is your design philosophy?",
-        answer: "Our design philosophy is centered on creating spaces that are both beautiful and functional. We believe in a collaborative process, working closely with you to ensure your vision is realized.",
+    answer: "Our design philosophy is centered on creating spaces that are both beautiful and functional. We believe in a collaborative process, working closely with you to ensure your vision is realized.",
   },
   {
     question: "How do you ensure the project stays on budget?",
@@ -49,7 +49,7 @@ const FAQSection = () => {
             "text-center mb-12 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-harriet-700">
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -57,16 +57,16 @@ const FAQSection = () => {
             </p>
           </div>
 
-          <Accordion 
-            type="single" 
-            collapsible 
+          <Accordion
+            type="single"
+            collapsible
             className={cn(
               "w-full transition-all duration-700 delay-200",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
           >
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionItem key={index} value={`item-${index}`} className="mb-4 rounded-xl shadow-neumorphic-light border-none px-4 bg-secondary">
                 <AccordionTrigger className="text-left text-foreground hover:text-primary">
                   {faq.question}
                 </AccordionTrigger>
