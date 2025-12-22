@@ -3,22 +3,27 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-home.jpg";
 import RotatingCubeText from "@/components/ui/RotatingCubeText";
+import Header from "@/components/layout/Header";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center pb-32 lg:pb-60">
       {/* Background Image */}
-      <div className="absolute inset-0 z-[60]">
+      <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
           alt="Modern luxury villa in Kerala"
           className="w-full h-full object-cover"
         />
+      </div>
 
+      {/* Header positioned above the hero */}
+      <div className="absolute top-0 left-0 right-0 z-[100]">
+        <Header />
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 lg:px-8 relative z-[70]">
+      <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-16">
         <div className="w-full flex flex-col items-start justify-start text-left">
           <RotatingCubeText />
           <p className="text-lg md:text-xl text-harriet-700/80 mb-10 max-w-2xl font-light leading-relaxed text-left">

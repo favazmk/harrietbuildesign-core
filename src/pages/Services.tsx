@@ -9,6 +9,14 @@ import TiltedCard from "@/components/ui/TiltedCard";
 
 const services = [
   {
+    icon: Box,
+    title: "Architectural Design & Drawings",
+    id: "architectural-design",
+    description: "From initial sketches to detailed blueprints. We create comprehensive architectural plans that ensure your home is beautiful, practical, and structurally sound.",
+    features: ["Architectural Floor Plans", "3D Visualization", "Interior & exterior views", "Material previews", "Realistic lighting and color simulations"],
+    idealFor: "All clients starting their home journey.",
+  },
+  {
     icon: Building2,
     title: "Home Construction",
     id: "construction",
@@ -39,14 +47,6 @@ const services = [
     description: "Create peaceful, functional outdoor spaces that add beauty and value to your home.",
     features: ["Garden design", "Hardscaping & pathways", "Outdoor lighting", "Water features", "Balcony & terrace makeovers"],
     idealFor: "Homeowners looking to enhance outdoor living spaces.",
-  },
-  {
-    icon: Box,
-    title: "3D Visualization & Design Walkthroughs",
-    id: "3d-visualization",
-    description: "See your future home before construction begins. Our realistic 3D visuals reduce guesswork and help you make confident design decisions.",
-    features: ["Full-home 3D renders", "Interior & exterior views", "Material previews", "Realistic lighting and color simulations"],
-    idealFor: "All clients who want to visualize their home before building.",
   },
   {
     icon: MessageSquare,
@@ -84,18 +84,27 @@ const Services = () => {
         <title>Our Services | HarrietBuildesign - Construction & Interior Design</title>
         <meta
           name="description"
-          content="Explore our comprehensive services: Home Construction, Interior Design, Renovation, Landscaping, 3D Visualization, Consultation & Site Supervision."
+          content="Explore our comprehensive services: Architectural Design, Home Construction, Interior Design, Renovation, Landscaping, Consultation & Site Supervision."
         />
       </Helmet>
       <Layout>
         {/* Hero */}
-        <section className="py-20 bg-accent">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section
+          className="py-20 bg-cover relative min-h-[300px] flex flex-col justify-center"
+          style={{
+            backgroundImage: 'url("/assets/patterns/services-pattern-v2.png")',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '400px'
+          }}
+        >
+          {/* Overlay to ensure text readability against pattern */}
+          <div className="absolute inset-0 bg-harriet-900/70 pointer-events-none" />
+          <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-accent-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-white">
                 Our Services
               </h1>
-              <p className="text-xl text-accent-foreground/80">
+              <p className="text-xl text-white/90">
                 Crafting durable homes, thoughtful interiors, and beautifully designed spaces across Kerala.
               </p>
             </div>
@@ -110,10 +119,9 @@ const Services = () => {
                 <div
                   key={index}
                   id={service.id}
-                  className={`grid lg:grid-cols-2 gap-12 items-start scroll-mt-24 ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                    }`}
+                  className="grid lg:grid-cols-2 gap-12 items-start scroll-mt-24"
                 >
-                  <div className={index % 2 === 1 ? "lg:order-2" : ""}>
+                  <div className="flex flex-col justify-center h-full">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                         <service.icon className="h-7 w-7 text-primary" />
@@ -125,6 +133,12 @@ const Services = () => {
                     <p className="text-lg text-muted-foreground mb-6">
                       {service.description}
                     </p>
+                    <p className="text-sm text-muted-foreground">
+                      <span className="font-semibold text-foreground">Ideal For:</span> {service.idealFor}
+                    </p>
+                  </div>
+
+                  <div>
                     <TiltedCard
                       containerHeight="auto"
                       captionText="Included Features"
@@ -132,11 +146,20 @@ const Services = () => {
                       showTooltip={false}
                       scaleOnHover={1.02}
                       rotateAmplitude={8}
-                      className="mb-4"
                     >
-                      <div className="bg-background p-6 rounded-xl shadow-neumorphic-light border-none h-full">
-                        <h3 className="font-semibold text-foreground mb-4">What's Included:</h3>
-                        <ul className="grid sm:grid-cols-2 gap-3">
+                      <div
+                        className="bg-secondary p-6 rounded-xl border-none h-full group relative transition-all duration-300"
+                        style={{
+                          boxShadow: '9px 9px 18px #cbd7c1, -9px -9px 18px #ffffff, inset 0 0 0 1px rgba(255,255,255,0.5)',
+                        }}
+                      >
+                        <div className="absolute inset-0 rounded-xl pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                          style={{
+                            boxShadow: 'inset 3px 3px 6px #cbd7c1, inset -3px -3px 6px #ffffff'
+                          }}
+                        />
+                        <h3 className="font-semibold text-foreground mb-4 relative z-10">What's Included:</h3>
+                        <ul className="grid sm:grid-cols-2 gap-3 relative z-10">
                           {service.features.map((feature, featureIndex) => (
                             <li key={featureIndex} className="flex items-start gap-2">
                               <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
@@ -146,12 +169,6 @@ const Services = () => {
                         </ul>
                       </div>
                     </TiltedCard>
-                    <p className="text-sm text-muted-foreground">
-                      <span className="font-semibold text-foreground">Ideal For:</span> {service.idealFor}
-                    </p>
-                  </div>
-                  <div className={`bg-accent rounded-2xl p-8 lg:p-12 ${index % 2 === 1 ? "lg:order-1" : ""}`}>
-                    <service.icon className="h-24 w-24 text-primary/20 mx-auto" />
                   </div>
                 </div>
               ))}

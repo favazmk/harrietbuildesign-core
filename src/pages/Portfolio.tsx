@@ -83,13 +83,22 @@ const Portfolio = () => {
       </Helmet>
       <Layout>
         {/* Hero */}
-        <section className="py-20 bg-accent">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section
+          className="py-20 bg-cover relative min-h-[300px] flex flex-col justify-center"
+          style={{
+            backgroundImage: 'url("/assets/patterns/portfolio-pattern.png")',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '400px'
+          }}
+        >
+          {/* Overlay to ensure text readability against pattern */}
+          <div className="absolute inset-0 bg-harriet-900/70 pointer-events-none" />
+          <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-accent-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-white">
                 Our Portfolio
               </h1>
-              <p className="text-xl text-accent-foreground/80">
+              <p className="text-xl text-white/90">
                 A showcase of the homes, spaces, and transformations we've proudly delivered across Kerala.
               </p>
             </div>

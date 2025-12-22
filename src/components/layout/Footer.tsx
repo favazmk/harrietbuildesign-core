@@ -68,11 +68,12 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-3">Quick Links</h4>
             <ul className="space-y-2">
               {[
-                { name: "About Us", href: "/about" },
+                { name: "Why Us", href: "/why-us" },
                 { name: "Services", href: "/services" },
                 { name: "Portfolio", href: "/portfolio" },
+                { name: "Testimonials", href: "/testimonials" },
                 { name: "Process", href: "/process" },
-
+                { name: "About Us", href: "/about" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -95,7 +96,7 @@ const Footer = () => {
                 "Interior Design",
                 "Renovation",
                 "Landscaping",
-                "3D Visualization",
+                "Architectural Design",
                 "Site Supervision",
               ].map((service) => (
                 <li key={service}>

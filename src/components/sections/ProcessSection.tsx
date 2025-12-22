@@ -1,7 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import GlareHover from "@/components/ui/glare-hover";
+
 
 const steps = [
   {
@@ -32,29 +33,38 @@ const steps = [
 
 const ProcessSection = () => {
   // Configuration for card positions (zigzag pattern: Low-High-Low-High)
-  // Cards are smaller now, so we might need slightly less amplitude or just keep it. 
+  // Cards are smaller now, so we might need slightly less amplitude or just keep it.
   // Rope needs to hit the center of the cards. Visual center might change with smaller padding.
-  const OFFSETS = [60, -60, 60, -60];
+  const OFFSETS = [100, -100, 100, -100];
 
-  // Helper to map visual offset to SVG coordinate system (Y center = 100)
-  // Adjusted offset multiplier to align with new card centers
-  const getSvgY = (index: number) => 100 + (OFFSETS[index] * 0.6);
+  // Final Layout Configuration
+  const ropeOffset = -7;
+  const horizontalOffset = 58;
+  const lowerCurve = 600;
+  const upperCurve = -100;
 
-  const pathD = `
-    M -1000 ${getSvgY(0)} 
-    L -125 ${getSvgY(0)} 
-    C 0 ${getSvgY(0)}, 0 ${getSvgY(0)}, 125 ${getSvgY(0)} 
-    C 250 ${getSvgY(0)}, 250 ${getSvgY(1)}, 375 ${getSvgY(1)} 
-    C 500 ${getSvgY(1)}, 500 ${getSvgY(2)}, 625 ${getSvgY(2)} 
-    C 750 ${getSvgY(2)}, 750 ${getSvgY(3)}, 875 ${getSvgY(3)} 
-    C 1000 ${getSvgY(3)}, 1000 ${getSvgY(3)}, 1125 ${getSvgY(3)} 
-    L 2000 ${getSvgY(3)}
-  `;
+  // Icon scales for each card
+  // Icon scales for each card
+  const ICON_SCALES = [1.67, 1.75, 3.0, 2.42];
+
+  // Final Nudge Values from user alignment
+  const ICON_NUDGES = [
+    { x: -2, y: -3 }, // Card 1
+    { x: -2, y: -1 }, // Card 2
+    { x: 2, y: 4 },   // Card 3
+    { x: 8, y: -2 },  // Card 4
+  ];
+
+  // Use direct values
+  const lowY = lowerCurve;
+  const highY = upperCurve;
 
   return (
-    <section className="py-20 bg-card overflow-hidden relative">
+    <section className="pt-12 pb-20 bg-secondary md:bg-card overflow-hidden relative">
+
+
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-24">
+        <div className="text-center mb-32 lg:mb-48">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-harriet-700">
             Our 4-Step Process
           </h2>
@@ -64,47 +74,88 @@ const ProcessSection = () => {
         </div>
 
         <div className="relative">
-          {/* Connecting Line (Desktop Only) */}
-          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-full -translate-y-1/2 pointer-events-none z-0 overflow-visible">
-            <svg className="w-full h-full overflow-visible" viewBox="0 0 1000 200" preserveAspectRatio="none">
-              {/* Single Dark Green Rope */}
+          {/* Mobile Connecting Line (Vertical) */}
+          <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-transparent border-l-2 border-dashed border-[#4ADE80]/40 -translate-x-1/2 block lg:hidden h-full z-0" />
+
+          {/* Connecting Line (Desktop) */}
+          <div
+            className="hidden lg:block absolute top-1/2 left-0 w-full h-full -translate-y-1/2 pointer-events-none z-0 transition-transform duration-75"
+            style={{ transform: `translate(${horizontalOffset}px, calc(-50% + ${ropeOffset}px))` }}
+          >
+            <svg
+              className="w-full h-full overflow-visible"
+              viewBox="0 0 1200 400"
+              preserveAspectRatio="none"
+              style={{ filter: "drop-shadow(0 0 10px rgba(74, 222, 128, 0.3))" }}
+            >
               <path
-                d={pathD}
+                d={`M -400 ${lowY} L 200 ${lowY} C 250 ${lowY}, 250 ${highY}, 300 ${highY} L 500 ${highY} C 550 ${highY}, 550 ${lowY}, 600 ${lowY} L 800 ${lowY} C 850 ${lowY}, 850 ${highY}, 900 ${highY} L 1300 ${highY}`}
                 fill="none"
-                stroke="#2C3322" // Dark green from theme foreground/harriet-700 equivalent
-                strokeWidth="4"   // Thinner, single line
-                className="opacity-90"
+                stroke="#4ADE80"
+                strokeWidth="4"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                className="opacity-60"
               />
             </svg>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-[60]">
+
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 gap-y-20 lg:gap-y-32 relative z-[60]">
             {steps.map((step, index) => (
               <div
                 key={index}
-                className={`
-                  bg-secondary backdrop-blur-md p-5 rounded-xl shadow-lg border border-white/20
-                  flex items-center gap-3 transition-all duration-300
-                `}
-                style={{ transform: `translateY(${OFFSETS[index]}px)` }}
+                className="relative group transition-transform duration-300 translate-y-0 lg:translate-y-[var(--offset)]"
+                style={{ '--offset': `${OFFSETS[index]}px` } as React.CSSProperties}
               >
-                <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
-                  <img
-                    src={step.imageSrc}
-                    alt={step.title}
-                    className="w-full h-full object-contain opacity-80 relative z-[60]"
-                  />
+                {/* Number behind the card */}
+                <div
+                  className={`absolute -top-16 ${index % 2 === 0 ? 'left-4' : 'right-4'} text-8xl font-black text-[#4ADE80] opacity-80 z-0 select-none font-sans`}
+                  style={{
+                    textShadow: "0 0 30px rgba(74, 222, 128, 0.4)",
+                  }}
+                >
+                  {step.number}
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-primary leading-tight mb-1">{step.title}</h3>
-                  <p className="text-primary/80 text-xs">{step.description}</p>
+
+                <div className="relative z-10 h-full w-full">
+                  <GlareHover
+                    width="100%"
+                    height="100%"
+                    background="transparent"
+                    borderRadius="0.75rem"
+                    glareColor="#ffffff"
+                    glareOpacity={0.6}
+                    glareSize={400}
+                    transitionDuration={2000}
+                    playOnce={true}
+                    className="bg-[hsl(var(--secondary)/0.3)] border-2 border-white/70 md:border-primary/10 backdrop-blur-[6px] p-5 shadow-lg transition-all duration-300 hover:bg-[hsl(var(--secondary)/0.5)] !flex !place-items-start"
+                  >
+                    <div className="flex items-center gap-3 w-full">
+                      <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
+                        <img
+                          src={step.imageSrc}
+                          alt={step.title}
+                          className="w-full h-full object-contain relative z-[60] origin-center"
+                          style={{
+                            transform: `scale(${ICON_SCALES[index]}) translate(${ICON_NUDGES[index].x}px, ${ICON_NUDGES[index].y}px)`
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-primary leading-tight mb-1">{step.title}</h3>
+                        <p className="text-primary/80 text-sm">{step.description}</p>
+                      </div>
+                    </div>
+                  </GlareHover>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-24 lg:mt-40 text-center">
+        <div className="mt-36 text-center">
           <Button size="lg" variant="outline" asChild>
             <Link to="/process">
               See Our Full Process
@@ -113,7 +164,7 @@ const ProcessSection = () => {
           </Button>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 

@@ -2,7 +2,10 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Eye, HardHat, Shield, Palette, Clock, Users, CheckCircle, ArrowRight, DollarSign, UserX } from "lucide-react";
+import {
+  FileSearch, ScanEye, Medal, DraftingCompass, CalendarClock, Briefcase,
+  Hourglass, Construction, Wallet, UserMinus, ImageOff, CheckCircle, ArrowRight
+} from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import TiltedCard from "@/components/ui/TiltedCard";
@@ -10,43 +13,43 @@ import TiltedCard from "@/components/ui/TiltedCard";
 
 const differentiators = [
   {
-    icon: Eye,
+    icon: FileSearch,
     title: "Transparent Materials & Billing",
-    description: "No hidden charges. No surprises. You know exactly what materials are used, their quality, and where your money goes.",
+    description: "We prioritize uncompromising quality while maintaining complete financial transparency. You’ll know exactly what premium materials are used, their grade, and costs—ensuring you get the best value without hidden charges.",
   },
   {
-    icon: HardHat,
+    icon: ScanEye,
     title: "Daily On-Site Supervision",
     description: "A dedicated engineer or supervisor monitors your site every single day. This ensures quality control, accurate execution, zero shortcuts, and real-time updates.",
   },
   {
-    icon: Shield,
+    icon: Medal,
     title: "High-Quality Workmanship",
     description: "We follow strict engineering standards, reliable materials, and skilled labor to ensure your home is built to last for generations — not just look good in photos.",
   },
   {
-    icon: Palette,
+    icon: DraftingCompass,
     title: "Designs That Are Truly Buildable",
     description: "Our 3D visuals are not just pretty renders — They are realistic, accurate, and achievable on-site. The final result matches the design you approved.",
   },
   {
-    icon: Clock,
+    icon: CalendarClock,
     title: "Clear Timelines & Project Planning",
     description: "Homes get delayed when there's no structure. Our step-by-step process ensures defined schedules, planned stages, and work completed on time.",
   },
   {
-    icon: Users,
+    icon: Briefcase,
     title: "Experienced Team You Can Trust",
     description: "With 7+ years of industry expertise and 100+ completed projects, our team blends engineering, creativity, and practical experience to deliver exceptional homes.",
   },
 ];
 
 const homeProblems = [
-  { icon: Clock, text: "Delays, excuses, and zero accountability" },
-  { icon: AlertTriangle, text: "Poor-quality materials and shortcuts" },
-  { icon: DollarSign, text: "Budget overruns and hidden costs" },
-  { icon: UserX, text: "Contractors who disappear when you need them" },
-  { icon: Palette, text: "Designs that look good on paper but fail in execution" },
+  { icon: Hourglass, text: "Delays, excuses, and zero accountability" },
+  { icon: Construction, text: "Poor-quality materials and shortcuts" },
+  { icon: Wallet, text: "Budget overruns and hidden costs" },
+  { icon: UserMinus, text: "Contractors who disappear when you need them" },
+  { icon: ImageOff, text: "Designs that look good on paper but fail in execution" },
 ];
 
 const solutions = [
@@ -57,82 +60,68 @@ const solutions = [
   "Premium 3D designs before construction",
 ];
 
+import StarBorder from "@/components/ui/StarBorder";
+
 const ProblemSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.15);
 
   return (
     <section ref={ref} className="py-20 bg-white">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className={cn(
-          "grid lg:grid-cols-2 gap-16 transition-all duration-700",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        )}>
-          {/* Problem */}
-          <div className={cn(
-            "bg-red-100 rounded-2xl p-5 md:p-8 lg:p-12 transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          )}>
-            <h2 className="text-2xl md:text-3xl md:text-4xl font-bold mb-6 font-sans text-red-800">
-              The Problem
-            </h2>
-            <p className="text-lg text-red-700 mb-8">
-              Building a home in Kerala shouldn't feel stressful — but most people face the same issues:
-            </p>
-            <ul className="space-y-4">
-              {homeProblems.map((problem, index) => (
-                <li
-                  key={index}
-                  className={cn(
-                    "flex items-start gap-4 transition-all duration-500",
-                    isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-                  )}
-                  style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
-                >
-                  <div className="p-2 rounded-lg bg-red-200">
-                    <problem.icon className="h-5 w-5 text-red-600" />
-                  </div>
-                  <span className="text-red-800 font-medium pt-1">{problem.text}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 text-lg font-semibold text-red-800">
-              You deserve a team that values your home as much as you do.
-            </p>
-          </div>
+      <div className={cn(
+        "max-w-6xl mx-auto px-4 lg:px-8 transition-all duration-700",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      )}>
+        {/* Problem */}
+        <StarBorder
+          as="div"
+          color="#ef4444"
+          speed="5s"
+          className="w-full"
+          innerClassName="rounded-2xl p-6 md:p-8 backdrop-blur-sm border border-red-200/60"
+          innerStyle={{
+            background: 'linear-gradient(135deg, rgba(254, 226, 226, 0.8) 0%, rgba(254, 202, 202, 0.8) 100%)',
+            boxShadow: '0 0 30px -10px rgba(239, 68, 68, 0.3), 0 8px 32px 0 rgba(239, 68, 68, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.4)'
+          }}
+        >
+          <div className="grid lg:grid-cols-[1fr_2fr] gap-8 items-center">
+            {/* Header Side */}
+            <div className="text-left space-y-4">
+              <h2 className="text-2xl md:text-3xl font-bold font-sans text-red-800">
+                The Problem
+              </h2>
+              <p className="text-base md:text-lg text-red-700 leading-relaxed">
+                Building a home in Kerala shouldn't feel stressful — but most people face the same issues:
+              </p>
+              <div className="hidden lg:block h-1 w-20 bg-red-400/50 rounded-full mt-4"></div>
+            </div>
 
-          {/* Solution */}
-          <div className={cn(
-            "bg-green-100 rounded-2xl p-5 md:p-8 lg:p-12 transition-all duration-700 delay-300",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          )}>
-            <h2 className="text-2xl md:text-3xl md:text-4xl font-bold mb-6 font-sans text-green-900">
-              The HarrietBuildesign Promise
-            </h2>
-            <p className="text-lg text-green-700 mb-8">
-              We build and design homes with:
-            </p>
-            <ul className="space-y-4">
-              {solutions.map((solution, index) => (
-                <li
-                  key={index}
-                  className={cn(
-                    "flex items-start gap-4 transition-all duration-500",
-                    isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
-                  )}
-                  style={{ transitionDelay: isVisible ? `${(index * 100) + 400}ms` : '0ms' }}
-                >
-                  <CheckCircle className="h-6 w-6 text-green-800 flex-shrink-0" />
-                  <span className="text-green-800 font-medium">{solution}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 text-lg font-semibold text-green-800">
-              We handle everything — from concept to handover.
-            </p>
+            {/* List Side */}
+            <div className="space-y-6">
+              <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {homeProblems.map((problem, index) => (
+                  <li
+                    key={index}
+                    className={cn(
+                      "flex items-start gap-3 transition-all duration-500 bg-white/40 p-3 rounded-lg hover:bg-white/60",
+                      isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                    )}
+                    style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
+                  >
+                    <div className="p-1.5 rounded-md bg-red-200/80 shrink-0 mt-0.5">
+                      <problem.icon className="h-4 w-4 text-red-700" />
+                    </div>
+                    <span className="text-red-900 font-medium text-sm leading-tight">{problem.text}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-base font-semibold text-red-800 lg:text-right">
+                You deserve a team that values your home as much as you do.
+              </p>
+            </div>
           </div>
-        </div>
+        </StarBorder>
       </div>
-    </section>
+    </section >
   );
 };
 
@@ -148,13 +137,24 @@ const WhyUs = () => {
       </Helmet>
       <Layout>
         {/* Hero */}
-        <section className="py-20 bg-accent">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section
+          className="py-20 bg-cover relative min-h-[300px] flex flex-col justify-center"
+          style={{
+            backgroundImage: 'url("/assets/patterns/why-us-pattern-v4.png")',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '400px', // Adjusted for tileable pattern visibility
+            backgroundPosition: 'center 0%'
+          }}
+        >
+          {/* Black overlay for text readability */}
+          <div className="absolute inset-0 bg-harriet-900/70 pointer-events-none" />
+
+          <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-accent-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-white">
                 Why Choose Us
               </h1>
-              <p className="text-xl text-accent-foreground/80">
+              <p className="text-xl text-white/90">
                 Quality, transparency, and trust — the three pillars behind every home we deliver.
               </p>
             </div>

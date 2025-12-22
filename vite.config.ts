@@ -5,11 +5,12 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    host: "::",
+    host: true,          // bind to all interfaces
     port: 8080,
+    allowedHosts: true,  // ✅ Vite v5: allow ALL external hosts
   },
   plugins: [
-    react()
+    react(),
   ],
   resolve: {
     alias: {

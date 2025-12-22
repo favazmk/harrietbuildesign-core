@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
+import { AnimatedItem } from "@/components/ui/AnimatedList";
 
 const faqs = [
   {
@@ -42,17 +43,17 @@ const FAQSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="py-20 bg-background">
+    <section ref={ref} className="py-20 bg-accent">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <div className={cn(
             "text-center mb-12 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-harriet-700">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-accent-foreground">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-accent-foreground/80">
               Common questions about our construction and design services
             </p>
           </div>
@@ -66,14 +67,16 @@ const FAQSection = () => {
             )}
           >
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="mb-4 rounded-xl shadow-neumorphic-light border-none px-4 bg-secondary">
-                <AccordionTrigger className="text-left text-foreground hover:text-primary">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+              <AnimatedItem key={index} index={index} delay={0.1}>
+                <AccordionItem value={`item-${index}`} className="mb-4 rounded-xl shadow-sm border border-border/50 px-4 bg-card last:mb-0">
+                  <AccordionTrigger className="text-left text-foreground hover:text-primary">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </AnimatedItem>
             ))}
           </Accordion>
         </div>

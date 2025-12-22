@@ -14,6 +14,8 @@ import Process from "./pages/Process";
 import WhyUs from "./pages/WhyUs";
 import Contact from "./pages/Contact";
 
+import Testimonials from "./pages/Testimonials"; // Added import
+
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +36,7 @@ const App = () => (
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/process" element={<Process />} />
               <Route path="/why-us" element={<WhyUs />} />
+              <Route path="/testimonials" element={<Testimonials />} /> {/* Added route */}
 
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />

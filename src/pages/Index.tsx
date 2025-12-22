@@ -24,14 +24,13 @@ const Index = () => {
         <meta name="keywords" content="construction Kerala, interior design, home builders, renovation, landscaping, Perinthalmanna, Malappuram, house construction" />
         <link rel="canonical" href="https://harrietbuildesign.com/" />
       </Helmet>
-      <Layout>
-        <HeroSection />
+      <HeroSection />
+      <Layout showHeader={false}>
         <WhyUsSection />
         <ServicesSection />
         <PortfolioSection />
+        <TestimonialsSection />
         <ProcessSection />
-
-        <TestimonialsSection /> {/* Added TestimonialsSection */}
         <FAQSection />
         <CTASection />
       </Layout>

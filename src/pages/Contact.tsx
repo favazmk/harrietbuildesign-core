@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,12 +12,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-
+import emailjs from '@emailjs/browser';
+import MagneticSocialLinks from "@/components/ui/MagneticSocialLinks";
 
 const Contact = () => {
   const { toast } = useToast();
+  const form = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -29,18 +32,47 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you shortly.",
-    });
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      location: "",
-      projectType: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+
+    // REPLACE THESE WITH YOUR ACTUAL EMAILJS KEYS
+    // Sign up at https://www.emailjs.com/
+    const serviceID = 'service_jbzwebg';
+    const templateID = 'template_316owmq';
+    const publicKey = 'QhmGxKMH7zt0xbOi2';
+
+    if (form.current) {
+      emailjs.sendForm(serviceID, templateID, form.current, publicKey)
+        .then(() => {
+          toast({
+            title: "Inquiry Sent!",
+            description: "We have received your message and will get back to you shortly.",
+            className: "bg-green-50 border-green-200 text-green-900",
+          });
+
+          setFormData({
+            name: "",
+            phone: "",
+            email: "",
+            location: "",
+            projectType: "",
+            message: "",
+          });
+
+          // Optional: Reset the form element itself
+          form.current?.reset();
+        })
+        .catch((error) => {
+          console.error('EmailJS Error:', error);
+          toast({
+            title: "Failed to send",
+            description: "Something went wrong. Please try again or contact us directly on WhatsApp.",
+            variant: "destructive",
+          });
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
+    }
   };
 
   return (
@@ -54,13 +86,22 @@ const Contact = () => {
       </Helmet>
       <Layout>
         {/* Hero */}
-        <section className="py-20 bg-accent">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section
+          className="py-14 bg-cover relative min-h-[300px] flex flex-col justify-center"
+          style={{
+            backgroundImage: 'url("/assets/patterns/contact-pattern-v2.png")',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '400px'
+          }}
+        >
+          {/* Overlay to ensure text readability against pattern */}
+          <div className="absolute inset-0 bg-harriet-900/70 pointer-events-none" />
+          <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-accent-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-white">
                 Contact Us
               </h1>
-              <p className="text-xl text-accent-foreground/80">
+              <p className="text-xl text-white/90">
                 Let's start building your dream home together. Our team is here to answer your questions, guide your planning, and help you take the next step with complete confidence.
               </p>
             </div>
@@ -80,12 +121,13 @@ const Contact = () => {
                 <p className="text-muted-foreground mb-8">
                   Tell us a little about your project and our team will contact you shortly.
                 </p>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name *</Label>
                       <Input
                         id="name"
+                        name="name"
                         placeholder="Your name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -96,6 +138,7 @@ const Contact = () => {
                       <Label htmlFor="phone">Phone Number *</Label>
                       <Input
                         id="phone"
+                        name="phone"
                         type="tel"
                         placeholder="Your phone number"
                         value={formData.phone}
@@ -108,6 +151,7 @@ const Contact = () => {
                     <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="Your email address"
                       value={formData.email}
@@ -119,6 +163,7 @@ const Contact = () => {
                       <Label htmlFor="location">Location / Plot Area</Label>
                       <Input
                         id="location"
+                        name="location"
                         placeholder="e.g., Perinthalmanna"
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
@@ -129,6 +174,7 @@ const Contact = () => {
                       <Select
                         value={formData.projectType}
                         onValueChange={(value) => setFormData({ ...formData, projectType: value })}
+                        name="project_type"
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select project type" />
@@ -142,21 +188,42 @@ const Contact = () => {
                           <SelectItem value="other">Other</SelectItem>
                         </SelectContent>
                       </Select>
+                      {/* Hidden input to ensure Select value is included in emailjs form data */}
+                      <input type="hidden" name="project_type" value={formData.projectType} />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="message">Message</Label>
                     <Textarea
                       id="message"
+                      name="message"
                       placeholder="Tell us about your project..."
                       rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     />
                   </div>
-                  <Button type="submit" size="lg" className="w-full sm:w-auto h-auto whitespace-normal py-4">
-                    Submit Inquiry
+                  <Button
+                    type="submit"
+                    className="w-full group relative flex items-center justify-center gap-3 bg-harriet-900 text-white hover:bg-black h-14 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                    disabled={isSubmitting}
+                  >
+                    <span className="text-lg font-serif tracking-wide transition-transform duration-300 group-hover:-translate-x-2">
+                      {isSubmitting ? "Sending..." : "Send Inquiry"}
+                    </span>
+
+                    {!isSubmitting && (
+                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 group-hover:bg-white group-hover:scale-110 transition-all duration-300">
+                        <Send className="w-4 h-4 text-white group-hover:text-harriet-900 transition-colors duration-300 -ml-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </div>
+                    )}
                   </Button>
+
+                  {/* Social Links with Magnetic Effect */}
+                  <div className="pt-6">
+                    <p className="text-center text-sm text-muted-foreground mb-4">Follow us on</p>
+                    <MagneticSocialLinks />
+                  </div>
                 </form>
               </div>
 
