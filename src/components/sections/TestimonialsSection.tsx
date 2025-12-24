@@ -11,8 +11,8 @@ import { useEffect, useRef } from "react";
 const testimonials = [
     {
         quote: "They delivered exactly what they promised. HarrietBuildesign handled everything from design to execution with total honesty. The daily updates kept us stress-free, and the final house looked even better than the 3D design.",
-        author: "Jafar & Fasna",
-        location: "Cherukara, Perinthalmanna",
+        author: "Jafar",
+        location: "Cherukara",
         type: "Construction",
     },
     {
@@ -89,7 +89,7 @@ const testimonials = [
     },
     {
         quote: "Best construction company in Malappuram. Professional, timely, and budget-friendly. They provided detailed estimates and stuck to them throughout the project.",
-        author: "Muhammed Shein",
+        author: "Shein",
         location: "Malappuram",
         type: "Construction",
     },
@@ -160,6 +160,11 @@ const TestimonialsSection = () => {
             // The 0.05 factor determines the "braking" friction (lower = smoother/slower stop)
             currentSpeed.current += (targetSpeed - currentSpeed.current) * 0.05;
 
+            // Snap to 0 if very close to stop micro-movements
+            if (Math.abs(currentSpeed.current) < 0.01 && targetSpeed === 0) {
+                currentSpeed.current = 0;
+            }
+
             // Stop animation calculation if speed is effectively zero to save resources,
             // but keep loop running to catch when hover ends
             if (Math.abs(currentSpeed.current) > 0.001 || !isHovered.current) {
@@ -176,7 +181,9 @@ const TestimonialsSection = () => {
                     position.current -= contentWidth;
                 }
 
-                scrollerRef.current.style.transform = `translate3d(${position.current}px, 0, 0)`;
+                // Round to 1 decimal place to prevent sub-pixel rendering artifacts (flickering)
+                const roundedPosition = Math.round(position.current * 10) / 10;
+                scrollerRef.current.style.transform = `translate3d(${roundedPosition}px, 0, 0)`;
             }
 
             rafId.current = requestAnimationFrame(animate);
@@ -190,7 +197,7 @@ const TestimonialsSection = () => {
     }, []);
 
     return (
-        <section ref={ref} className="py-20 bg-accent overflow-hidden">
+        <section ref={ref} className="py-8 md:py-20 bg-accent overflow-hidden">
             <div className="container mx-auto px-4 lg:px-8 mb-12">
                 <div className={cn(
                     "text-center transition-all duration-700",
@@ -208,7 +215,7 @@ const TestimonialsSection = () => {
             {/* Marquee Container */}
             <div
                 className={cn(
-                    "relative w-full transition-opacity duration-1000 z-[51]",
+                    "relative w-full transition-opacity duration-1000 z-10",
                     isVisible ? "opacity-100" : "opacity-0"
                 )}
                 onMouseEnter={() => (isHovered.current = true)}
@@ -217,18 +224,27 @@ const TestimonialsSection = () => {
                 <div
                     ref={scrollerRef}
                     className="flex gap-6 w-max cursor-grab active:cursor-grabbing will-change-transform"
+                    style={{
+                        perspective: '1000px',
+                        WebkitBackfaceVisibility: 'hidden',
+                        backfaceVisibility: 'hidden',
+                    }}
                 >
                     <div ref={contentRef} className="flex gap-6">
                         {marqueeList.map((testimonial, index) => (
                             <div
                                 key={index}
-                                className="w-[300px] md:w-[350px] flex-shrink-0 bg-card rounded-xl border-2 border-border shadow-sm hover:border-primary/50 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col"
+                                className="w-[240px] md:w-[350px] flex-shrink-0 bg-card rounded-xl border-2 border-border shadow-sm hover:border-primary/50 hover:shadow-lg transition-shadow duration-300 relative overflow-hidden flex flex-col transform-gpu backface-hidden perspective-1000"
+                                style={{
+                                    WebkitBackfaceVisibility: 'hidden',
+                                    MozBackfaceVisibility: 'hidden',
+                                }}
                             >
                                 {/* Review Section (Top) */}
-                                <div className="relative p-8 flex-grow">
+                                <div className="relative p-4 md:p-8 flex-grow">
                                     {/* Pattern Background */}
                                     <div
-                                        className="absolute inset-0 opacity-[0.15] pointer-events-none"
+                                        className="absolute inset-0 opacity-[0.25] pointer-events-none"
                                         style={{
                                             backgroundImage: "url('/assets/testimonial-bg.png')",
                                             backgroundSize: "300px",
@@ -236,17 +252,17 @@ const TestimonialsSection = () => {
                                         }}
                                     />
                                     <div className="relative z-10">
-                                        <Quote className="h-10 w-10 text-primary/40 mb-4" />
-                                        <p className="text-foreground text-lg italic whitespace-normal leading-relaxed">"{testimonial.quote}"</p>
+                                        <Quote className="h-6 w-6 md:h-10 md:w-10 text-primary/40 mb-3 md:mb-4" />
+                                        <p className="text-foreground text-sm md:text-lg italic whitespace-normal leading-relaxed">"{testimonial.quote}"</p>
                                     </div>
                                 </div>
 
                                 {/* Author Section (Bottom) */}
-                                <div className="p-6 bg-secondary/30 border-t-2 border-border/50">
+                                <div className="p-4 md:p-6 bg-secondary/30 border-t-2 border-border/50">
                                     <div className="flex flex-col gap-2">
                                         <div className="flex justify-between items-start">
                                             <div>
-                                                <p className="font-bold text-foreground text-lg">{testimonial.author}</p>
+                                                <p className="font-bold text-foreground text-sm md:text-lg">{testimonial.author}</p>
                                                 <p className="text-muted-foreground text-sm flex items-center gap-1 mt-1">
                                                     <MapPin className="h-3 w-3" />
                                                     {testimonial.location}
@@ -265,21 +281,23 @@ const TestimonialsSection = () => {
                     </div>
                 </div>
 
-                {/* Gradient Fade Edges */}
-                <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-accent to-transparent z-10 pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-accent to-transparent z-10 pointer-events-none" />
+                {/* Gradient Fade Edges Removed */}
+                {/* <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-accent to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-accent to-transparent z-10 pointer-events-none" /> */}
             </div>
 
-            <div className={cn(
-                "text-center mt-12 transition-all duration-700 delay-500",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            )}>
-                <Button size="lg" variant="outline" asChild className="whitespace-normal h-auto py-2 text-center w-full sm:w-auto">
-                    <Link to="/testimonials">
-                        View All Testimonials
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                </Button>
+            <div className="container mx-auto px-4 lg:px-8">
+                <div className={cn(
+                    "text-center mt-16 transition-all duration-700 delay-500",
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                )}>
+                    <Button size="lg" variant="outline" asChild className="whitespace-normal h-auto py-2 text-center w-full sm:w-auto">
+                        <Link to="/testimonials">
+                            View All Testimonials
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                        </Link>
+                    </Button>
+                </div>
             </div>
         </section>
     );

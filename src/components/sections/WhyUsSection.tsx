@@ -17,7 +17,7 @@ const WhyUsSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="bg-accent py-20">
+    <section ref={ref} className="bg-accent py-12 md:py-20">
       <div className="container mx-auto px-4 lg:px-8">
         <div className={cn(
           "text-center mb-12 transition-all duration-700",
@@ -31,7 +31,7 @@ const WhyUsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 dsk:grid-cols-4 gap-4 dsk:gap-8">
           {stats.map((stat, index) => (
             <TiltedCard key={index} showMobileWarning={false} showTooltip={false} scaleOnHover={1.05} rotateAmplitude={14}>
               <div
@@ -44,7 +44,7 @@ const WhyUsSection = () => {
                 <div className="flex justify-center items-center mb-2 h-14 overflow-hidden">
                   <Counter
                     value={isVisible ? stat.value : 0}
-                    fontSize={40} // Scaled for design
+                    fontSize={28} // Compact for mobile 2-col
                     places={stat.places}
                     gap={0}
                     textColor="hsl(var(--primary))"
@@ -57,7 +57,7 @@ const WhyUsSection = () => {
                       damping: 15,    // Lower damping to avoid "dragging" or "hanging" at the end
                     }}
                   />
-                  <span className="text-4xl md:text-5xl font-bold text-primary font-serif leading-none ml-1 relative -top-1">
+                  <span className="text-3xl md:text-5xl font-bold text-primary font-serif leading-none ml-1 relative -top-1">
                     {stat.suffix}
                   </span>
                 </div>
@@ -67,7 +67,7 @@ const WhyUsSection = () => {
           ))}
         </div>
 
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-16">
           <Button size="lg" className="bg-background text-foreground hover:bg-background/90 shadow-md whitespace-normal h-auto py-2 text-center w-full sm:w-auto" asChild>
             <Link to="/why-us">
               Read More About Why Us

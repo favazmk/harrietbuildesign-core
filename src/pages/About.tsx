@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Users, Target, Heart, Shield, Lightbulb, ArrowRight, Home } from "lucide-react";
 import ReflectiveCard from "@/components/ui/ReflectiveCard";
 import GlassIcons from "@/components/ui/GlassIcons";
+import { cn } from "@/lib/utils";
+import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
 
 const values = [
   { icon: <Shield size={20} />, title: "Quality First", description: "No shortcuts, no compromises.", color: "indigo" },
@@ -23,6 +25,8 @@ const team = [
 ];
 
 const About = () => {
+  const { setRef, centeredIndex } = useScrollCenterGroup(values.length);
+
   return (
     <>
       <Helmet>
@@ -59,7 +63,7 @@ const About = () => {
         {/* Story & Mission Section */}
         <section className="py-24 bg-secondary overflow-hidden">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div className="grid dsk:grid-cols-2 gap-16 lg:gap-24 items-center">
               {/* Our Story - Layered Handwritten Paper */}
               <div className="relative transform lg:-rotate-1 scale-95 md:scale-[0.98] origin-center transition-all duration-500 shadow-2xl rounded-sm">
                 {/* Layer 1: The Distorted Background Paper */}
@@ -144,23 +148,35 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-16 font-serif text-harriet-700 text-center">
               Our Values
             </h2>
-            <div className="flex flex-wrap justify-center gap-6">
-              {values.map((value, index) => (
-                <div key={index} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(20%-19.2px)] group">
-                  <div className="h-full p-8 bg-primary/5 rounded-[32px] border border-primary/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-center text-center overflow-hidden">
-                    <div className="mb-6 transform group-hover:scale-110 transition-transform duration-500">
-                      <GlassIcons
-                        items={[{ icon: value.icon, color: value.color, label: value.title }]}
-                        className="!py-0"
-                      />
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+              {values.map((value, index) => {
+                const isActive = centeredIndex === index;
+                return (
+                  <div key={index} ref={setRef(index)} className="w-full sm:w-[calc(50%-12px)] dsk:w-[calc(20%-20px)] group">
+                    <div className={cn(
+                      "h-full p-8 bg-primary/5 rounded-[32px] border border-primary/10 shadow-sm transition-all duration-300 flex flex-col items-center text-center overflow-hidden",
+                      "hover:shadow-md",
+                      isActive && "shadow-md bg-primary/10"
+                    )}>
+                      <div className={cn(
+                        "mb-6 transform transition-transform duration-500",
+                        "group-hover:scale-110",
+                        isActive && "scale-110"
+                      )}>
+                        <GlassIcons
+                          items={[{ icon: value.icon, color: value.color, label: value.title }]}
+                          className="!py-0"
+                          forceActive={isActive}
+                        />
+                      </div>
+                      <h3 className="text-lg font-bold mb-3 text-harriet-700">{value.title}</h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {value.description}
+                      </p>
                     </div>
-                    <h3 className="text-lg font-bold mb-3 text-harriet-700">{value.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {value.description}
-                    </p>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -176,9 +192,9 @@ const About = () => {
                 A dedicated team of experts blending creativity, engineering precision, and flawless execution.
               </p>
             </div>
-            <div className="flex flex-wrap justify-center gap-8">
+            <div className="flex flex-wrap justify-center gap-4 md:gap-8">
               {team.map((member, index) => (
-                <div key={index} className="bg-card shadow-lg p-8 rounded-2xl border border-border/50 w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.33%-21.33px)] hover:shadow-xl transition-shadow duration-300">
+                <div key={index} className="w-full sm:w-[calc(50%-16px)] dsk:w-[calc(33.33%-22px)] bg-card shadow-lg p-6 md:p-8 rounded-2xl border border-border/50 hover:shadow-xl transition-shadow duration-300">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
                     <Users className="h-8 w-8 text-primary" />
                   </div>

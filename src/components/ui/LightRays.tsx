@@ -106,6 +106,19 @@ const LightRays: React.FC<LightRaysProps> = ({
     const cleanupFunctionRef = useRef<(() => void) | null>(null);
     const [isVisible, setIsVisible] = useState(false);
     const observerRef = useRef<IntersectionObserver | null>(null);
+    const isVisibleRef = useRef(false);
+    const loopRef = useRef<((t: number) => void) | null>(null);
+
+    // Update isVisibleRef and manage loop based on visibility
+    useEffect(() => {
+        isVisibleRef.current = isVisible;
+        if (isVisible && !animationIdRef.current && loopRef.current) {
+            loopRef.current(0);
+        } else if (!isVisible && animationIdRef.current) {
+            cancelAnimationFrame(animationIdRef.current);
+            animationIdRef.current = null;
+        }
+    }, [isVisible]);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -115,7 +128,7 @@ const LightRays: React.FC<LightRaysProps> = ({
                 const entry = entries[0];
                 setIsVisible(entry.isIntersecting);
             },
-            { threshold: 0.1 }
+            { threshold: 0.01 }
         );
 
         observerRef.current.observe(containerRef.current);
@@ -128,8 +141,9 @@ const LightRays: React.FC<LightRaysProps> = ({
         };
     }, []);
 
+    // ONE-TIME INITIALIZATION (On Mount)
     useEffect(() => {
-        if (!isVisible || !containerRef.current) return;
+        if (!containerRef.current) return;
 
         if (cleanupFunctionRef.current) {
             cleanupFunctionRef.current();
@@ -139,9 +153,13 @@ const LightRays: React.FC<LightRaysProps> = ({
         const initializeWebGL = async () => {
             if (!containerRef.current) return;
 
+            // Small delay to ensure container is ready/sized
             await new Promise(resolve => setTimeout(resolve, 10));
 
             if (!containerRef.current) return;
+
+            // Prevent double init
+            if (rendererRef.current) return;
 
             const renderer = new Renderer({
                 dpr: Math.min(window.devicePixelRatio, 2),
@@ -314,6 +332,12 @@ void main() {
                     return;
                 }
 
+                // If not visible, stop the loop and clear ID
+                if (!isVisibleRef.current) {
+                    animationIdRef.current = null;
+                    return;
+                }
+
                 uniforms.iTime.value = t * 0.001;
 
                 if (followMouse && mouseInfluence > 0.0) {
@@ -334,9 +358,16 @@ void main() {
                 }
             };
 
+            // Store loop reference for visibility effect to use
+            loopRef.current = loop;
+
             window.addEventListener('resize', updatePlacement);
             updatePlacement();
-            animationIdRef.current = requestAnimationFrame(loop);
+
+            // Start loop if visible initially (will be checked in other effect usually, but good to init)
+            if (isVisibleRef.current) {
+                animationIdRef.current = requestAnimationFrame(loop);
+            }
 
             cleanupFunctionRef.current = () => {
                 if (animationIdRef.current) {
@@ -365,6 +396,7 @@ void main() {
                 rendererRef.current = null;
                 uniformsRef.current = null;
                 meshRef.current = null;
+                loopRef.current = null;
             };
         };
 
@@ -376,21 +408,7 @@ void main() {
                 cleanupFunctionRef.current = null;
             }
         };
-    }, [
-        isVisible,
-        raysOrigin,
-        raysColor,
-        raysSpeed,
-        lightSpread,
-        rayLength,
-        pulsating,
-        fadeDistance,
-        saturation,
-        followMouse,
-        mouseInfluence,
-        noiseAmount,
-        distortion
-    ]);
+    }, []);
 
     useEffect(() => {
         if (!uniformsRef.current || !containerRef.current || !rendererRef.current) return;

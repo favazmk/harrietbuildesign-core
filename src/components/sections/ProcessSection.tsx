@@ -60,11 +60,11 @@ const ProcessSection = () => {
   const highY = upperCurve;
 
   return (
-    <section className="pt-12 pb-20 bg-secondary md:bg-card overflow-hidden relative">
+    <section className="pt-12 pb-12 md:pb-20 bg-secondary md:bg-card overflow-hidden relative">
 
 
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-32 lg:mb-48">
+        <div className="text-center mb-20 md:mb-32 lg:mb-48">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-harriet-700">
             Our 4-Step Process
           </h2>
@@ -75,11 +75,11 @@ const ProcessSection = () => {
 
         <div className="relative">
           {/* Mobile Connecting Line (Vertical) */}
-          <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-transparent border-l-2 border-dashed border-[#4ADE80]/40 -translate-x-1/2 block lg:hidden h-full z-0" />
+          <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-transparent border-l-2 border-dashed border-[#4ADE80]/40 -translate-x-1/2 block dsk:hidden h-full z-0" />
 
-          {/* Connecting Line (Desktop) */}
+          {/* Connecting Line (Desktop - Only visible on 4-col layout) */}
           <div
-            className="hidden lg:block absolute top-1/2 left-0 w-full h-full -translate-y-1/2 pointer-events-none z-0 transition-transform duration-75"
+            className="hidden dsk:block absolute top-1/2 left-0 w-full h-full -translate-y-1/2 pointer-events-none z-0 transition-transform duration-75"
             style={{ transform: `translate(${horizontalOffset}px, calc(-50% + ${ropeOffset}px))` }}
           >
             <svg
@@ -102,16 +102,16 @@ const ProcessSection = () => {
 
 
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 gap-y-20 lg:gap-y-32 relative z-[60]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 dsk:grid-cols-4 gap-6 gap-y-12 md:gap-y-16 lg:gap-y-24 relative z-[60]">
             {steps.map((step, index) => (
               <div
                 key={index}
-                className="relative group transition-transform duration-300 translate-y-0 lg:translate-y-[var(--offset)]"
+                className="relative group transition-transform duration-300 translate-y-0 dsk:translate-y-[var(--offset)]"
                 style={{ '--offset': `${OFFSETS[index]}px` } as React.CSSProperties}
               >
                 {/* Number behind the card */}
                 <div
-                  className={`absolute -top-16 ${index % 2 === 0 ? 'left-4' : 'right-4'} text-8xl font-black text-[#4ADE80] opacity-80 z-0 select-none font-sans`}
+                  className={`absolute -top-10 dsk:-top-16 ${index % 2 === 0 ? 'left-4' : 'right-4'} text-6xl dsk:text-8xl font-black text-[#4ADE80] opacity-80 z-0 select-none font-sans transition-all duration-300`}
                   style={{
                     textShadow: "0 0 30px rgba(74, 222, 128, 0.4)",
                   }}
@@ -155,8 +155,8 @@ const ProcessSection = () => {
           </div>
         </div>
 
-        <div className="mt-36 text-center">
-          <Button size="lg" variant="outline" asChild>
+        <div className="mt-16 md:mt-36 text-center">
+          <Button size="lg" variant="outline" asChild className="whitespace-normal h-auto py-2 text-center w-full sm:w-auto">
             <Link to="/process">
               See Our Full Process
               <ArrowRight className="ml-2 h-5 w-5" />

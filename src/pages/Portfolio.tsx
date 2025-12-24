@@ -130,7 +130,7 @@ const Portfolio = () => {
         {/* Projects Grid */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 dsk:grid-cols-3 gap-8">
               {filteredProjects.map((project, index) => (
                 <div
                   key={index}

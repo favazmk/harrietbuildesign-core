@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -25,6 +25,21 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const [isCompact, setIsCompact] = useState(false);
+
+  useEffect(() => {
+    const checkDimensions = () => {
+      // Compact mode if screen is vertically short
+      setIsCompact(window.innerHeight < 800);
+    };
+
+    // Initial check
+    checkDimensions();
+
+    // Listen for resize
+    window.addEventListener('resize', checkDimensions);
+    return () => window.removeEventListener('resize', checkDimensions);
+  }, []);
 
   const dockItems: DockItemData[] = useMemo(() =>
     navigation.map((item) => ({
@@ -41,7 +56,10 @@ const Header = () => {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className={cn(
+        "fixed top-0 left-0 right-0 z-[999] transition-all duration-300",
+        isCompact ? "h-16" : "h-20"
+      )}
       style={{
         backdropFilter: "blur(8px) saturate(180%)",
         WebkitBackdropFilter: "blur(8px) saturate(180%)",
@@ -51,48 +69,61 @@ const Header = () => {
         boxShadow: "0 4px 24px rgba(0, 0, 0, 0.06)",
       }}
     >
-      <nav className="w-full px-6 lg:px-12 mx-auto max-w-[1800px]">
-        <div className="flex h-20 items-center justify-between relative">
+      <nav className={cn("w-full mx-auto max-w-[1800px] h-full transition-all duration-300", isCompact ? "px-4 min-[1270px]:px-6" : "px-6 min-[1270px]:px-12")}>
+        <div className="flex items-center justify-between relative h-full">
           {/* Logo & Company Name (Always Left) */}
-          <Link to="/" className="flex items-center gap-3 shrink-0 z-10 group">
+          <Link to="/" className="flex items-center gap-2 md:gap-3 shrink-0 z-10 group">
             <div className="relative">
-              <img src={logo} alt="Harriet Buildesign" className="h-8 md:h-9 w-auto transition-transform group-hover:scale-105" />
+              <img
+                src={logo}
+                alt="Harriet Buildesign"
+                className={cn(
+                  "w-auto transition-all duration-300 group-hover:scale-105",
+                  isCompact ? "h-7 md:h-8" : "h-8 md:h-9"
+                )}
+              />
               <div className="absolute -inset-1 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <div className="flex items-center gap-1.5 leading-none">
-              <span className="text-lg md:text-xl font-bold text-primary font-serif tracking-tight">Harriet</span>
-              <span className="text-lg md:text-xl font-bold text-foreground font-serif tracking-tight">Buildesign</span>
+              <span className={cn("font-bold text-primary font-serif tracking-tight transition-all duration-300", isCompact ? "text-base md:text-lg" : "text-lg md:text-xl")}>Harriet</span>
+              <span className={cn("font-bold text-foreground font-serif tracking-tight transition-all duration-300", isCompact ? "text-base md:text-lg" : "text-lg md:text-xl")}>Buildesign</span>
             </div>
           </Link>
 
           {/* Centered Dock Navigation (Desktop) */}
-          <div className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="hidden min-[1270px]:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <Dock
               items={dockItems}
-              baseItemSize={42}
-              magnification={58}
-              distance={140}
+              baseItemSize={isCompact ? 36 : 42}
+              magnification={isCompact ? 50 : 58}
+              distance={isCompact ? 100 : 140}
             />
           </div>
 
           {/* Right side info (Desktop) */}
-          <div className="hidden lg:flex items-center gap-5 z-10">
-            <a href="tel:+919744707505" className="flex items-center gap-1.5 text-xs font-semibold text-harriet-800 hover:text-primary transition-colors">
-              <Phone className="h-3.5 w-3.5" />
-              <span>97447 07505</span>
+          <div className="hidden min-[1270px]:flex items-center gap-3 xl:gap-5 z-10 transition-all duration-300">
+            <a href="tel:+919744707505" className={cn("flex items-center gap-1.5 font-semibold text-harriet-800 hover:text-primary transition-colors", isCompact ? "text-[10px]" : "text-xs")}>
+              <Phone className={cn(isCompact ? "h-3 w-3" : "h-3.5 w-3.5")} />
+              <span className={cn("hidden xl:inline", isCompact ? "hidden" : "")}>97447 07505</span>
             </a>
-            <Button asChild size="sm" className="h-9 rounded-full px-5 font-semibold shadow-sm">
-              <Link to="/contact">Book Consultation</Link>
+            <Button asChild size={isCompact ? "sm" : "sm"} className={cn("rounded-full font-semibold shadow-sm transition-all duration-300", isCompact ? "h-8 px-4 text-xs" : "h-9 px-5 text-sm")}>
+              <Link to="/contact">
+                <span className="hidden xl:inline">Book Consultation</span>
+                <span className="xl:hidden">Book</span>
+              </Link>
             </Button>
           </div>
 
           {/* Mobile menu button */}
           <button
             type="button"
-            className="lg:hidden inline-flex items-center justify-center p-2.5 rounded-xl bg-white/30 backdrop-blur-sm text-foreground border border-white/40 active:scale-95 transition-all"
+            className={cn(
+              "min-[1270px]:hidden inline-flex items-center justify-center rounded-xl bg-white/30 backdrop-blur-sm text-foreground border border-white/40 active:scale-95 transition-all",
+              isCompact ? "p-2" : "p-2.5"
+            )}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {mobileMenuOpen ? <X className={cn(isCompact ? "h-5 w-5" : "h-6 w-6")} /> : <Menu className={cn(isCompact ? "h-5 w-5" : "h-6 w-6")} />}
           </button>
         </div>
 
@@ -103,7 +134,7 @@ const Header = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden overflow-hidden bg-white/95 backdrop-blur-xl rounded-2xl mb-4 border border-white/20 shadow-xl"
+              className="min-[1270px]:hidden overflow-hidden bg-white/95 backdrop-blur-xl rounded-2xl mb-4 border border-white/20 shadow-xl"
             >
               <div className="flex flex-col p-4 gap-2">
                 {navigation.map((item) => (

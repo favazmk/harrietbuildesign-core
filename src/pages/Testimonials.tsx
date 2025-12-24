@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 const testimonials = [
     {
         quote: "They delivered exactly what they promised. HarrietBuildesign handled everything from design to execution with total honesty. The daily updates kept us stress-free, and the final house looked even better than the 3D design.",
-        author: "Jafar & Fasna",
-        location: "Cherukara, Perinthalmanna",
+        author: "Jafar",
+        location: "Cherukara",
         type: "Construction",
     },
     {
@@ -86,7 +86,7 @@ const testimonials = [
     },
     {
         quote: "Best construction company in Malappuram. Professional, timely, and budget-friendly. They provided detailed estimates and stuck to them throughout the project.",
-        author: "Muhammed Shein",
+        author: "Shein",
         location: "Malappuram",
         type: "Construction",
     },
@@ -205,11 +205,11 @@ const MarqueeRow = ({ items, direction, speed = 0.5 }: MarqueeRowProps) => {
             >
                 <div ref={contentRef} className="flex gap-6">
                     {marqueeList.map((testimonial, index) => (
-                        <div key={index} className="w-[280px] md:w-[320px] shrink-0">
-                            <div className="bg-gradient-to-tr from-emerald-50/80 to-white rounded-2xl shadow-neu-flat p-5 flex flex-col items-center text-center border border-white/60 backdrop-blur-sm h-full min-h-[300px] relative overflow-hidden">
+                        <div key={index} className="w-[240px] md:w-[320px] shrink-0">
+                            <div className="bg-gradient-to-tr from-emerald-50/80 to-white rounded-2xl shadow-neu-flat p-4 md:p-5 flex flex-col items-center text-center border border-white/60 backdrop-blur-sm h-full min-h-[260px] md:min-h-[300px] relative overflow-hidden">
                                 {/* Pattern Background */}
                                 <div
-                                    className="absolute inset-0 opacity-[0.15] pointer-events-none"
+                                    className="absolute inset-0 opacity-[0.25] pointer-events-none"
                                     style={{
                                         backgroundImage: "url('/assets/testimonial-bg.png')",
                                         backgroundSize: "300px",
@@ -234,7 +234,7 @@ const MarqueeRow = ({ items, direction, speed = 0.5 }: MarqueeRowProps) => {
                                         <div className="h-full w-1/2 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full mx-auto shadow-sm"></div>
                                     </div>
                                     <div className="flex flex-col items-center shrink-0">
-                                        <h3 className="text-emerald-700 font-bold text-base tracking-wide uppercase drop-shadow-sm font-display">{testimonial.author}</h3>
+                                        <h3 className="text-emerald-700 font-bold text-sm md:text-base tracking-wide uppercase drop-shadow-sm font-display">{testimonial.author}</h3>
                                         <span className="text-emerald-500 text-[10px] font-semibold tracking-wider mt-1 uppercase bg-white/50 px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1">
                                             <MapPin className="h-2.5 w-2.5" />
                                             {testimonial.type} • {testimonial.location}
@@ -289,8 +289,9 @@ const Testimonials = () => {
             {/* Testimonials Marquee rows */}
             <section className="py-16 md:py-24 bg-background overflow-hidden relative">
                 {/* Gradient Fades for the edges */}
-                <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background via-background/80 to-transparent z-20 pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background via-background/80 to-transparent z-20 pointer-events-none" />
+                {/* Gradient Fades Removed */}
+                {/* <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background via-background/80 to-transparent z-20 pointer-events-none" />
+                <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background via-background/80 to-transparent z-20 pointer-events-none" /> */}
 
                 <div className="space-y-6">
                     <MarqueeRow items={row1} direction="right" speed={0.6} />

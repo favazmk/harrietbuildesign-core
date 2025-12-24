@@ -55,7 +55,7 @@ const PortfolioSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="py-20 bg-harriet-900">
+    <section ref={ref} className="py-12 md:py-20 bg-harriet-900">
       <div className="container mx-auto px-4 lg:px-8">
         <div className={cn(
           "text-center mb-12 transition-all duration-700",
@@ -69,7 +69,7 @@ const PortfolioSection = () => {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 dsk:grid-cols-3 gap-4 md:gap-6">
           {projects.map((project, index) => {
             const isActive = centeredIndex === index;
             return (
@@ -118,7 +118,7 @@ const PortfolioSection = () => {
         </div>
 
         <div className={cn(
-          "text-center mt-12 transition-all duration-700 delay-500",
+          "text-center mt-16 transition-all duration-700 delay-500",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
           <Button size="lg" asChild className="whitespace-normal h-auto py-2 text-center w-full sm:w-auto">

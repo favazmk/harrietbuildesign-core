@@ -43,7 +43,7 @@ const FAQSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="py-20 bg-accent">
+    <section ref={ref} className="py-10 bg-accent">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <div className={cn(

@@ -7,8 +7,8 @@ import { Facebook, Instagram } from 'lucide-react';
 export default function MagneticSocialLinks() {
     return (
         <div className="flex items-center justify-center gap-8 mt-12 mb-4">
-            <MagneticLink href="https://facebook.com/harrietbuildesign" icon={<Facebook size={28} />} color="#1877F2" />
-            <MagneticLink href="https://instagram.com/harrietbuildesign" icon={<Instagram size={28} />} color="#E4405F" />
+            <MagneticLink href="https://facebook.com/HarrietBuildesign" icon={<Facebook size={28} />} color="#1877F2" />
+            <MagneticLink href="https://instagram.com/harriet_builders" icon={<Instagram size={28} />} color="#E4405F" />
         </div>
     );
 }

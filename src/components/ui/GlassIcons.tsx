@@ -10,6 +10,7 @@ export interface GlassIconsItem {
 export interface GlassIconsProps {
     items: GlassIconsItem[];
     className?: string;
+    forceActive?: boolean;
 }
 
 const gradientMapping: Record<string, string> = {
@@ -22,7 +23,7 @@ const gradientMapping: Record<string, string> = {
     harriet: 'linear-gradient(hsl(158, 64%, 52%), hsl(158, 64%, 42%))'
 };
 
-const GlassIcons: React.FC<GlassIconsProps> = ({ items, className }) => {
+const GlassIcons: React.FC<GlassIconsProps> = ({ items, className, forceActive }) => {
     const getBackgroundStyle = (color: string): React.CSSProperties => {
         if (gradientMapping[color]) {
             return { background: gradientMapping[color] };
@@ -35,11 +36,10 @@ const GlassIcons: React.FC<GlassIconsProps> = ({ items, className }) => {
             {items.map((item, index) => (
                 <div
                     key={index}
-                    className={`relative bg-transparent outline-none border-none cursor-default w-[4em] h-[4em] [perspective:24em] [transform-style:preserve-3d] [-webkit-tap-highlight-color:transparent] group ${item.customClass || ''
-                        }`}
+                    className={`relative bg-transparent outline-none border-none cursor-default w-[4em] h-[4em] [perspective:24em] [transform-style:preserve-3d] [-webkit-tap-highlight-color:transparent] group ${item.customClass || ''} ${forceActive ? "is-active" : ""}`}
                 >
                     <span
-                        className="absolute top-0 left-0 w-full h-full rounded-[1.25em] block transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.83,0,0.17,1)] origin-[100%_100%] rotate-[15deg] [will-change:transform] group-hover:[transform:rotate(25deg)_translate3d(-0.5em,-0.5em,0.5em)]"
+                        className="absolute top-0 left-0 w-full h-full rounded-[1.25em] block transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.83,0,0.17,1)] origin-[100%_100%] rotate-[15deg] [will-change:transform] group-hover:[transform:rotate(25deg)_translate3d(-0.5em,-0.5em,0.5em)] group-[.is-active]:[transform:rotate(25deg)_translate3d(-0.5em,-0.5em,0.5em)]"
                         style={{
                             ...getBackgroundStyle(item.color),
                             boxShadow: '0.5em -0.5em 0.75em hsla(223, 10%, 10%, 0.15)'
@@ -47,7 +47,7 @@ const GlassIcons: React.FC<GlassIconsProps> = ({ items, className }) => {
                     ></span>
 
                     <span
-                        className="absolute top-0 left-0 w-full h-full rounded-[1.25em] bg-[hsla(0,0%,100%,0.15)] transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.83,0,0.17,1)] origin-[80%_50%] flex backdrop-blur-[0.75em] [-webkit-backdrop-filter:blur(0.75em)] [-moz-backdrop-filter:blur(0.75em)] [will-change:transform] transform group-hover:[transform:translate3d(0,0,2em)]"
+                        className="absolute top-0 left-0 w-full h-full rounded-[1.25em] bg-[hsla(0,0%,100%,0.15)] transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.83,0,0.17,1)] origin-[80%_50%] flex backdrop-blur-[0.75em] [-webkit-backdrop-filter:blur(0.75em)] [-moz-backdrop-filter:blur(0.75em)] [will-change:transform] transform group-hover:[transform:translate3d(0,0,2em)] group-[.is-active]:[transform:translate3d(0,0,2em)]"
                         style={{
                             boxShadow: '0 0 0 0.1em hsla(0, 0%, 100%, 0.3) inset'
                         }}
@@ -57,7 +57,7 @@ const GlassIcons: React.FC<GlassIconsProps> = ({ items, className }) => {
                         </span>
                     </span>
 
-                    <span className="absolute top-full left-0 right-0 text-center whitespace-nowrap leading-[2] text-[10px] font-bold tracking-wider text-harriet-600 opacity-0 transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.83,0,0.17,1)] translate-y-0 group-hover:opacity-100 group-hover:[transform:translateY(20%)]">
+                    <span className="absolute top-full left-0 right-0 text-center whitespace-nowrap leading-[2] text-[10px] font-bold tracking-wider text-harriet-600 opacity-0 transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.83,0,0.17,1)] translate-y-0 group-hover:opacity-100 group-hover:[transform:translateY(20%)] group-[.is-active]:opacity-100 group-[.is-active]:[transform:translateY(20%)]">
                         {item.label}
                     </span>
                 </div>

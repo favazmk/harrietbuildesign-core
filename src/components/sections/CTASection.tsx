@@ -8,7 +8,7 @@ const CTASection = () => {
   const { ref, isVisible } = useScrollAnimation(0.2);
 
   return (
-    <section ref={ref} className="py-20 bg-secondary">
+    <section ref={ref} className="py-12 bg-secondary">
       <div className="container mx-auto px-4 lg:px-8">
         <div className={cn(
           "text-center max-w-3xl mx-auto transition-all duration-700",

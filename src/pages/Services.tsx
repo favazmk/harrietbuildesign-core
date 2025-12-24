@@ -114,12 +114,12 @@ const Services = () => {
         {/* Services */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="space-y-16">
+            <div className="space-y-10 md:space-y-16">
               {services.map((service, index) => (
                 <div
                   key={index}
                   id={service.id}
-                  className="grid lg:grid-cols-2 gap-12 items-start scroll-mt-24"
+                  className="grid grid-cols-1 dsk:grid-cols-2 gap-12 items-start scroll-mt-24"
                 >
                   <div className="flex flex-col justify-center h-full">
                     <div className="flex items-center gap-4 mb-4">

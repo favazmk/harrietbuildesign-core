@@ -14,7 +14,7 @@ import { ArrowRight } from "lucide-react";
 
 const Index = () => {
   return (
-    <>
+    <div className="flex flex-col w-full min-h-screen overflow-x-hidden">
       <Helmet>
         <title>HarrietBuildesign | Premium Construction & Interior Design in Kerala</title>
         <meta
@@ -34,7 +34,7 @@ const Index = () => {
         <FAQSection />
         <CTASection />
       </Layout>
-    </>
+    </div>
   );
 };
 

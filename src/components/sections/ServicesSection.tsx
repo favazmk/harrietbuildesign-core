@@ -56,7 +56,7 @@ const ServicesSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="py-20 bg-background">
+    <section ref={ref} className="py-12 md:py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className={cn(
           "text-center mb-12 transition-all duration-700",
@@ -71,7 +71,7 @@ const ServicesSection = () => {
         </div>
 
         {/* Changed from grid to flex to allow centering of the last row */}
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
           {services.map((service, index) => {
             const isActive = centeredIndex === index;
             return (
@@ -80,14 +80,16 @@ const ServicesSection = () => {
                 key={index}
                 ref={setRef(index)}
                 className={cn(
-                  "group p-6 bg-secondary rounded-xl transition-all duration-300 block relative z-[51] active:scale-[0.98]",
+                  "group p-6 bg-secondary rounded-xl transition-all duration-300 block relative z-10 active:scale-[0.98] transform-gpu backface-hidden perspective-1000",
                   // Calculated widths to mimic grid columns with gap-6 (24px)
-                  "w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] xl:w-[calc(25%-18px)]",
+                  "w-full sm:w-[calc(50%-12px)] dsk:w-[calc(33.33%-16px)] 2xl:w-[calc(25%-18px)]",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
                 style={{
                   transitionDelay: isVisible ? `${index * 75}ms` : '0ms',
                   boxShadow: '9px 9px 18px #cbd7c1, -9px -9px 18px #ffffff, inset 0 0 0 1px rgba(255,255,255,0.5)',
+                  WebkitBackfaceVisibility: 'hidden', // iOS/Safari fix
+                  MozBackfaceVisibility: 'hidden',    // Firefox fix
                 }}
               >
                 <div className="absolute inset-0 rounded-xl pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 group-active:opacity-100"
@@ -110,7 +112,7 @@ const ServicesSection = () => {
         </div>
 
         <div className={cn(
-          "text-center mt-12 transition-all duration-700 delay-500",
+          "text-center mt-16 transition-all duration-700 delay-500",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
           <Button size="lg" variant="outline" asChild className="whitespace-normal h-auto py-2 text-center w-full sm:w-auto">
