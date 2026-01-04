@@ -1,97 +1,170 @@
-import { MessageSquare, MapPin, Palette, FileText, HardHat, Home } from "lucide-react";
-import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import GlareHover from "@/components/ui/glare-hover";
+
 
 const steps = [
   {
-    icon: MessageSquare,
+    imageSrc: "/assets/planning-icon.png",
     number: "01",
-    title: "Consultation",
-    description: "Understand your vision",
+    title: "Planning & Assessment",
+    description: "Consultation, site visit & requirements",
   },
   {
-    icon: MapPin,
+    imageSrc: "/assets/design-icon.png",
     number: "02",
-    title: "Site Visit",
-    description: "Technical evaluation",
+    title: "Design & Estimate",
+    description: "3D visuals, budget & agreement",
   },
   {
-    icon: Palette,
+    imageSrc: "/assets/execution-icon.png",
     number: "03",
-    title: "Design & 3D Visuals",
-    description: "See your home before it's built",
+    title: "Execution",
+    description: "Daily supervision & quality control",
   },
   {
-    icon: FileText,
+    imageSrc: "/assets/handover-icon.png",
     number: "04",
-    title: "Estimate & Agreement",
-    description: "Transparent and clear",
-  },
-  {
-    icon: HardHat,
-    number: "05",
-    title: "Execution & Supervision",
-    description: "Daily updates, strict quality control",
-  },
-  {
-    icon: Home,
-    number: "06",
     title: "Handover",
-    description: "A home built to last",
+    description: "Final checks & key delivery",
   },
 ];
 
 const ProcessSection = () => {
-  const { setRef, centeredIndex } = useScrollCenterGroup(steps.length);
-  const { ref, isVisible } = useScrollAnimation(0.1);
+  // Configuration for card positions (zigzag pattern: Low-High-Low-High)
+  // Cards are smaller now, so we might need slightly less amplitude or just keep it.
+  // Rope needs to hit the center of the cards. Visual center might change with smaller padding.
+  const OFFSETS = [100, -100, 100, -100];
+
+  // Final Layout Configuration
+  const ropeOffset = -7;
+  const horizontalOffset = 58;
+  const lowerCurve = 600;
+  const upperCurve = -100;
+
+  // Icon scales for each card
+  // Icon scales for each card
+  const ICON_SCALES = [1.67, 1.75, 3.0, 2.42];
+
+  // Final Nudge Values from user alignment
+  const ICON_NUDGES = [
+    { x: -2, y: -3 }, // Card 1
+    { x: -2, y: -1 }, // Card 2
+    { x: 2, y: 4 },   // Card 3
+    { x: 8, y: -2 },  // Card 4
+  ];
+
+  // Use direct values
+  const lowY = lowerCurve;
+  const highY = upperCurve;
 
   return (
-    <section ref={ref} className="py-20 bg-accent">
+    <section className="pt-12 pb-12 md:pb-20 bg-secondary md:bg-card overflow-hidden relative">
+
+
       <div className="container mx-auto px-4 lg:px-8">
-        <div className={cn(
-          "text-center mb-12 transition-all duration-700",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        )}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
-            Our 6-Step Process
+        <div className="text-center mb-20 md:mb-32 lg:mb-48">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-harriet-700">
+            Our 4-Step Process
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A clear, transparent journey from your first idea to the final handover
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {steps.map((step, index) => {
-            const isActive = centeredIndex === index;
-            return (
+        <div className="relative">
+          {/* Mobile Connecting Line (Vertical) */}
+          <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-transparent border-l-2 border-dashed border-[#4ADE80]/40 -translate-x-1/2 block dsk:hidden h-full z-0" />
+
+          {/* Connecting Line (Desktop - Only visible on 4-col layout) */}
+          <div
+            className="hidden dsk:block absolute top-1/2 left-0 w-full h-full -translate-y-1/2 pointer-events-none z-0 transition-transform duration-75"
+            style={{ transform: `translate(${horizontalOffset}px, calc(-50% + ${ropeOffset}px))` }}
+          >
+            <svg
+              className="w-full h-full overflow-visible"
+              viewBox="0 0 1200 400"
+              preserveAspectRatio="none"
+              style={{ filter: "drop-shadow(0 0 10px rgba(74, 222, 128, 0.3))" }}
+            >
+              <path
+                d={`M -400 ${lowY} L 200 ${lowY} C 250 ${lowY}, 250 ${highY}, 300 ${highY} L 500 ${highY} C 550 ${highY}, 550 ${lowY}, 600 ${lowY} L 800 ${lowY} C 850 ${lowY}, 850 ${highY}, 900 ${highY} L 1300 ${highY}`}
+                fill="none"
+                stroke="#4ADE80"
+                strokeWidth="4"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                className="opacity-60"
+              />
+            </svg>
+          </div>
+
+
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 dsk:grid-cols-4 gap-6 gap-y-12 md:gap-y-16 lg:gap-y-24 relative z-[60]">
+            {steps.map((step, index) => (
               <div
                 key={index}
-                ref={setRef(index)}
-                className={cn(
-                  "relative bg-card p-6 rounded-xl border border-border transition-all duration-300",
-                  "hover:shadow-lg",
-                  isActive && "shadow-lg",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                )}
-                style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
+                className="relative group transition-transform duration-300 translate-y-0 dsk:translate-y-[var(--offset)]"
+                style={{ '--offset': `${OFFSETS[index]}px` } as React.CSSProperties}
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-                    <step.icon className="h-7 w-7 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <span className="text-sm font-bold text-primary">{step.number}</span>
-                    <h3 className="text-lg font-semibold text-foreground mb-1">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm">{step.description}</p>
-                  </div>
+                {/* Number behind the card */}
+                <div
+                  className={`absolute -top-10 dsk:-top-16 ${index % 2 === 0 ? 'left-4' : 'right-4'} text-6xl dsk:text-8xl font-black text-[#4ADE80] opacity-80 z-0 select-none font-sans transition-all duration-300`}
+                  style={{
+                    textShadow: "0 0 30px rgba(74, 222, 128, 0.4)",
+                  }}
+                >
+                  {step.number}
+                </div>
+
+                <div className="relative z-10 h-full w-full">
+                  <GlareHover
+                    width="100%"
+                    height="100%"
+                    background="transparent"
+                    borderRadius="0.75rem"
+                    glareColor="#ffffff"
+                    glareOpacity={0.6}
+                    glareSize={400}
+                    transitionDuration={2000}
+                    playOnce={true}
+                    className="bg-[hsl(var(--secondary)/0.3)] border-2 border-white/70 md:border-primary/10 backdrop-blur-[6px] p-5 shadow-lg transition-all duration-300 hover:bg-[hsl(var(--secondary)/0.5)] !flex !place-items-start"
+                  >
+                    <div className="flex items-center gap-3 w-full">
+                      <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
+                        <img
+                          src={step.imageSrc}
+                          alt={step.title}
+                          className="w-full h-full object-contain relative z-[60] origin-center"
+                          style={{
+                            transform: `scale(${ICON_SCALES[index]}) translate(${ICON_NUDGES[index].x}px, ${ICON_NUDGES[index].y}px)`
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-primary leading-tight mb-1">{step.title}</h3>
+                        <p className="text-primary/80 text-sm">{step.description}</p>
+                      </div>
+                    </div>
+                  </GlareHover>
                 </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-16 md:mt-36 text-center">
+          <Button size="lg" variant="outline" asChild className="whitespace-normal h-auto py-2 text-center w-full sm:w-auto">
+            <Link to="/process">
+              See Our Full Process
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 

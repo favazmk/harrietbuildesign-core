@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,9 +14,14 @@ import {
 } from "@/components/ui/select";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
+import MagneticSocialLinks from "@/components/ui/MagneticSocialLinks";
+import SendEnquiryButton from "@/components/ui/SendEnquiryButton";
 
 const Contact = () => {
   const { toast } = useToast();
+  const form = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -28,18 +33,47 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you shortly.",
-    });
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      location: "",
-      projectType: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+
+    // REPLACE THESE WITH YOUR ACTUAL EMAILJS KEYS
+    // Sign up at https://www.emailjs.com/
+    const serviceID = 'service_jbzwebg';
+    const templateID = 'template_316owmq';
+    const publicKey = 'QhmGxKMH7zt0xbOi2';
+
+    if (form.current) {
+      emailjs.sendForm(serviceID, templateID, form.current, publicKey)
+        .then(() => {
+          toast({
+            title: "Inquiry Sent!",
+            description: "We have received your message and will get back to you shortly.",
+            className: "bg-green-50 border-green-200 text-green-900",
+          });
+
+          setFormData({
+            name: "",
+            phone: "",
+            email: "",
+            location: "",
+            projectType: "",
+            message: "",
+          });
+
+          // Optional: Reset the form element itself
+          form.current?.reset();
+        })
+        .catch((error) => {
+          console.error('EmailJS Error:', error);
+          toast({
+            title: "Failed to send",
+            description: "Something went wrong. Please try again or contact us directly on WhatsApp.",
+            variant: "destructive",
+          });
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
+    }
   };
 
   return (
@@ -53,13 +87,22 @@ const Contact = () => {
       </Helmet>
       <Layout>
         {/* Hero */}
-        <section className="py-20 bg-accent">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section
+          className="py-14 bg-cover relative min-h-[300px] flex flex-col justify-center"
+          style={{
+            backgroundImage: 'url("/assets/patterns/contact-pattern-v2.png")',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '400px'
+          }}
+        >
+          {/* Overlay to ensure text readability against pattern */}
+          <div className="absolute inset-0 bg-harriet-900/70 pointer-events-none" />
+          <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-white">
                 Contact Us
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-white/90">
                 Let's start building your dream home together. Our team is here to answer your questions, guide your planning, and help you take the next step with complete confidence.
               </p>
             </div>
@@ -69,64 +112,74 @@ const Contact = () => {
         {/* Contact Content */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16">
+            <div className="grid dsk:grid-cols-2 gap-16">
               {/* Contact Form */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6 font-serif text-foreground">
+
+              <div className="p-8 rounded-2xl shadow-neumorphic-light bg-secondary h-full">
+                <h2 className="text-2xl font-bold mb-6 font-serif text-harriet-700">
                   Book a Free Consultation
                 </h2>
                 <p className="text-muted-foreground mb-8">
                   Tell us a little about your project and our team will contact you shortly.
                 </p>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Name *</Label>
-                      <Input
+                    <div className="inputGroup">
+                      <input
                         id="name"
-                        placeholder="Your name"
+                        name="name"
+                        type="text"
+                        required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        required
+                        autoComplete="off"
                       />
+                      <label htmlFor="name">Name *</label>
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number *</Label>
-                      <Input
+                    <div className="inputGroup">
+                      <input
                         id="phone"
+                        name="phone"
                         type="tel"
-                        placeholder="Your phone number"
+                        required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        required
+                        autoComplete="off"
                       />
+                      <label htmlFor="phone">Phone Number *</label>
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
+                  <div className="inputGroup">
+                    <input
                       id="email"
+                      name="email"
                       type="email"
-                      placeholder="Your email address"
+                      required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      autoComplete="off"
                     />
+                    <label htmlFor="email">Email</label>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="location">Location / Plot Area</Label>
-                      <Input
+                    <div className="inputGroup">
+                      <input
                         id="location"
-                        placeholder="e.g., Perinthalmanna"
+                        name="location"
+                        type="text"
+                        required
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                        autoComplete="off"
                       />
+                      <label htmlFor="location">Location / Plot Area</label>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="projectType">Type of Project</Label>
                       <Select
                         value={formData.projectType}
                         onValueChange={(value) => setFormData({ ...formData, projectType: value })}
+                        name="project_type"
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select project type" />
@@ -140,27 +193,41 @@ const Contact = () => {
                           <SelectItem value="other">Other</SelectItem>
                         </SelectContent>
                       </Select>
+                      {/* Hidden input to ensure Select value is included in emailjs form data */}
+                      <input type="hidden" name="project_type" value={formData.projectType} />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea
+                  <div className="inputGroup">
+                    <textarea
                       id="message"
-                      placeholder="Tell us about your project..."
+                      name="message"
+                      required
                       rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     />
+                    <label htmlFor="message">Message</label>
                   </div>
-                  <Button type="submit" size="lg" className="w-full sm:w-auto">
-                    Submit Inquiry
-                  </Button>
+                  <div className="flex justify-center mt-6">
+                    <SendEnquiryButton
+                      type="submit"
+                      isSubmitting={isSubmitting}
+                      className="w-full"
+                    />
+                  </div>
+
+                  {/* Social Links with Magnetic Effect */}
+                  <div className="pt-6">
+                    <MagneticSocialLinks />
+                  </div>
                 </form>
               </div>
 
+
               {/* Contact Info */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6 font-serif text-foreground">
+
+              <div className="p-8 rounded-2xl shadow-neumorphic-light bg-secondary h-full">
+                <h2 className="text-2xl font-bold mb-6 font-serif text-harriet-700">
                   Get In Touch
                 </h2>
                 <div className="space-y-6">
@@ -253,6 +320,7 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </section>

@@ -14,7 +14,7 @@ import { ArrowRight } from "lucide-react";
 
 const Index = () => {
   return (
-    <>
+    <div className="flex flex-col w-full min-h-screen overflow-x-hidden">
       <Helmet>
         <title>HarrietBuildesign | Premium Construction & Interior Design in Kerala</title>
         <meta
@@ -24,25 +24,17 @@ const Index = () => {
         <meta name="keywords" content="construction Kerala, interior design, home builders, renovation, landscaping, Perinthalmanna, Malappuram, house construction" />
         <link rel="canonical" href="https://harrietbuildesign.com/" />
       </Helmet>
-      <Layout>
-        <HeroSection />
+      <HeroSection />
+      <Layout showHeader={false}>
         <WhyUsSection />
         <ServicesSection />
         <PortfolioSection />
+        <TestimonialsSection />
         <ProcessSection />
-        <div className="flex justify-center pb-10 bg-accent">
-          <Button size="lg" variant="outline" asChild>
-            <Link to="/process">
-              See Our Full Process
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
-        <TestimonialsSection /> {/* Added TestimonialsSection */}
         <FAQSection />
         <CTASection />
       </Layout>
-    </>
+    </div>
   );
 };
 

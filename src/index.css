@@ -1,125 +1,416 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
 @layer base {
-  :root {
-    --background: 0 0% 98%; /* #FAFAFA */
-    --foreground: 88 20% 17%; /* #2C3322 */
-    --card: 0 0% 100%;
-    --card-foreground: 88 20% 17%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 88 20% 17%;
-    --primary: 88 20% 42%; /* #728156 */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 93 58% 91%; /* #E7F5DC */
-    --secondary-foreground: 88 20% 17%;
-    --muted: 88 38% 83%; /* #CFE1B9 */
-    --muted-foreground: 88 20% 17%;
-    --accent: 88 20% 42%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 0 85% 97%;
-    --border: 88 38% 83%;
-    --input: 88 38% 83%;
-    --ring: 88 20% 42%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 88 20% 17%;
-    --foreground: 0 0% 98%;
-    --card: 88 20% 22%;
-    --card-foreground: 0 0% 98%;
-    --popover: 88 20% 22%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 88 20% 42%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 88 20% 27%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 88 20% 32%;
-    --muted-foreground: 0 0% 98%;
-    --accent: 88 20% 42%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 0 85% 97%;
-    --border: 88 20% 27%;
-    --input: 88 20% 27%;
-    --ring: 88 20% 42%;
-  }
+    :root {
+        --background: 0 0% 98%;
+        /* #FAFAFA */
+        --foreground: 88 20% 17%;
+        /* #2C3322 */
+        --card: 0 0% 100%;
+        --card-foreground: 88 20% 17%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 88 20% 17%;
+        --primary: 88 20% 42%;
+        /* #728156 */
+        --primary-foreground: 0 0% 100%;
+        --secondary: 93 58% 91%;
+        /* #E7F5DC */
+        --secondary-foreground: 88 20% 17%;
+        --muted: 88 38% 83%;
+        /* #CFE1B9 */
+        --muted-foreground: 88 20% 17%;
+        --accent: 88 20% 42%;
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 72% 50%;
+        --destructive-foreground: 0 85% 97%;
+        --border: 88 38% 83%;
+        --input: 88 38% 83%;
+        --ring: 88 20% 42%;
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: 88 20% 17%;
+        --foreground: 0 0% 98%;
+        --card: 88 20% 22%;
+        --card-foreground: 0 0% 98%;
+        --popover: 88 20% 22%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 88 20% 42%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 88 20% 27%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 88 20% 32%;
+        --muted-foreground: 0 0% 98%;
+        --accent: 88 20% 42%;
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 72% 50%;
+        --destructive-foreground: 0 85% 97%;
+        --border: 88 20% 27%;
+        --input: 88 20% 27%;
+        --ring: 88 20% 42%;
+    }
 }
+
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
 }
+
 .hero-heading {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 1.2;
-  color: white;
-  display: block;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: white;
+    display: block;
 }
+
 .hero-text-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    /* Changed from nowrap to wrap for mobile */
+    gap: 0.5rem;
+    /* Add gap for wrapped items */
 }
+
 .cube-container {
-  display: inline-flex;
-  vertical-align: middle;
-  perspective: 400px;
-  position: relative;
-  height: 1.2em; /* Match the line-height of the heading */
-  min-width: 150px;
-  white-space: nowrap; /* Prevent wrapping of long words */
+    display: inline-flex;
+    vertical-align: middle;
+    perspective: 400px;
+    position: relative;
+    height: 1.2em;
+    /* Match the line-height of the heading */
+    min-width: 150px;
+    width: auto;
+    /* Allow flexible width */
+    white-space: nowrap;
+    /* Prevent wrapping of long words */
 }
+
+@media (max-width: 400px) {
+    .hero-heading {
+        font-size: 2rem;
+        /* Reduce font size for very small screens */
+    }
+
+    .cube-container {
+        min-width: 120px;
+        /* Reduce minimum width */
+    }
+}
+
 .cube {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  transform-style: preserve-3d;
-  animation: rotate-cube 12s infinite;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: rotate-cube 12s infinite;
 }
+
 .face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  /* FIXED: Removed flex centering to fix the gap and alignment issues */
-  display: block; 
-  text-align: left; /* Aligns text immediately after 'Stands for' */
-  line-height: 1.2em; /* Matches container line-height for correct vertical alignment */
-  
-  font-size: 1em; 
-  backface-visibility: hidden;
-  box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* FIXED: Removed flex centering to fix the gap and alignment issues */
+    display: block;
+    text-align: left;
+    /* Aligns text immediately after 'Stands for' */
+    line-height: 1.2em;
+    /* Matches container line-height for correct vertical alignment */
+
+    font-size: 1em;
+    backface-visibility: hidden;
+    box-sizing: border-box;
 }
+
 /* Position each face of the cube */
-.face-1 { transform: translateY(0) translateZ(0.6em); } /* Front */
-.face-2 { transform: rotateX(-90deg) translateZ(0.6em); } /* Top */
-.face-3 { transform: rotateX(180deg) translateZ(0.6em); } /* Back */
-.face-4 { transform: rotateX(90deg) translateZ(0.6em); } /* Bottom */
-@keyframes rotate-cube {
-  0% { transform: rotateX(0deg); }
-  20% { transform: rotateX(0deg); }
-  25% { transform: rotateX(90deg); }
-  45% { transform: rotateX(90deg); }
-  50% { transform: rotateX(180deg); }
-  70% { transform: rotateX(180deg); }
-  75% { transform: rotateX(270deg); }
-  95% { transform: rotateX(270deg); }
-  100% { transform: rotateX(360deg); }
+.face-1 {
+    transform: translateY(0) translateZ(0.6em);
 }
+
+/* Front */
+.face-2 {
+    transform: rotateX(-90deg) translateZ(0.6em);
+}
+
+/* Top */
+.face-3 {
+    transform: rotateX(180deg) translateZ(0.6em);
+}
+
+/* Back */
+.face-4 {
+    transform: rotateX(90deg) translateZ(0.6em);
+}
+
+/* Bottom */
+@keyframes rotate-cube {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    20% {
+        transform: rotateX(0deg);
+    }
+
+    25% {
+        transform: rotateX(90deg);
+    }
+
+    45% {
+        transform: rotateX(90deg);
+    }
+
+    50% {
+        transform: rotateX(180deg);
+    }
+
+    70% {
+        transform: rotateX(180deg);
+    }
+
+    75% {
+        transform: rotateX(270deg);
+    }
+
+    95% {
+        transform: rotateX(270deg);
+    }
+
+    100% {
+        transform: rotateX(360deg);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .cube {
-    animation: none;
-  }
-  .face-2, .face-3, .face-4 {
-    display: none;
-  }
+    .cube {
+        animation: none;
+    }
+
+    .face-2,
+    .face-3,
+    .face-4 {
+        display: none;
+    }
+}
+
+@layer utilities {
+    .grain-overlay {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 50;
+        background-image: url("/grain-texture.jpg");
+        opacity: 0.15;
+        mix-blend-mode: overlay;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    /* Utility class to exclude grain effect from hero sections */
+    .no-grain {
+        position: relative;
+        z-index: 60;
+        isolation: isolate;
+    }
+}
+
+.handwritten-paper {
+    background-color: #fffef0;
+    background-image:
+        /* Ruled lines */
+        linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        /* Paper texture grain */
+        radial-gradient(circle at 50% 50%, rgba(200, 180, 150, 0.05) 0%, transparent 100%);
+    background-size: 100% 2.5rem, cover;
+    box-shadow:
+        2px 5px 25px rgba(0, 0, 0, 0.06),
+        inset 0 0 80px rgba(0, 0, 0, 0.02);
+    position: absolute;
+    inset: 0;
+    /* The organic torn edge using SVG filter */
+    filter: url(#torn-paper-filter) drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.08));
+}
+
+/* Red margin line */
+.handwritten-paper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 4.5rem;
+    bottom: 0;
+    width: 1px;
+    background-color: rgba(255, 60, 60, 0.12);
+    z-index: 1;
+}
+
+@media (max-width: 640px) {
+    .handwritten-paper::before {
+        left: 3.5rem;
+    }
+}
+
+.handwritten-font {
+    font-family: 'Caveat', cursive;
+    line-height: 2.5rem !important;
+    letter-spacing: 0.01em;
+}
+
+/* From Uiverse.io by Maximinodotpy - Adapted for Contact Form */
+.inputGroup {
+    font-family: inherit;
+    /* Adapted to match site font */
+    margin: 1em 0 1em 0;
+    max-width: 100%;
+    /* Adapted from 190px to fit form layout */
+    position: relative;
+}
+
+.inputGroup input,
+.inputGroup textarea {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent !important;
+    /* Force transparent against shadcn defaults */
+    border-radius: 20px;
+    width: 100%;
+    color: inherit;
+}
+
+.inputGroup textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.inputGroup label {
+    font-size: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* Ensure top alignment context */
+    padding: 0.8em;
+    margin-left: 0.5em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(100, 100, 100);
+    background-color: transparent;
+    /* Initially transparent */
+}
+
+/* Handle focus and valid states */
+/* Note: For React controlled inputs, 'valid' works if 'required' is set and value is present. */
+.inputGroup :is(input:focus, input:valid, textarea:focus, textarea:valid)~label {
+    transform: translateY(-50%) scale(.9);
+    margin: 0em;
+    margin-left: 1.3em;
+    padding: 0.4em;
+    background-color: #E7F5DC;
+    /* Match the --secondary color of the form card background */
+}
+
+
+/* From Uiverse.io by gagan-gv - Adapted for Social Buttons */
+.social-button {
+    height: 4em;
+    width: 15em;
+    border: none;
+    border-radius: 40px;
+    background-color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+    /* Added to contain the animations */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-decoration: none;
+    /* For anchor tags */
+    padding: 0;
+    /* Override default padding */
+}
+
+.social-button span {
+    z-index: 1;
+    display: inline-block;
+    background-color: black;
+    height: 3em;
+    width: 11.5em;
+    border-radius: 25px;
+    color: #fff;
+    line-height: 3em;
+    /* Adjusted to match height for centering */
+    font-size: 18px;
+    letter-spacing: 3px;
+    transition: all 0.5s;
+    text-align: center;
+    /* Ensure text is centered */
+    display: flex;
+    /* Flex to center perfectly */
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    /* Prevent text wrap during shrinking */
+}
+
+.social-button .container {
+    z-index: -1;
+    width: 0;
+    height: 100%;
+    /* Ensure full height */
+    position: absolute;
+    /* Position absolute to overlap/replace */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Center vertically */
+    /* transform: translateY(-50px); Removed suspicious transform that might hide it offscreen, assuming centering is desired */
+    transition: all 0.4s;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    /* Initially disable pointer events */
+    opacity: 0;
+    /* Hide completely when width is 0 */
+    overflow: hidden;
+    /* prevents icons from spilling out during transition */
+}
+
+.social-button .container svg {
+    padding: 0 10px;
+}
+
+.social-button:hover span {
+    width: 0;
+    padding: 0;
+    /* Remove padding to fully collapse */
+    overflow: hidden;
+    /* Hide text when shrinking */
+    opacity: 0;
+    /* Fade out text */
+}
+
+.social-button:hover .container {
+    z-index: 2;
+    width: 100%;
+    pointer-events: auto;
+    /* Enable pointer events on hover */
+    opacity: 1;
+    /* Show when hovered */
 }

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building2, Palette, RefreshCw, Trees, Box, MessageSquare, HardHat, ArrowRight } from "lucide-react";
+import { BrickWall, Armchair, Hammer, Sprout, Cuboid, NotebookPen, UserCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
@@ -7,43 +7,44 @@ import { cn } from "@/lib/utils";
 
 const services = [
   {
-    icon: Building2,
+    icon: Cuboid,
+    title: "Architectural Design",
+    description: "Comprehensive plans and realistic 3D walkthroughs",
+    link: "/services#architectural-design"
+  },
+  {
+    icon: BrickWall,
     title: "Construction",
     description: "Villas, homes, extensions, structure + finishing",
     link: "/services#construction"
   },
   {
-    icon: Palette,
+    icon: Armchair,
     title: "Interior Design",
-    description: "Modular spaces, custom furniture, 3D visualization",
+    description: "Modular spaces, custom furniture, styling",
     link: "/services#interior-design"
   },
   {
-    icon: RefreshCw,
+    icon: Hammer,
     title: "Renovation",
     description: "Complete home makeovers, kitchen upgrades, room redesigns",
     link: "/services#renovation"
   },
   {
-    icon: Trees,
+    icon: Sprout,
     title: "Landscaping",
     description: "Gardens, pathways, outdoor lighting, water features",
     link: "/services#landscaping"
   },
+
   {
-    icon: Box,
-    title: "3D Visualization",
-    description: "Realistic renders and walkthroughs before construction",
-    link: "/services#3d-visualization"
-  },
-  {
-    icon: MessageSquare,
+    icon: NotebookPen,
     title: "Consultation",
     description: "Budget planning, design review, technical advice",
     link: "/services#consultation"
   },
   {
-    icon: HardHat,
+    icon: UserCheck,
     title: "Supervision",
     description: "Dedicated engineer + daily site updates",
     link: "/services#supervision"
@@ -55,13 +56,13 @@ const ServicesSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
-    <section ref={ref} className="py-20 bg-background">
+    <section ref={ref} className="py-12 md:py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className={cn(
           "text-center mb-12 transition-all duration-700",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif text-harriet-700">
             Our Core Services
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -70,7 +71,7 @@ const ServicesSection = () => {
         </div>
 
         {/* Changed from grid to flex to allow centering of the last row */}
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
           {services.map((service, index) => {
             const isActive = centeredIndex === index;
             return (
@@ -79,15 +80,23 @@ const ServicesSection = () => {
                 key={index}
                 ref={setRef(index)}
                 className={cn(
-                  "group p-6 bg-card rounded-xl border transition-all duration-300 block",
+                  "group p-6 bg-secondary rounded-xl transition-all duration-300 block relative z-10 active:scale-[0.98] transform-gpu backface-hidden perspective-1000",
                   // Calculated widths to mimic grid columns with gap-6 (24px)
-                  "w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] xl:w-[calc(25%-18px)]",
-                  "hover:border-primary/30 hover:shadow-lg",
-                  isActive ? "border-primary/30 shadow-lg" : "border-border",
+                  "w-full sm:w-[calc(50%-12px)] dsk:w-[calc(33.33%-16px)] 2xl:w-[calc(25%-18px)]",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
-                style={{ transitionDelay: isVisible ? `${index * 75}ms` : '0ms' }}
+                style={{
+                  transitionDelay: isVisible ? `${index * 75}ms` : '0ms',
+                  boxShadow: '9px 9px 18px #cbd7c1, -9px -9px 18px #ffffff, inset 0 0 0 1px rgba(255,255,255,0.5)',
+                  WebkitBackfaceVisibility: 'hidden', // iOS/Safari fix
+                  MozBackfaceVisibility: 'hidden',    // Firefox fix
+                }}
               >
+                <div className="absolute inset-0 rounded-xl pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 group-active:opacity-100"
+                  style={{
+                    boxShadow: 'inset 3px 3px 6px #cbd7c1, inset -3px -3px 6px #ffffff'
+                  }}
+                />
                 <div className={cn(
                   "w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors",
                   "group-hover:bg-primary/20",
@@ -103,10 +112,10 @@ const ServicesSection = () => {
         </div>
 
         <div className={cn(
-          "text-center mt-12 transition-all duration-700 delay-500",
+          "text-center mt-16 transition-all duration-700 delay-500",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <Button size="lg" variant="outline" asChild>
+          <Button size="lg" variant="outline" asChild className="whitespace-normal h-auto py-2 text-center w-full sm:w-auto">
             <Link to="/services">
               Explore All Services
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -114,7 +123,7 @@ const ServicesSection = () => {
           </Button>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 

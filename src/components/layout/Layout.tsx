@@ -4,13 +4,15 @@ import Footer from "./Footer";
 
 interface LayoutProps {
   children: ReactNode;
+  showHeader?: boolean;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, showHeader = true }: LayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1 pt-16">{children}</main>
+      <div className="grain-overlay" style={{ zIndex: 40 }} />
+      {showHeader && <Header />}
+      <main className={showHeader ? "flex-1 pt-16" : "flex-1"}>{children}</main>
       <Footer />
     </div>
   );
