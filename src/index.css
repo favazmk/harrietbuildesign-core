@@ -270,3 +270,147 @@ All colors MUST be HSL.
     line-height: 2.5rem !important;
     letter-spacing: 0.01em;
 }
+
+/* From Uiverse.io by Maximinodotpy - Adapted for Contact Form */
+.inputGroup {
+    font-family: inherit;
+    /* Adapted to match site font */
+    margin: 1em 0 1em 0;
+    max-width: 100%;
+    /* Adapted from 190px to fit form layout */
+    position: relative;
+}
+
+.inputGroup input,
+.inputGroup textarea {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent !important;
+    /* Force transparent against shadcn defaults */
+    border-radius: 20px;
+    width: 100%;
+    color: inherit;
+}
+
+.inputGroup textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.inputGroup label {
+    font-size: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* Ensure top alignment context */
+    padding: 0.8em;
+    margin-left: 0.5em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(100, 100, 100);
+    background-color: transparent;
+    /* Initially transparent */
+}
+
+/* Handle focus and valid states */
+/* Note: For React controlled inputs, 'valid' works if 'required' is set and value is present. */
+.inputGroup :is(input:focus, input:valid, textarea:focus, textarea:valid)~label {
+    transform: translateY(-50%) scale(.9);
+    margin: 0em;
+    margin-left: 1.3em;
+    padding: 0.4em;
+    background-color: #E7F5DC;
+    /* Match the --secondary color of the form card background */
+}
+
+
+/* From Uiverse.io by gagan-gv - Adapted for Social Buttons */
+.social-button {
+    height: 4em;
+    width: 15em;
+    border: none;
+    border-radius: 40px;
+    background-color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+    /* Added to contain the animations */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-decoration: none;
+    /* For anchor tags */
+    padding: 0;
+    /* Override default padding */
+}
+
+.social-button span {
+    z-index: 1;
+    display: inline-block;
+    background-color: black;
+    height: 3em;
+    width: 11.5em;
+    border-radius: 25px;
+    color: #fff;
+    line-height: 3em;
+    /* Adjusted to match height for centering */
+    font-size: 18px;
+    letter-spacing: 3px;
+    transition: all 0.5s;
+    text-align: center;
+    /* Ensure text is centered */
+    display: flex;
+    /* Flex to center perfectly */
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    /* Prevent text wrap during shrinking */
+}
+
+.social-button .container {
+    z-index: -1;
+    width: 0;
+    height: 100%;
+    /* Ensure full height */
+    position: absolute;
+    /* Position absolute to overlap/replace */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Center vertically */
+    /* transform: translateY(-50px); Removed suspicious transform that might hide it offscreen, assuming centering is desired */
+    transition: all 0.4s;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    /* Initially disable pointer events */
+    opacity: 0;
+    /* Hide completely when width is 0 */
+    overflow: hidden;
+    /* prevents icons from spilling out during transition */
+}
+
+.social-button .container svg {
+    padding: 0 10px;
+}
+
+.social-button:hover span {
+    width: 0;
+    padding: 0;
+    /* Remove padding to fully collapse */
+    overflow: hidden;
+    /* Hide text when shrinking */
+    opacity: 0;
+    /* Fade out text */
+}
+
+.social-button:hover .container {
+    z-index: 2;
+    width: 100%;
+    pointer-events: auto;
+    /* Enable pointer events on hover */
+    opacity: 1;
+    /* Show when hovered */
+}

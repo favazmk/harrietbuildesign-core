@@ -107,10 +107,7 @@ const PortfolioSection = () => {
                     {project.category}
                   </span>
                   <h3 className="text-xl font-semibold text-card mb-1">{project.title}</h3>
-                  <p className="flex items-center gap-1 text-card/80 text-sm">
-                    <MapPin className="h-4 w-4" />
-                    {project.location}
-                  </p>
+
                 </div>
               </Link>
             );

@@ -12,10 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from '@emailjs/browser';
 import MagneticSocialLinks from "@/components/ui/MagneticSocialLinks";
+import SendEnquiryButton from "@/components/ui/SendEnquiryButton";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -123,51 +124,55 @@ const Contact = () => {
                 </p>
                 <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Name *</Label>
-                      <Input
+                    <div className="inputGroup">
+                      <input
                         id="name"
                         name="name"
-                        placeholder="Your name"
+                        type="text"
+                        required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        required
+                        autoComplete="off"
                       />
+                      <label htmlFor="name">Name *</label>
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number *</Label>
-                      <Input
+                    <div className="inputGroup">
+                      <input
                         id="phone"
                         name="phone"
                         type="tel"
-                        placeholder="Your phone number"
+                        required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        required
+                        autoComplete="off"
                       />
+                      <label htmlFor="phone">Phone Number *</label>
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
+                  <div className="inputGroup">
+                    <input
                       id="email"
                       name="email"
                       type="email"
-                      placeholder="Your email address"
+                      required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      autoComplete="off"
                     />
+                    <label htmlFor="email">Email</label>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="location">Location / Plot Area</Label>
-                      <Input
+                    <div className="inputGroup">
+                      <input
                         id="location"
                         name="location"
-                        placeholder="e.g., Perinthalmanna"
+                        type="text"
+                        required
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                        autoComplete="off"
                       />
+                      <label htmlFor="location">Location / Plot Area</label>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="projectType">Type of Project</Label>
@@ -192,36 +197,27 @@ const Contact = () => {
                       <input type="hidden" name="project_type" value={formData.projectType} />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea
+                  <div className="inputGroup">
+                    <textarea
                       id="message"
                       name="message"
-                      placeholder="Tell us about your project..."
+                      required
                       rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     />
+                    <label htmlFor="message">Message</label>
                   </div>
-                  <Button
-                    type="submit"
-                    className="w-full group relative flex items-center justify-center gap-3 bg-harriet-900 text-white hover:bg-black h-14 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
-                    disabled={isSubmitting}
-                  >
-                    <span className="text-lg font-serif tracking-wide transition-transform duration-300 group-hover:-translate-x-2">
-                      {isSubmitting ? "Sending..." : "Send Inquiry"}
-                    </span>
-
-                    {!isSubmitting && (
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 group-hover:bg-white group-hover:scale-110 transition-all duration-300">
-                        <Send className="w-4 h-4 text-white group-hover:text-harriet-900 transition-colors duration-300 -ml-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </div>
-                    )}
-                  </Button>
+                  <div className="flex justify-center mt-6">
+                    <SendEnquiryButton
+                      type="submit"
+                      isSubmitting={isSubmitting}
+                      className="w-full"
+                    />
+                  </div>
 
                   {/* Social Links with Magnetic Effect */}
                   <div className="pt-6">
-                    <p className="text-center text-sm text-muted-foreground mb-4">Follow us on</p>
                     <MagneticSocialLinks />
                   </div>
                 </form>

@@ -6,15 +6,14 @@ import { Facebook, Instagram } from 'lucide-react';
 
 export default function MagneticSocialLinks() {
     return (
-        <div className="flex items-center justify-center gap-8 mt-12 mb-4">
-            <MagneticLink href="https://facebook.com/HarrietBuildesign" icon={<Facebook size={28} />} color="#1877F2" />
-            <MagneticLink href="https://instagram.com/harriet_builders" icon={<Instagram size={28} />} color="#E4405F" />
+        <div className="flex items-center justify-center mt-12 mb-4">
+            <UnifiedSocialButton />
         </div>
     );
 }
 
-function MagneticLink({ href, icon, color }: { href: string; icon: React.ReactNode; color: string }) {
-    const ref = useRef<HTMLAnchorElement>(null);
+function UnifiedSocialButton() {
+    const ref = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
     const handleMouseMove = (e: React.MouseEvent) => {
@@ -30,39 +29,35 @@ function MagneticLink({ href, icon, color }: { href: string; icon: React.ReactNo
     };
 
     return (
-        <motion.a
+        <motion.div
             ref={ref}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative flex items-center justify-center w-24 h-14 rounded-full bg-white border border-white/40 shadow-[0_8px_16px_-6px_rgba(0,0,0,0.1),inset_0_-4px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_20px_-8px_rgba(0,0,0,0.15),inset_0_-4px_4px_rgba(0,0,0,0.05)] transition-all transform-gpu"
+            className="social-button"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             animate={{ x: position.x, y: position.y }}
             transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.1 }}
         >
-            {/* 3D Top Highlight */}
-            <div className="absolute inset-x-4 top-1 h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent rounded-full opacity-60 pointer-events-none" />
-
-            {/* Hover background color fill */}
-            <div
-                className="absolute inset-0 rounded-full opacity-0 hover:opacity-10 transition-opacity duration-300"
-                style={{ backgroundColor: color }}
-            />
-
-            {/* Icon */}
-            <div className="relative z-10 text-harriet-700 hover:text-[color] transition-colors duration-300" style={{ '--hover-color': color } as React.CSSProperties}>
-                {React.cloneElement(icon as React.ReactElement, {
-                    className: `transition-colors duration-300 group-hover:text-[${color}]`
-                })}
+            <span>Follow Us On</span>
+            <div className="container gap-6">
+                <a
+                    href="https://facebook.com/HarrietBuildesign"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-black hover:text-[#1877F2] transition-colors duration-300 transform hover:scale-110"
+                    title="Facebook"
+                >
+                    <Facebook size={42} />
+                </a>
+                <a
+                    href="https://instagram.com/harriet_builders"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-black hover:text-[#E4405F] transition-colors duration-300 transform hover:scale-110"
+                    title="Instagram"
+                >
+                    <Instagram size={42} />
+                </a>
             </div>
-
-            {/* Dynamic Glow Effect */}
-            <motion.div
-                className="absolute inset-0 rounded-full blur-xl opacity-0 hover:opacity-30 transition-opacity duration-300 -z-10"
-                style={{ backgroundColor: color }}
-                animate={{ x: position.x * 0.5, y: position.y * 0.5 }}
-            />
-        </motion.a>
+        </motion.div>
     );
 }
