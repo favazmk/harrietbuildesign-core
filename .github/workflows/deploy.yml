@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - Main
+      - vscode-changes
 
 permissions:
   contents: read
