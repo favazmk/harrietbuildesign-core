@@ -495,7 +495,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       <div className="aspect-[4/3] overflow-hidden relative">
         <img
           src={images[currentImageIndex]}
-          alt={project.title}
+          alt={`${project.title} - ${project.category} Project in ${project.location || 'Kerala'}`}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
 
