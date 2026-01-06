@@ -208,16 +208,16 @@ const Contact = () => {
                     />
                     <label htmlFor="message">Message</label>
                   </div>
-                  <div className="flex justify-center mt-6">
+                  <div className="flex justify-center mb-4 transition-all relative z-10" style={{ transform: 'translateY(50px)' }}>
                     <SendEnquiryButton
                       type="submit"
                       isSubmitting={isSubmitting}
-                      className="w-full"
+                      className="w-full sm:w-auto sm:px-20"
                     />
                   </div>
 
                   {/* Social Links with Magnetic Effect */}
-                  <div className="pt-6">
+                  <div className="pt-10">
                     <MagneticSocialLinks />
                   </div>
                 </form>
@@ -308,7 +308,7 @@ const Contact = () => {
                   <h3 className="font-semibold text-foreground mb-4">Find Us on Map</h3>
                   <div className="aspect-video rounded-xl overflow-hidden border border-border">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.8548573098566!2d76.22959731480188!3d10.976166692196507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7cfb5c8d9f6e1%3A0x8e5f2e6c9b8e9a1e!2sPerinthalmanna%2C%20Kerala!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+                      src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3916.6944925067783!2d76.2233333!3d10.9864167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDU5JzExLjEiTiA3NsKwMTMnMjQuMCJF!5e0!3m2!1sen!2sin!4v1767670563762!5m2!1sen!2sin"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}

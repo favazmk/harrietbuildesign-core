@@ -5,12 +5,7 @@ import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { MapPin, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-import project4 from "@/assets/project-4.jpg";
-import project5 from "@/assets/project-5.jpg";
-import project6 from "@/assets/project-6.jpg";
+
 import projectAlMahtaj from "@/assets/project-al-mahtaj.jpg";
 import projectAlMahtaj2 from "@/assets/project-al-mahtaj-2.jpg";
 import projectAleTrigo1 from "@/assets/project-ale-trigo-1.jpg";
@@ -89,14 +84,6 @@ import projectKidsBedroom3 from "@/assets/project-kids-bedroom-3.jpeg";
 import projectKidsBedroom4 from "@/assets/project-kids-bedroom-4.jpeg";
 import projectKidsBedroom5 from "@/assets/project-kids-bedroom-5.jpeg";
 
-import projectBalconyDesign1 from "@/assets/project-balcony-design-1.jpeg";
-import projectBalconyDesign2 from "@/assets/project-balcony-design-2.jpeg";
-import projectBalconyDesign3 from "@/assets/project-balcony-design-3.jpeg";
-import projectBalconyDesign4 from "@/assets/project-balcony-design-4.jpeg";
-import projectBalconyDesign5 from "@/assets/project-balcony-design-5.jpeg";
-import projectBalconyDesign6 from "@/assets/project-balcony-design-6.jpeg";
-import projectBalconyDesign7 from "@/assets/project-balcony-design-7.jpeg";
-import projectBalconyDesign8 from "@/assets/project-balcony-design-8.jpeg";
 
 import projectSuiteBedroom1 from "@/assets/project-suite-bedroom-1.jpeg";
 import projectSuiteBedroom2 from "@/assets/project-suite-bedroom-2.jpeg";
@@ -183,7 +170,7 @@ const projects: Project[] = [
     ],
     // The Manjeri location/title remains, just the images were wrong.
     location: "Kerala",
-    title: "Premium Kitchens",
+    title: "The Linear Kitchen",
     category: "Interior Design",
     description: "A contemporary kitchen space designed for efficiency and elegance.",
     highlights: ["Modern Cabinetry", "Premium Countertops", "Smart Storage"],
@@ -256,30 +243,9 @@ const projects: Project[] = [
     description: "An architectural masterpiece maximizing the scenic beauty of Mannarkad.",
     highlights: ["Elevated Architecture", "Panoramic Views", "Modern Arabic Fusion"],
   },
-  {
-    image: project2,
-    title: "Modern Villa",
-    location: "Kerala",
-    category: "Construction",
-    description: "A spacious contemporary home designed with clean lines, natural light, and durable materials.",
-    highlights: ["Open-plan living", "Custom interiors", "Premium finishes"],
-  },
-  {
-    image: project1,
-    title: "Contemporary Interior",
-    location: "Kerala",
-    category: "Interior Design",
-    description: "A perfect blend of modern architecture and Kerala's functional principles.",
-    highlights: ["Balanced ventilation", "Minimalist interiors", "Smart space planning"],
-  },
-  {
-    image: project3,
-    title: "Full Home Renovation",
-    location: "Kerala",
-    category: "Renovation",
-    description: "An outdated home transformed into a fresh, modern living space while retaining its structural essence.",
-    highlights: ["Complete redesign", "New kitchen layout", "Improved lighting"],
-  },
+
+
+
   {
     image: projectBedroomSanctuary4,
     images: [
@@ -327,24 +293,7 @@ const projects: Project[] = [
     description: "A fun and functional space designed to inspire creativity and comfort.",
     highlights: ["Playful Themes", "Smart Storage", "Safe Materials"],
   },
-  {
-    image: projectBalconyDesign4,
-    images: [
-      projectBalconyDesign4,
-      projectBalconyDesign1,
-      projectBalconyDesign2,
-      projectBalconyDesign3,
-      projectBalconyDesign5,
-      projectBalconyDesign6,
-      projectBalconyDesign7,
-      projectBalconyDesign8,
-    ],
-    title: "Premium Balconies",
-    location: "Kerala",
-    category: "Construction",
-    description: "Serene outdoor extensions that blend nature with modern architecture.",
-    highlights: ["Panoramic Views", "Outdoor Seating", "Vertical Gardens"],
-  },
+
   {
     image: projectSuiteBedroom1,
     images: [
@@ -355,7 +304,7 @@ const projects: Project[] = [
       projectSuiteBedroom6,
       projectSuiteBedroom7,
     ],
-    title: "Luxury Bedroom Suite",
+    title: "Primary Bedroom",
     location: "Kerala",
     category: "Interior Design",
     description: "A luxurious suite bedroom combining elegant comfort with premium finishes.",
@@ -383,7 +332,7 @@ const projects: Project[] = [
       projectKidsBedroomTwo3,
       projectKidsBedroomTwo4,
     ],
-    title: "Playful Kids Haven",
+    title: "Themed Kids Room",
     location: "Kerala",
     category: "Interior Design",
     description: "A vibrant and safe environment tailored for children's imagination and growth.",
@@ -454,22 +403,8 @@ const projects: Project[] = [
     description: "State-of-the-art kitchen designs blending functionality with stunning aesthetics.",
     highlights: ["Modular Layouts", "Smart Storage", "Elegant Finishes"],
   },
-  {
-    image: project5,
-    title: "Landscape Garden Makeover",
-    location: "Kerala",
-    category: "Landscaping",
-    description: "Outdoor space redesigned into a peaceful, low-maintenance garden with functional walking paths.",
-    highlights: ["Layered greenery", "Outdoor lighting", "Stone detailing"],
-  },
-  {
-    image: project6,
-    title: "Premium Interior Package",
-    location: "Kerala",
-    category: "Interior Design",
-    description: "A full interior overhaul with personalized designs for living, dining, kitchen, and bedrooms.",
-    highlights: ["Modular solutions", "Custom furniture", "Luxury textures"],
-  },
+
+
 ];
 
 

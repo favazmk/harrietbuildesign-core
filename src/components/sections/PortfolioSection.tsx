@@ -4,47 +4,47 @@ import { Button } from "@/components/ui/button";
 import { useScrollCenterGroup } from "@/hooks/use-scroll-center";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-import project4 from "@/assets/project-4.jpg";
-import project5 from "@/assets/project-5.jpg";
-import project6 from "@/assets/project-6.jpg";
+import projectAlMahtaj from "@/assets/project-al-mahtaj.jpg";
+import projectAleTrigo4 from "@/assets/project-ale-trigo-4.jpg";
+import projectOfficeSpace4 from "@/assets/project-office-space-4.jpeg";
+import projectSignatureKitchen4 from "@/assets/project-signature-kitchen-4.jpeg";
+import projectLivingHall4 from "@/assets/project-living-hall-4.jpeg";
+import projectCompactBedroom1 from "@/assets/project-compact-bedroom-1.jpeg";
 
 const projects = [
   {
-    image: project2,
-    title: "Modern Villa",
+    image: projectAlMahtaj,
+    title: "Al Mahtaj",
     location: "Perinthalmanna",
     category: "Construction",
   },
   {
-    image: project1,
-    title: "Contemporary Interior",
+    image: projectAleTrigo4,
+    title: "Ale-trigo",
+    location: "Cherukara",
+    category: "Construction",
+  },
+  {
+    image: projectOfficeSpace4,
+    title: "Executive Workspace",
     location: "Kerala",
     category: "Interior Design",
   },
   {
-    image: project3,
-    title: "Kitchen Renovation",
-    location: "Malappuram",
+    image: projectLivingHall4,
+    title: "Contemporary Living",
+    location: "Kerala",
+    category: "Interior Design",
+  },
+  {
+    image: projectSignatureKitchen4,
+    title: "Signature Kitchen",
+    location: "Kerala",
     category: "Renovation",
   },
   {
-    image: project4,
-    title: "Minimalist Bedroom",
-    location: "Kerala",
-    category: "Interior Design",
-  },
-  {
-    image: project5,
-    title: "Landscape Garden",
-    location: "Perinthalmanna",
-    category: "Landscaping",
-  },
-  {
-    image: project6,
-    title: "Premium Living Room",
+    image: projectCompactBedroom1,
+    title: "Minimalist Suite",
     location: "Kerala",
     category: "Interior Design",
   },
